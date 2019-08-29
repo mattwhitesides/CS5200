@@ -2,6 +2,7 @@
 
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage{bm}
 
 %----------------------------------------------------------------------------------------
 %	ASSIGNMENT INFORMATION
@@ -84,7 +85,15 @@
 
   \item Question 3. 
   \begin{enumerate}
-    \item Tests
+    \item Assuming the letters can be used more than once we'd have $26^{9}$ combinations or \textbf{5.43 trillion}.
+    \item Using the same logic we'd have \bm{$K^{9}$} \textbf{combinations}.
+    \item So if $K^{9} = 9000000000$ then $K = \sqrt[9]{9000000000}$, so $K = 12.765$ or you'd need a \textbf{13 character} alphabet to work.
+    \item \bm{$K\times (K - 1)^{n - 1}$}. Pretty much it's the same except the first character is K possible letters and every other character is K - 1 possibilities.
+    \item Assuming we're going with small but not trying to min/max the use of paper too much, if we use 10px font, standard 8.5 x 11 letter size (not double sided), at 300px/inch printing, with a small margin of 2px between lines we'll get $(11\times 300) / 12 = 275$ words per page. So \textbf{9 billion / 275 = 32.7 million pages}.
+    \item Looking at Amazon I see I can get Amazon Basics paper 5,000 sheets for \$44.99. So $(32700000 / 5000) * 44.99 = 294234.6$ so it'd be a cool \textbf{\$294,234.60} assuming Amazon will sell us 6,540 boxes of paper. Now the best selling file cabinet I see on Amazon is a 3 drawer, 18 inch deep cabinet. Amazon lists the same paper in a 500 sheet reem as being 2 inches thick so we could get $(250\times 18)\times 3 = 13500$ per cabinet. So we'd need $32700000 / 13500 = 2422.22$ or \textbf{2,423} cabinets.
+    \item They planned on about \textbf{15 thousand} years to finish the project. However they didn't say how many people would be working on it for that estimate so we can only assume it'd take one person that long. If they hope to finish the project in one persons lifespan given they start at 18 years old and retire at 60 years old (42 years per person) and assuming they accounted for the person working probably wouldn't work 24/7 in that original estimate, they'd need \bm{$15000 / 42 = 357.14$} people (maybe a part time person for the 0.14).
+    \item The computer people estimated \textbf{one thousand} days (or 86400000 seconds) to finish, and saying there's 9 billion combinations (which isn't exact but they didn't give all details about their alphabet in the story) it'd have to do \bm{$86400000 / 9000000000 = 0.0096$} \textbf{words/sec} which seems fast but maybe they print inline and on a large sheet with laser printers. 
+    \item Good story, I like the twilight zone kinda ending. Although seems odd they'd be that afraid of Monks at the end. Does make you think about how little you use large numbers in everday life and how futile it'd be to try to do an entire large task without breaking it down into small peices. Really anything over a 100 or so becomes nonsense in most peoples mind I feel.
   \end{enumerate}
 
 \end{enumerate}
