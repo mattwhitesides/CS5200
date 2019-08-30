@@ -4,6 +4,30 @@
 \usepackage{hyperref}
 \usepackage{bm}
 
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.86,0.27,0.22}
+
+\lstset{frame=tb,
+  language=python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
 %----------------------------------------------------------------------------------------
 %	ASSIGNMENT INFORMATION
 %----------------------------------------------------------------------------------------
@@ -93,8 +117,87 @@
     \item Looking at Amazon I see I can get Amazon Basics paper 5,000 sheets for \$44.99. So $(32700000 / 5000) * 44.99 = 294234.6$ so it'd be a cool \textbf{\$294,234.60} assuming Amazon will sell us 6,540 boxes of paper. Now the best selling file cabinet I see on Amazon is a 3 drawer, 18 inch deep cabinet. Amazon lists the same paper in a 500 sheet reem as being 2 inches thick so we could get $(250\times 18)\times 3 = 13500$ per cabinet. So we'd need $32700000 / 13500 = 2422.22$ or \textbf{2,423} cabinets.
     \item They planned on about \textbf{15 thousand} years to finish the project. However they didn't say how many people would be working on it for that estimate so we can only assume it'd take one person that long. If they hope to finish the project in one persons lifespan given they start at 18 years old and retire at 60 years old (42 years per person) and assuming they accounted for the person working probably wouldn't work 24/7 in that original estimate, they'd need \bm{$15000 / 42 = 357.14$} people (maybe a part time person for the 0.14).
     \item The computer people estimated \textbf{one thousand} days (or 86400000 seconds) to finish, and saying there's 9 billion combinations (which isn't exact but they didn't give all details about their alphabet in the story) it'd have to do \bm{$86400000 / 9000000000 = 0.0096$} \textbf{words/sec} which seems fast but maybe they print inline and on a large sheet with laser printers. 
-    \item Good story, I like the twilight zone kinda ending. Although seems odd they'd be that afraid of Monks at the end. Does make you think about how little you use large numbers in everday life and how futile it'd be to try to do an entire large task without breaking it down into small peices. Really anything over a 100 or so becomes nonsense in most peoples mind I feel.
+    \item Good story, I like the Twilight Zone kinda ending. Although seems odd they'd be that afraid of Monks at the end. Does make you think about how little you use large numbers in everday life and how futile it'd be to try to do an entire large task without breaking it down into small peices. Really anything over a 100 or so becomes nonsense in most peoples mind I feel.
   \end{enumerate}
+
+  \item 
+  \begin{lstlisting}
+    # Problem 1.
+    def altDif(n):
+        if not n:
+            return 0
+        return n[0] - altDif(n[1:])
+
+    altDif([3, 5, 4])
+    # Out: 2
+  \end{lstlisting}
+
+  \item 
+  \begin{lstlisting}
+    # Problem 6
+    def f35qV2(n):
+        if n < 8:
+            return 'Error'
+        elif 0 == n % 5:
+            return (0, n / 5)
+        elif 1 == n % 5:
+            return (2, (n - 6) / 5)
+        elif 2 == n % 5:
+            return (4, (n - 12) / 5)
+        elif 3 == n % 5:
+            return (1, (n - 3) / 5)    
+        else:
+            return (3, (n - 9) / 5)
+
+    # Output:
+    for i in range(8, 15):
+        print(str(i) + ': ' + str(f35qV2(i)))
+
+        8: (1, 1.0)
+        9: (3, 0.0)
+        10: (0, 2.0)
+        11: (2, 1.0)
+        12: (4, 0.0)
+        13: (1, 2.0)
+        14: (3, 1.0)   
+  \end{lstlisting}
+
+  \item 
+  \begin{lstlisting}
+    # Problem 7
+    def f(n):
+        if n > 100:
+            return n - 10
+        else:
+            return f(f(n + 11))
+
+    # Output
+    for i in [1, -6, 200, 27]:
+        print(str(i) + ': ' + str(f(i)))
+
+        1: 91
+        -6: 91
+        200: 190
+        27: 91            
+  \end{lstlisting}
+
+  So if you take away the second level of recurison and just try f(n + 11) it's easier to tell what's going on. The overall function won't return until we get a number higher than 100. So we'll keep calling (n + 11) until n is greater than 100. So for this simplier function n = 0 will just keep adding 11 until we hit 110 after ten iterations (then the final answer will be 110 - 10 or 100) and then starting at 1 will also take 10 iterations to get to 111 and leave us with 101. However starting at 2 we'll get there in 9 steps giving us 91 and adding one until n = (11 + 2) or 13 where the process repeats until n is natually greater than 100. Now when we add a second layer of recursion really we're just calling the deepest layer until it returns a number greater than 100 which happens first at (n = 2, 13, 24, 35, etc) which is 101 - 10 or 91. So every n <= 100 is just 91.
+
+  \begin{lstlisting}
+    def fV2(n):
+      return 91 if n < 101 else n - 10        
+  \end{lstlisting}
+
+  So given my explination above how just f(n - 11) works f(f(n + 11)) will always return 91 when the value is less than 101 and we know the rest of the conditions are just (n - 10) and recall by definition n is a whole integer.
+
+  But really the simple rule is f(n) equals 91 when n \textless 101 otherwise f equals (n - 10).
+
+  \item 
+    Working it out looks like there are a total of \textbf{65} calls to A() in A(2,2).
+    \linebreak
+    \includegraphics[width=\linewidth]{7.png}
+    \linebreak
+    Also it's correct that A(5, 5) gives a too many recusive calls error on my system however A(4, 4) works pretty fast.
 
 \end{enumerate}
 
