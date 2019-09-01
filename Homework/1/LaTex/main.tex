@@ -199,6 +199,108 @@
     \linebreak
     Also it's correct that A(5, 5) gives a too many recusive calls error on my system however A(4, 4) works pretty fast.
 
+    \item 
+  \begin{lstlisting}
+    # Problem 11
+    def GCD(a, b):
+        if 0 == a % b:
+            return b
+        return GCD(b, a % b)
+    
+    # Define GCD2    
+    def GCD2(a, b, gcd = 0, s = 1, t = -1):
+        if (a == b):
+          return [a, 1, 0]            
+        
+        if (gcd == 0):
+          gcd = GCD(a, b)
+        
+        d = (a * s) + (b * t)
+        if (d == gcd):
+            #print("Returning:", gcd, s, t)
+            return [gcd, s, t]
+        
+        if (d > 0):
+            t -= 1
+        elif (d < 0):
+            s += 1 
+        
+        #print("Returning GCD2(): ", a, b, gcd, s, t, "| d =", d)
+        return GCD2(a, b, gcd, s, t)
+
+    # Results
+    print("Running GCD2 tests...\n")
+    rand_a_range = [random.randint(1,2500) for i in range(10)]
+    b = [random.randint(1,2500) for i in range(10)]
+    results = []
+    
+    i = 0
+    for a in rand_a_range:
+        x = GCD2(a, b[i]) # Call GCD2(a, b).
+        y = (x[1] * a) + (x[2] * b[i]) # Validate the results. 
+        isValid = y == x[0]
+        results.append([a, b[i], x, isValid, y])
+        i += 1
+        
+    print(tabulate(results, headers=['a', 'b', 'GCD2() = [g, s, t]', 'Validated', 'GCD'], tablefmt='orgtbl'))    
+
+    Running GCD2 tests...
+
+    |    a |    b  | GCD2() = [g, s, t]   | Validated   |   GCD |
+    |------+-------+----------------------+-------------+-------|
+    | 1619 |  216  | [1, 107, -802]       | True        |     1 |
+    |  360 |  240  | [120, 1, -1]         | True        |   120 |
+    | 2233 |  377  | [29, 12, -71]        | True        |    29 |
+    | 2315 |   16  | [1, 3, -434]         | True        |     1 |
+    | 2442 | 1746  | [6, 143, -200]       | True        |     6 |
+    |  788 | 1249  | [1, 233, -147]       | True        |     1 |
+    | 2143 |  580  | [1, 367, -1356]      | True        |     1 |
+    |  464 | 2280  | [8, 172, -35]        | True        |     8 |
+    | 1166 | 1418  | [2, 377, -310]       | True        |     2 |
+    |  286 | 1561  | [1, 846, -155]       | True        |     1 |
+  \end{lstlisting}
+
+  So essentailly my thought process is, first handle the stopping conditions one when a and b are equal in which case you know either one can be 1 and the other 0. Then the real stop condition we get the GCD if we don't have it yet then stop when the gcd equals our calcualtion of (a * s) + (b * t). Otherwise we check if we need to add to our negitive counter if essentailly if a - b is negitive or we add to our positive counter. THen we just keep recursivly calling till the calculation matches our gcd. Now it is pretty easy to high our recursion limit espically if the numbers have a small gcd and are large numbers.
+  And to test I just generated some random numbers between 1 and 2500 for a and b and displayed the results.
+
+  \item 
+  \begin{lstlisting}
+    # Problem 14
+    def SuperReverse(l):
+        if len(l) == 0:
+            return
+        elif len(l) == 1:
+            if isinstance(l[0], list):
+                return [SuperReverse(l[0])]
+            return l
+            
+        return SuperReverse(l[1:]) + SuperReverse(l[:1])
+        
+    # Testing
+    l = ['1', '2', '3', '4', '5']
+    l2 = ['1', '2',['3.1', '3.2', ['3.3.1', '3.3.2'], '3.4'], '4', '5']
+    print(SuperReverse(l))
+    print(SuperReverse(l2))
+
+    # Output    
+    ['5', '4', '3', '2', '1']
+    ['5', '4', ['3.4', ['3.3.2', '3.3.1'], '3.2', '3.1'], '2', '1']
+  \end{lstlisting}
+
+  \item 
+  \begin{lstlisting}
+    Anagram generator
+  \end{lstlisting}
+
+  \item Question 11
+  \begin{enumerate}
+    \item Australia.
+    \item Facuality meeting.
+    \item Phlisophy department at the university of Walamaloo.
+    \item Five people, Michael and four Bruce's. 
+    \item There is no rule \#6.
+  \end{enumerate}
+
 \end{enumerate}
 
 \pagebreak
