@@ -260,7 +260,7 @@
     |  286 | 1561  | [1, 846, -155]       | True        |     1 |
   \end{lstlisting}
 
-  So essentailly my thought process is, first handle the stopping conditions one when a and b are equal in which case you know either one can be 1 and the other 0. Then the real stop condition we get the GCD if we don't have it yet then stop when the gcd equals our calcualtion of (a * s) + (b * t). Otherwise we check if we need to add to our negitive counter if essentailly if a - b is negitive or we add to our positive counter. THen we just keep recursivly calling till the calculation matches our gcd. Now it is pretty easy to high our recursion limit espically if the numbers have a small gcd and are large numbers.
+  So essentailly my thought process is, first handle the stopping conditions one when a and b are equal in which case you know either one can be 1 and the other 0. Then the real stop condition we get the GCD if we don't have it yet then stop when the gcd equals our calcualtion of (a * s) + (b * t). Otherwise we check if we need to add to our negitive counter if essentailly if a - b is negitive or we add to our positive counter. Then we just keep recursivly calling till the calculation matches our gcd. Now it is pretty easy to high our recursion limit espically if the numbers have a small gcd and are large numbers.
   And to test I just generated some random numbers between 1 and 2500 for a and b and displayed the results.
 
   \item 
@@ -289,9 +289,58 @@
 
   \item 
   \begin{lstlisting}
-    Anagram generator
-  \end{lstlisting}
+    # Question 10
+    def anagram2(st):
+      if len(st) <= 1:
+          return st
 
+      lout = []
+      
+      for lout2 in anagram2(st[1:]):
+          for i in range(len(st)):
+              lout.append(lout2[:i] + st[0:1] + lout2[i:])
+              
+      return lout
+  \end{lstlisting}
+  \begin{lstlisting}
+    # Testing
+    lst = ['abcde', 'abcdef', 'abcdefg', 'abcdefgh', 'abcdefghi', 'abcdefghij', 'abcdefghijk']
+
+    results = []
+    for st in lst:
+        t = time.time()
+        ana = anagram(st)
+        t = time.time() - t
+    
+        t2 = time.time()
+        ana2 = anagram2(st)
+        t2 = time.time() - t2
+        
+        diff = t2 - t
+        
+        results.append([t, t2, "{0:.6f}".format(diff), len(ana2)])
+    
+    headers = ['Runtime Anagram (sec)', 'Anagram2 (sec)', 'Time Difference', '# Anagrams']
+    
+    print(tabulate(results, headers, tablefmt='latex'))
+  \end{lstlisting}
+  \begin{tabular}{rrrr}
+    \hline
+       Runtime Anagram (sec) &   Anagram2 (sec) &   Time Diff &   \# Grams \\
+    \hline
+          0.099721   &       0.0937653  &   -0.005956 &       120 \\
+          0.00196266 &       0          &   -0.001963 &       720 \\
+          0.0139627  &       0.00199461 &   -0.011968 &      5040 \\
+          0.108743   &       0.0179548  &   -0.090788 &     40320 \\
+          1.00632    &       0.163535   &   -0.842788 &    362880 \\
+         10.9808     &       1.6327     &   -9.34812  &   3628800 \\
+        133.488      &      18.5607     & -114.927    &  39916800 \\
+    \hline
+    \end{tabular}
+    
+    So you can pretty easily tell from the table that the new "less" recursive Anagram2 algorithm is a good bit faster. Each algorithm roughly increases in line with the number of anagrams generated. If you look at the Aanagrams per milisecond on the base they stay faily consistantly around 330 for the origional and about 2,220 for the new one. So they both pretty much sacle to the number of anagrams generated. However due to how many more recursive calls the origional makes you'd expect it to reach it's recursion limit much sooner causes it to have a point where it'll never of almost all systems.
+
+  \pagebreak
   \item Question 11
   \begin{enumerate}
     \item Australia.
@@ -304,7 +353,6 @@
 \end{enumerate}
 
 \pagebreak
-
 \begin{figure}
   \includegraphics[width=\linewidth]{Statement.png}
   \label{fig:Statement}
