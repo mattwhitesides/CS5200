@@ -42,9 +42,77 @@
 
 \begin{document}
 
-\maketitle % Print the title
+  \maketitle % Print the title
  
-\begin{enumerate}
-  \item Question 1
-\end{enumerate}
+  \begin{enumerate}
+    \item \textbf{2-4 Inversions}
+    \begin{enumerate}
+      \item (2, 1), (3, 1), (8, 6), (8, 1), (6, 1)
+      \item An array with all elements in decending order would have the most inversions. The first element would need to shift (n - 1) times because there'd be 6 elements to the right that are less, then the second would be (n - 2), etc. Until you get to the last element which is $(n - (n - 1))$ which would be 1. For the simple case of [3, 2, 1] you'd have $(3 - 1)  + (3 - 2) = 3$. Or since we decrease by 1, (n - 1) times you can see it's essentilly half of $n * (n -1)$ so the final solution is \bm{$(n(n - 1)) / 2$}.
+      \item Since insertion sort works by iterating over the elements one at a time inserting a target element at the location it becomes in order we get essentilly the same as inversion which finds every element out of order compared to one element. If we look at the insertion sort code specifically "while i > 0 and A[i] > key (or A[J])" we essentilly have our inversion count right there and all that is inside a for loop based on n length, so it'd be safe to say the total worst case running time would be \bm{$O(n + number of inversions)$}.
+      \item Inversion merge count.
+      \begin{lstlisting}
+        def merge(A, p, q, r): 
+          num_inv = 0
+          n1 = q - p + 1
+          n2 = r - q 
+          L = [0] * (n1) 
+          R = [0] * (n2) 
+          
+          for i in range(0 , n1): 
+              L[i] = A[p + i] 
+          for j in range(0 , n2): 
+              R[j] = A[q + j + 1] 
+      
+          i = 0
+          j = 0
+          k = p
+      
+          while i < n1 and j < n2: 
+              if L[i] <= R[j]: 
+                  A[k] = L[i] 
+                  i += 1
+              else:
+                  num_inv = q - i + 1
+                  A[k] = R[j] 
+                  j += 1
+              k += 1
+      
+          while i < n1: 
+              A[k] = L[i] 
+              i += 1
+              k += 1
+      
+          while j < n2: 
+              A[k] = R[j] 
+              j += 1
+              k += 1
+          
+          return num_inv
+              
+        def merge_sort(A, p, r):
+            num_inv = 0
+            if p < r:
+                q = (p + r) // 2
+                num_inv = merge_sort(A, p, q)
+                num_inv += merge_sort(A, q + 1, r)
+                num_inv += merge(A, p, q, r)            
+            return num_inv
+      \end{lstlisting}
+      \begin{lstlisting}
+        A = [2, 3, 8, 6, 1]
+        num_inv = merge_sort(A, 0, len(A) - 1)
+        print(A)
+        print("Number of Inversions: ", num_inv)
+
+        # Output
+          # [1, 2, 3, 6, 8]
+          # Number of Inversions:  5
+      \end{lstlisting}
+      I was having a bit of trouble with the exact pseudo code from the book as it appeared to be 1 based index, and wasn't copying over the last element in the array sometimes so I went with a more triditional method that's very simmular. However the key to the inversion counting is in the first loop in the "else" statement if L[i] > R[j] that means you have somthing out of order and since it's merge sort and we can assume the other side of the array is in order (or going to be once joined back) then we have essentill our formula above of n(n - 1)/2 however since we know we're at the midpoint with "q" and i is the number of elements away we are and since we're on 0 based we can convert that to (q - i) + 1.
+
+    \end{enumerate}
+    
+  \end{enumerate}
+
 \end{document}
