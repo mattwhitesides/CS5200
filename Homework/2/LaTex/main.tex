@@ -164,9 +164,10 @@
       Maybe you could do like in the "Functional Iteration" section and have something like \bm{$f(n) = -1$} for $i = 0$ and \bm{$f(n) = 2^{2^{n + 2}}$} for $i > 0$.
     \end{enumerate}
 
-    \item \textbf{A.2-4}: $\sum_{k=1}^{n} k^3$ would be approximated by:
-    \[ \int_{m-1}^{n} f(x)\:dx \leq \sum_{k=m}^{n} f(k) \leq \int_{m}^{n+1} f(x)\:dx \]
-    \[ \int_{0}^{n} f(x)\:dx \leq \sum_{k=1}^{n} k^3 \leq \int_{1}^{n+1} f(x)\:dx \]
+    \item \textbf{A.2-4}: $\sum_{k=1}^{n} k^3$ would be monotonically increasing so it would be approximated by itergral bound 1:
+    \[ \int_{m-1}^{n} f(x)\:dx \leq \sum_{k=m}^{n} f(k) \leq \int_{m}^{n+1} f(x)\:dx = \]
+    \[ \int_{0}^{n} x^3\:dx \leq \sum_{k=1}^{n} k^3 \leq \int_{1}^{n+1} x^3\:dx = \]
+    \[\bm{ \frac{n^4}{4} \leq \frac{n^2 (1 + n)^2}{4} \leq \frac{-1 + (1 + n)^4}{4} }\]
     
     \item \textbf{4.5-1} Use the master method to give tight asymptotic bounds for the following recurrences. For all we have $a = 2, b = 4$ so for example we can look at these three basic cases:
 
@@ -176,13 +177,18 @@
     where $\epsilon = 1\:and\:2$.
     \begin{enumerate}
       \item \[T(n) = 2T(n \mathbin{/} 4) + 1\]
-      Here we have $f(n) = 1$ when $\epsilon = -1$ so we go with case 1, therefor \bm{$T(n) = \Theta(n^{\log_4 2}) = \Theta(\sqrt{n})$}.
+      Here we have $f(n) = 1$ when $\epsilon = -1$ so we go with case 1 therefore \bm{$T(n) = \Theta(n^{\log_4 2}) = \Theta(\sqrt{n})$}.
       \item \[T(n) = 2T(n \mathbin{/} 4) + \sqrt{n}\]
       Here we have $f(n) = \sqrt{n}$ which equals case 2 so \bm{$T(n) = \Theta(\sqrt{n}\;lg\;n)$}.
       \item \[T(n) = 2T(n \mathbin{/} 4) + n\]
       Here we have $f(n) = n$ when $\epsilon = +2$ which equals case 3 so \bm{$T(n) = \Theta(n)$}.
       \item \[T(n) = 2T(n \mathbin{/} 4) + n^2\]
       Here we have $f(n) = n^2$ when $\epsilon = +14$ which equals case 3 so \bm{$T(n) = \Theta(n^2)$}.
+    \end{enumerate}
+
+    \item \textbf{4-3:} Give asymptotic upper and lower bounds for $T(n)$.
+    \begin{enumerate}
+      \item 
     \end{enumerate}
     
   \end{enumerate}
