@@ -166,8 +166,9 @@
 
     \item \textbf{A.2-4}: $\sum_{k=1}^{n} k^3$ would be approximated by:
     \[ \int_{m-1}^{n} f(x)\:dx \leq \sum_{k=m}^{n} f(k) \leq \int_{m}^{n+1} f(x)\:dx \]
+    \[ \int_{0}^{n} f(x)\:dx \leq \sum_{k=1}^{n} k^3 \leq \int_{1}^{n+1} f(x)\:dx \]
     
-    \item \textbf{4.5-1} Use the master method to give tight asymptotic bounds for the following recurrences. For all we have $a = 2, b = 4$ so for example we have three cases:
+    \item \textbf{4.5-1} Use the master method to give tight asymptotic bounds for the following recurrences. For all we have $a = 2, b = 4$ so for example we can look at these three basic cases:
 
     \[O(n^{\log_b a-\epsilon}) = n^{\log_4 2-1} = 1\]
     \[\Theta(n^{\log_b a}) = n^{\log_4 2} = \sqrt{n}\] 
@@ -175,13 +176,13 @@
     where $\epsilon = 1\:and\:2$.
     \begin{enumerate}
       \item \[T(n) = 2T(n \mathbin{/} 4) + 1\]
-      Here we have $f(n) = 1$ when $\epsilon = 1$ so we go with case 1, therefor \bm{$T(n) = \Theta(n^{\log_4 2})$}.
+      Here we have $f(n) = 1$ when $\epsilon = -1$ so we go with case 1, therefor \bm{$T(n) = \Theta(n^{\log_4 2}) = \Theta(\sqrt{n})$}.
       \item \[T(n) = 2T(n \mathbin{/} 4) + \sqrt{n}\]
-      Here we have $f(n) = \sqrt{n}$ which equals case 2 so \bm{$T(n) = \Theta(n^{\log_4 2} lg(n))$}.
+      Here we have $f(n) = \sqrt{n}$ which equals case 2 so \bm{$T(n) = \Theta(\sqrt{n}\;lg\;n)$}.
       \item \[T(n) = 2T(n \mathbin{/} 4) + n\]
-      Here we have $f(n) = n$ when $\epsilon = 2$ which equals case 3 so \bm{$T(n) = \Theta(n)$}.
+      Here we have $f(n) = n$ when $\epsilon = +2$ which equals case 3 so \bm{$T(n) = \Theta(n)$}.
       \item \[T(n) = 2T(n \mathbin{/} 4) + n^2\]
-      Here we have $f(n) = n^2$ when $\epsilon = 14$ which equals case 3 so \bm{$T(n) = \Theta(n^2)$}.
+      Here we have $f(n) = n^2$ when $\epsilon = +14$ which equals case 3 so \bm{$T(n) = \Theta(n^2)$}.
     \end{enumerate}
     
   \end{enumerate}
