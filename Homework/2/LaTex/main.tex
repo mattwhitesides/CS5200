@@ -176,19 +176,45 @@
     \[\Omega(n^{\log_b a+\epsilon}) = n^{\log_4 2+2} = n\]
     where $\epsilon = 1\:and\:2$.
     \begin{enumerate}
-      \item \[T(n) = 2T(n \mathbin{/} 4) + 1\]
-      Here we have $f(n) = 1$ when $\epsilon = -1$ so we go with case 1 therefore \bm{$T(n) = \Theta(n^{\log_4 2}) = \Theta(\sqrt{n})$}.
-      \item \[T(n) = 2T(n \mathbin{/} 4) + \sqrt{n}\]
+      \itemsep1em 
+      \item $T(n) = 2T(n \mathbin{/} 4) + 1$ \\
+      Here we have $f(n) = 1$ when $\epsilon = -1$ so we go with case 1 so \\ \bm{$T(n) = \Theta(n^{\log_4 2}) = \Theta(\sqrt{n})$}.
+      \item $T(n) = 2T(n \mathbin{/} 4) + \sqrt{n}$ \\
       Here we have $f(n) = \sqrt{n}$ which equals case 2 so \bm{$T(n) = \Theta(\sqrt{n}\;lg\;n)$}.
-      \item \[T(n) = 2T(n \mathbin{/} 4) + n\]
-      Here we have $f(n) = n$ when $\epsilon = +2$ which equals case 3 so \bm{$T(n) = \Theta(n)$}.
-      \item \[T(n) = 2T(n \mathbin{/} 4) + n^2\]
-      Here we have $f(n) = n^2$ when $\epsilon = +14$ which equals case 3 so \bm{$T(n) = \Theta(n^2)$}.
+      \item $T(n) = 2T(n \mathbin{/} 4) + n$ \\
+      Here we have $f(n) = n$ when $\epsilon = +2$ which equals case 3 so \bm{$T(n) = \Theta(n)$}. 
+      \item $T(n) = 2T(n \mathbin{/} 4) + n^2$ \\
+      Here we have $f(n) = n^2$ when $\epsilon = +14$ which equals case 3 so \\ \bm{$T(n) = \Theta(n^2)$}.
     \end{enumerate}
 
     \item \textbf{4-3:} Give asymptotic upper and lower bounds for $T(n)$.
     \begin{enumerate}
-      \item 
+      \itemsep1em 
+      \item $T(n) = 4T(n \mathbin{/} 3) + n\;lg\;n$ \\
+      For this $a = 4, b = 3, f(n) = n\;lg\;n, n^{\log_b a} = n^{\log_3 4}$. Using the master method we can see $\log_3 4 \approx O(n^{1.261})$ 
+      so if take a number smaller than $1.261$ i.e. $1.2$ and can prove that $n\;lg\;n = O(n^{1.2})$, when $n \approx 3.65$, therefore we can use case 1.
+      and say that \bm{$T(n) = \Theta(n^{\log_3 4})$}.
+
+      \item $T(n) = 3T(n \mathbin{/} 3) + n \mathbin{/} lg\;n$ \\
+      For this $f(n) = n \mathbin{/} lg\;n$ unfortunately does not appear to be a asymptoticlly positive function so we cannot use the master method. TODO.
+
+      \item $T(n) = 4T(n \mathbin{/} 2) + n^2 \sqrt{n}$ \\
+      For this $a = 4, b = 2, f(n) = n^2 \sqrt{n}, n^{\log_b a} = n^{\log_2 4}$. 
+      Using the master method we can see $n^2 \sqrt{n} = n^{2.5}$ and $\log_2 4 = 2$ 
+      which 2.5 is less than 2 so we can go with case 3 making \bm{$T(n) = \Theta(n^2 \sqrt{n})$}.
+
+      \item $T(n) = 3T(n \mathbin{/} 3 - 2) + n/2$ \\
+      For this $a = 3, b = 3, f(n) = n/2, n^{\log_b a} = n^{\log_3 3} = n$. The -2 in the b part is constant so we can kind of ignore it. 
+      Since the growth rate of $n$ is asymptotically the same a growth rate of $n/2$ we can go with case two,
+      \bm{$T(n) = \Theta(n\;lg\;n)$}.
+
+      \item $T(n) = 2T(n \mathbin{/} 2) + n/lg\;n$
+      \item $T(n) = T(n \mathbin{/} 2) + T(n \mathbin{/} 4) + T(n \mathbin{/} 8) + n$
+      \item $T(n) = T(n - 1) + 1/nx$
+      \item $T(n) = T(n - 1) + lg\;n$
+      \item $T(n) = T(n - 1) + 1/lg\;n$
+      \item $T(n) = \sqrt{n}\;T(\sqrt{n}) + n$
+
     \end{enumerate}
     
   \end{enumerate}
