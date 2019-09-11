@@ -196,7 +196,8 @@
       and say that \bm{$T(n) = \Theta(n^{\log_3 4})$}.
 
       \item $T(n) = 3T(n \mathbin{/} 3) + n \mathbin{/} lg\;n$ \\
-      For this $f(n) = n \mathbin{/} lg\;n$ unfortunately does not appear to be a asymptoticlly positive function so we cannot use the master method. TODO.
+      For this $f(n) = n \mathbin{/} lg\;n$ unfortunately does not appear to be a asymptoticlly positive function so we cannot use the master method, so we can see if we can reduce it and use substutition.
+      $T(n) = 3T(n \mathbin{/} 3) + n \mathbin{/} lg\;n$ = $T(n) = 3T(n \mathbin{/} 3) + n \mathbin{/} lg\;n$
 
       \item $T(n) = 4T(n \mathbin{/} 2) + n^2 \sqrt{n}$ \\
       For this $a = 4, b = 2, f(n) = n^2 \sqrt{n}, n^{\log_b a} = n^{\log_2 4}$. 
