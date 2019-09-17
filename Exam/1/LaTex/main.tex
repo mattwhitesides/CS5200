@@ -47,23 +47,35 @@
   \textit{I, Matthew Whitesides (Prelim1 ID: 6352198926), certify that all the material in this PDF file is my original work, that I did not discuss these questions with anyone other than my instructor, and that I did not copy work from anyone for this examination.}
 
   \begin{enumerate}
-    \item We want to show that $81n^3 + 1300n^2 + 300n \in O(n^5 - 15000n^4 - 10n^3)$. \\
-          We have a much larger exponent with 5 but obviously the second part won't dominate for a while with the -15000 as it isn't even positive until n $\ge 15000$.
-    \begin{itemize}
-       \item I'll pick $c = 1$ and $n_0 = 1000$.
-       \item Note if we have $n \geq 1000$ we have:
-       \item $81n^3 + 1300n^2 + 300n \le 100n^3 + 10000n^2 + 1000n$
-       \item $100n^3 + 10000n^2 + 1000n \le n^4 \;\forall\; n \geq 1000$.
-        \begin{itemize}
-          \item Because $n^4$ is at least $1000(n^3)$ for $n \geq 1000$, and $100(n^3)$ is at least $10000n^2$ for $n \geq 100$, and $100(n^2)$ is at least $10000n$ for $n \geq 100$.
-        \end{itemize}
-        \item Now we just have to prove $n^4 \leq n^5 - 15000n^4 - 10n^3 \;\forall\; n \geq 100000$.
-        \begin{itemize}
-          \item If we subtract $n^4$ from both sides we get \\ $0 \leq n^5 - 15001n^4 - 10n^3 \;\forall\; n \geq 100000$.
-          \item And if we add $15001n^4$ and $10n^3$ to both sides we get \\ $15001n^4 + 10n^3 \leq n^5 \;\forall\; n \geq 100000$
-        \end{itemize}
-    \end{itemize}
-   
+    \item \textbf{Big O Notation.}
+    \begin{enumerate}
+      \item We want to show that $81n^3 + 1300n^2 + 300n \in O(n^5 - 15000n^4 - 10n^3)$. \\
+            We have a much larger exponent with 5 but obviously the second part won't dominate for a while with the -15000 as it isn't even positive until n $\ge 15000$.
+      \begin{itemize}
+        \item I'll pick $c = 1$ and $n_0 = 1000$.
+        \item Note if we have $n \geq 1000$ we have:
+        \item $81n^3 + 1300n^2 + 300n \le 100n^3 + 10000n^2 + 1000n$.
+        \item $100n^3 + 10000n^2 + 1000n \le n^4 \;\forall\; n \geq 1000$.
+          \begin{itemize}
+            \item Because $n^4$ is at least $1000(n^3)$ for $n \geq 1000$.
+            \item $100(n^3)$ is at least $10000n^2$ for $n \geq 100$. 
+            \item And $100(n^2)$ is at least $10000n$ for $n \geq 100$.
+          \end{itemize}
+          \item Now we just have to prove $n^4 \leq n^5 - 15000n^4 - 10n^3 \;\forall\; n \geq 100000$.
+          \item Note: I have now picked $n \geq 100000$ which will be part of the final proof.
+          \begin{itemize}
+            \item If we subtract $n^4$ from both sides we get \\ $0 \leq n^5 - 15001n^4 - 10n^3 \;\forall\; n \geq 100000$.
+            \item And if we add $15001n^4$ and $10n^3$ to both sides we get \\ $15001n^4 + 10n^3 \leq n^5 \;\forall\; n \geq 100000$
+            \item Because $100000n^4 \leq n^5 \;\forall\; n \geq 100000$ \\
+                  And $10n^3 \leq (10000)n^4 \;\forall\; n \geq 0$
+          \end{itemize}
+          \item Therefore we have proven that: \\
+          $81n^3 + 1300n^2 + 300n \in O(n^5 - 15000n^4 - 10n^3)\;\forall\;n \geq 100000$ \\
+          As the first part dominates the second for all values greater then our threshold.
+          \item Also due to the definition of Big O the inverse:\\ ($n^5 - 15000n^4 - 10n^3 \notin O(81n^3 + 1300n^2 + 300n)$) \\ must be true as at no point can one dominate the other due. 
+      \end{itemize}
+      \item 
+    \end{enumerate}
   \end{enumerate}  
   
 \end{document}
