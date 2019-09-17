@@ -7,6 +7,8 @@
 \usepackage{listings}
 \usepackage{color}
 
+\usepackage[margin=1.25in]{geometry}
+
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.86,0.27,0.22}
@@ -49,8 +51,7 @@
   \begin{enumerate}
     \item \textbf{Big O Notation.}
     \begin{enumerate}
-      \item We want to show that $81n^3 + 1300n^2 + 300n \in O(n^5 - 15000n^4 - 10n^3)$. \\
-            We have a much larger exponent with 5 but obviously the second part won't dominate for a while with the -15000 as it isn't even positive until n $\ge 15000$.
+      \item We want to show that $81n^3 + 1300n^2 + 300n \in O(n^5 - 15000n^4 - 10n^3)$. We have a much larger exponent with 5 but obviously the second part won't dominate for a while with the -15000 as it isn't even positive until n $\ge 15000$.
       \begin{itemize}
         \item I'll pick $c = 1$ and $n_0 = 1000$.
         \item Note if we have $n \geq 1000$ we have:
@@ -65,17 +66,25 @@
           \item Note: I have now picked $n \geq 100000$ which will be part of the final proof.
           \begin{itemize}
             \item If we subtract $n^4$ from both sides we get \\ $0 \leq n^5 - 15001n^4 - 10n^3 \;\forall\; n \geq 100000$.
-            \item And if we add $15001n^4$ and $10n^3$ to both sides we get \\ $15001n^4 + 10n^3 \leq n^5 \;\forall\; n \geq 100000$
-            \item Because $100000n^4 \leq n^5 \;\forall\; n \geq 100000$ \\
-                  And $10n^3 \leq (10000)n^4 \;\forall\; n \geq 0$
+            \item And if we add $15001n^4$ and $10n^3$ to both sides we get \\ $15001n^4 + 10n^3 \leq n^5 \;\forall\; n \geq 100000$.
+            \item Because $100000n^4 \leq n^5 \;\forall\; n \geq 100000$. \\
+                  And $10n^3 \leq (10000)n^4 \;\forall\; n \geq 0$.
           \end{itemize}
           \item Therefore we have proven that: \\
           $81n^3 + 1300n^2 + 300n \in O(n^5 - 15000n^4 - 10n^3)\;\forall\;n \geq 100000$ \\
           As the first part dominates the second for all values greater then our threshold.
-          \item Also due to the definition of Big O the inverse:\\ ($n^5 - 15000n^4 - 10n^3 \notin O(81n^3 + 1300n^2 + 300n)$) \\ must be true as at no point can one dominate the other due. 
+          \item Also due to the definition of Big O the inverse:\\ ($n^5 - 15000n^4 - 10n^3 \notin O(81n^3 + 1300n^2 + 300n)$) \\ must be true because at no point can the first part dominate the other. 
       \end{itemize}
-      \item 
+      \item In this particular case I don't believe you can say $f(x) \in g(x)$ or $g(x) \in f(x)$ due to the nature of the sin and cos relationship.
+      \begin{itemize}
+        \item For example take $f(\pi) = 0$ and $g(\pi) = -3$ for these values you could say $f(x)$ dominates $g(x)$.
+        \item However now take $f(2\pi) = 0$ and $g(2\pi) = 7$ for these values you could say $g(x)$ dominates $f(x)$.
+        \item Because of them begin sin and cos waves this pattern will continue on indefinately $f(3\pi) = 0$ and $g(3\pi) = -3$, $f(4\pi) = 0$ and $g(4\pi) = 7$, etc.
+        \item Meaning that due to the definition of Big O for no indefinately increasing values of x will $f(x)$ dominate $g(x)$ or $g(x)$ dominate $f(x)$.
+      \end{itemize}
     \end{enumerate}
-  \end{enumerate}  
-  
+
+    \item \textbf{Simple Graph Algorithms}, see GraphDataOut.txt.
+
+  \end{enumerate}    
 \end{document}
