@@ -77,14 +77,78 @@
       \end{itemize}
       \item In this particular case I don't believe you can say $f(x) \in g(x)$ or $g(x) \in f(x)$ due to the nature of the sin and cos relationship.
       \begin{itemize}
-        \item For example take $f(\pi) = 0$ and $g(\pi) = -3$ for these values you could say $f(x)$ dominates $g(x)$.
-        \item However now take $f(2\pi) = 0$ and $g(2\pi) = 7$ for these values you could say $g(x)$ dominates $f(x)$.
+        \item For example take $f(\pi) = 0$ and $g(\pi) = -3$ for these values you could say $f(\pi)$ dominates $g(\pi)$.
+        \item However now take $f(2\pi) = 0$ and $g(2\pi) = 7$ for these values you could say $g(2\pi)$ dominates $f(2\pi)$.
         \item Because of them begin sin and cos waves this pattern will continue on indefinately $f(3\pi) = 0$ and $g(3\pi) = -3$, $f(4\pi) = 0$ and $g(4\pi) = 7$, etc.
         \item Meaning that due to the definition of Big O for no indefinately increasing values of x will $f(x)$ dominate $g(x)$ or $g(x)$ dominate $f(x)$.
       \end{itemize}
     \end{enumerate}
 
-    \item \textbf{Simple Graph Algorithms}, see GraphDataOut.txt.
+    \item \textbf{Simple Graph Algorithms.} See GraphDataOut.txt and whitesidesMatthew\_Exam1\_Q2.py.
+    \item \textbf{Proof by Induction.}
+    \begin{enumerate}
+      \item So essentially $\textrm{sf}(n) = \textrm{f}(n) + \textrm{f}(n - 1) + \textrm{f}(n - 2) + ...\;\textrm{f}(n - n)$.
+      \item Proof.
+      \begin{enumerate}
+        \item Define the problem.
+          \begin{itemize}
+            \item The domain for this example is all positive integers. 
+            \item Any value of $n < 0$ always returns 0.
+            \item Thus 0 is the base case.
+            \item What does it mean for $\textrm{sf}(n) = \textrm{f}(n - 1) + \textrm{f}(n - 2) + \textrm{f}(n - 3) + ...\;\textrm{f}(n - n)$?
+            \item For each integer i between 0 and n, $\textrm{sf}(n)$ is equilivent to the sum of each individual call to $\textrm{f}(i)$.
+            \item For Example:
+            \begin{itemize}
+              \item If $n = 0$: $\textrm{sf}(0) = \textrm{f}(0) = 1000$
+              \item If $n = 1$: $\textrm{sf}(1) = \textrm{f}(1) + \textrm{f}(0) = 8000$
+              \item If $n = 2$: $\textrm{sf}(2) = \textrm{f}(2) + \textrm{f}(1) + \textrm{f}(0) = 16000$
+              \item If $n = 3$: $\textrm{sf}(3) = \textrm{f}(3) + \textrm{f}(2) + \textrm{f}(1) + \textrm{f}(0) = 31000$
+            \end{itemize}
+            \item Proving the values of $\textrm{f}(n)$ is beyond the scope of this proof. 
+          \end{itemize}
+        
+        \item Check the Stopping Values and Two Others.
+          \begin{itemize}
+            \item There is only one stopping condition for the function $\textrm{sf}(n)$ given our domain of n only checking positive integers.
+            \item $\textrm{sf}(n)$ will stop only if n is -1 which will occur when $\textrm{sf}(0)$ is called, it will recur to call $\textrm{sf}(-1)$.
+            \item What is $\textrm{sf}(0)$? It is 1000 why?
+            \begin{itemize}
+              \item Because $\textrm{f}(0) = 1000$ due to the nature of f.          
+            \end{itemize}
+            \item What is $\textrm{sf}(1)$? It is 8000 why?
+            \begin{itemize}
+              \item Because $\textrm{f}(0) = 1000$ and $\textrm{f}(1) = 7000$ due to the nature of f. Thus sf is the sum of 1000 and 7000.
+            \end{itemize}
+            \item What is $\textrm{sf}(2)$? It is 16000 why?
+            \begin{itemize}
+              \item Because $\textrm{f}(0) = 1000$ and $\textrm{f}(1) = 7000$ and $\textrm{f}(2) = 8000$ due to the nature of f. Thus sf is the sum of 1000, 7000 and 8000.
+            \end{itemize}
+          \end{itemize}
+        
+        \item Check that Recursion stays in D.
+          \begin{itemize}
+            \item What is D? It is all integers from 0 to $\infty$. 
+            \item If recursion is called $\textrm{sf}(n)$ calls $\textrm{sf}(n - 1)$.
+            \item Why is $n - 1$ in D? Because if $n - 1 < 0$ recursion is not called.
+            \item Thus n is always in domain D.
+          \end{itemize}
 
+        \item Show that Recursion Halts.
+          \begin{itemize}
+            \item We can easily use n as a counter.
+            \item Does n always decrease when a recursive call is made? Yes because sf always calls (n - 1).
+            \item This means recursion halts.
+          \end{itemize}
+        \end{itemize}
+
+        \item Show that f is Inherited.
+          \begin{itemize}
+            \item We assume that f(n - 1) is true.
+            \item 
+            \item 
+          \end{itemize}          
+      \end{enumerate}
+    \end{enumerate}
+  \item 
   \end{enumerate}    
 \end{document}
