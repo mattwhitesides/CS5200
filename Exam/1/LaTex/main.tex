@@ -85,70 +85,142 @@
     \end{enumerate}
 
     \item \textbf{Simple Graph Algorithms.} See GraphDataOut.txt and whitesidesMatthew\_Exam1\_Q2.py.
+    
     \item \textbf{Proof by Induction.}
     \begin{enumerate}
-      \item So essentially $\textrm{sf}(n) = \textrm{f}(n) + \textrm{f}(n - 1) + \textrm{f}(n - 2) + ...\;\textrm{f}(n - n)$.
-      \item Proof.
+      \item Relationship.
       \begin{enumerate}
-        \item Define the problem.
+        \item So essentially $\textrm{sf}(n) = \textrm{f}(n) + \textrm{f}(n - 1) + \textrm{f}(n - 2) + ...\;\textrm{f}(n - n)$.
+        \item Which for f(0) and f(1) are the two base cases for f, which return 1000 and 7000 respectively and add them together. So we're looking for to fib sequences that add up to sf.
+        \item Let's define Fibonacci as Binet's forumla $fib(n) = \frac{(1+\sqrt{5})^n-(1-\sqrt{5})^n}{2^n \sqrt{5}}$.
+        \item Thus our final formula for sf's relation to f is:\\ $\textrm{sf}(n) = (fib(n + 1) * f(0)) + (((fib(n + 2) - 1) * f(1)))$.
+      \end{enumerate}
+      
+      \item Proof.        
+      \begin{enumerate}
+        \item Define the Problem.
           \begin{itemize}
-            \item The domain for this example is all positive integers. 
-            \item Any value of $n < 0$ always returns 0.
-            \item Thus 0 is the base case.
-            \item What does it mean for $\textrm{sf}(n) = \textrm{f}(n - 1) + \textrm{f}(n - 2) + \textrm{f}(n - 3) + ...\;\textrm{f}(n - n)$?
+            \item The domain for this example is all positive integers greater than 0. 
+            \item A value of 0 will always return 1000 and less than will always return 0, and won't make senese for our proof.
+            \item Thus 1 is the base case.
+            \item Essentailly function sf translates into recursive calls to $\textrm{sf}(n) = \textrm{f}(n - 1) + \textrm{f}(n - 2) + \textrm{f}(n - 3) + ...\;\textrm{f}(n - n)$?
             \item For each integer i between 0 and n, $\textrm{sf}(n)$ is equilivent to the sum of each individual call to $\textrm{f}(i)$.
-            \item For Example:
-            \begin{itemize}
-              \item If $n = 0$: $\textrm{sf}(0) = \textrm{f}(0) = 1000$
-              \item If $n = 1$: $\textrm{sf}(1) = \textrm{f}(1) + \textrm{f}(0) = 8000$
-              \item If $n = 2$: $\textrm{sf}(2) = \textrm{f}(2) + \textrm{f}(1) + \textrm{f}(0) = 16000$
-              \item If $n = 3$: $\textrm{sf}(3) = \textrm{f}(3) + \textrm{f}(2) + \textrm{f}(1) + \textrm{f}(0) = 31000$
-            \end{itemize}
-            \item Proving the values of $\textrm{f}(n)$ is beyond the scope of this proof. 
+            \item Now essentailly we see that we have a Fibonacci sequence for f(n) is the result of sf.
+            \item Due to the nature of f we will return 1000 for f(0) and 7000 for f(1), which also will recursivly call itself to return the product of f(n - 1) and f(n -2) hence it inand of itself is another layer of recursion. 
+            \item To translate that into a linear equation we need to add together values of when f(0) and f(1) is triggered which are both triggered fib(n + x) times of some value of x.
+            \item For f(0) we hit it fib(n + 1) times because for the first two values of fib we don't recur we just return a constant therefor we need to start our sequece at 1 above the value of n.
+            \item For f(1) we hit it fib(n + 2) - 1 times because due to f()'s recurrsion to call n - 2 there is going to one more case called then f(0). Also we subtract 1 from the fib sequence because on the last case of n = 1 we call n of 0 and -1 not fib(1).
+            \item Also we multiple each of side of our formula by the values that f returns, 1000 and 7000 respectively.
+            \item Giving us $\textrm{sf}(n) = P(n) = (fib(n + 1) * f(0)) + (((fib(n + 2) - 1) * f(1)))$.
           \end{itemize}
         
         \item Check the Stopping Values and Two Others.
           \begin{itemize}
-            \item There is only one stopping condition for the function $\textrm{sf}(n)$ given our domain of n only checking positive integers.
-            \item $\textrm{sf}(n)$ will stop only if n is -1 which will occur when $\textrm{sf}(0)$ is called, it will recur to call $\textrm{sf}(-1)$.
-            \item What is $\textrm{sf}(0)$? It is 1000 why?
-            \begin{itemize}
-              \item Because $\textrm{f}(0) = 1000$ due to the nature of f.          
-            \end{itemize}
+            \item 1 is the only stopping condition for the function $\textrm{sf}(n)$ given our domain of n only checking positive integers greater than 0.
+            \item $\textrm{sf}(n)$ will stop only if n is -1 which will occur when $\textrm{sf}(0)$ is called, it will recur to call $\textrm{sf}(-1)$ but that's outside the relationshop with f().
+            \item The same with f(0) which is outside our proof.
             \item What is $\textrm{sf}(1)$? It is 8000 why?
             \begin{itemize}
-              \item Because $\textrm{f}(0) = 1000$ and $\textrm{f}(1) = 7000$ due to the nature of f. Thus sf is the sum of 1000 and 7000.
+              \item Because $\textrm{P}(1) = (fib(1 + 1) * f(0)) + ((fib(1 + 2) - 1) * f(1))$ \\
+              $ = (1 * f(0)) + (((2 - 1) * f(1)))$ \\
+              $ = (1 * 1000) + (1 * 7000) = 8000$
             \end{itemize}
             \item What is $\textrm{sf}(2)$? It is 16000 why?
             \begin{itemize}
-              \item Because $\textrm{f}(0) = 1000$ and $\textrm{f}(1) = 7000$ and $\textrm{f}(2) = 8000$ due to the nature of f. Thus sf is the sum of 1000, 7000 and 8000.
+              \item Because $\textrm{P}(2) = (fib(2 + 1) * f(0)) + ((fib(2 + 2) - 1) * f(1))$ \\
+              $ = (2 * f(0)) + ((3 - 1) * f(1))$ \\
+              $ = (2 * 1000) + (2 * 7000) = 16000$
+            \end{itemize}
+            \item What is $\textrm{sf}(8)$? It is 412000 why?
+            \begin{itemize}
+              \item Because $\textrm{P}(8) = (fib(8 + 1) * f(0)) + ((fib(8 + 2) - 1) * f(1))$ \\
+              $ = (34 * f(0)) + ((55 - 1) * f(1))$ \\
+              $ = (34 * 1000) + (54 * 7000) = 412000$
+            \end{itemize}
+            \item What is $\textrm{sf}(9)$? It is 671000 why?
+            \begin{itemize}
+              \item Because $\textrm{P}(9) = (fib(9 + 1) * f(0)) + ((fib(9 + 2) - 1) * f(1))$ \\
+              $ = (55 * f(0)) + ((89 - 1) * f(1))$ \\
+              $ = (55 * 1000) + (88 * 7000) = 671000$
             \end{itemize}
           \end{itemize}
-        
-        \item Check that Recursion stays in D.
+
+        \item Prove that for all $n > s$, that if P(n - 1) is true then P(n) is true.
           \begin{itemize}
-            \item What is D? It is all integers from 0 to $\infty$. 
-            \item If recursion is called $\textrm{sf}(n)$ calls $\textrm{sf}(n - 1)$.
-            \item Why is $n - 1$ in D? Because if $n - 1 < 0$ recursion is not called.
-            \item Thus n is always in domain D.
+            \item We assume P(n - 1) is true.
+            \item $\textrm{sf}(n - 1) = g(n - 1)$.
+            \item $\textrm{sf}(n) = \textrm{sf}(n - 1) + \textrm{sf}(n - 2)$ Definition of sf.
+            \item $ = \textrm{g}(n - 1) + \textrm{sf}(n - 2)$ If P(n - 1) is true.
+            \item $ = (fib((n - 1) + 1) * f(0)) + (((fib((n - 2) + 2) - 1) * f(1))) + \textrm{sf}(n - 2) + ((fib((n - 2) + 1) * f(0)) + (((fib((n - 2) + 2) - 1) * f(1))))$ Definition of g().
+            \item $ = (fib(n + 1) * f(0)) + (((fib(n + 2) - 1) * f(1)))$
           \end{itemize}
 
-        \item Show that Recursion Halts.
+        \item Conclusion.
           \begin{itemize}
-            \item We can easily use n as a counter.
-            \item Does n always decrease when a recursive call is made? Yes because sf always calls (n - 1).
-            \item This means recursion halts.
-          \end{itemize}
-        \end{itemize}
-
-        \item Show that f is Inherited.
-          \begin{itemize}
-            \item We assume that f(n - 1) is true.
-            \item 
-            \item 
+            \item We have shown that for all positive integers that $\textrm{sf}(n) = P(n) = (fib(n + 1) * f(0)) + (((fib(n + 2) - 1) * f(1)))$ is true.
           \end{itemize}          
       \end{enumerate}
     \end{enumerate}
-  \item 
+
+    \item Probability.
+    \begin{enumerate}
+      \item Sample space of:\\ 
+      $Vec_3 =$ \{\\
+        (0, 0, 0), (0, 0, 1), (0, 0, 2), \\
+        (0, 1, 0), (0, 1, 1), (0, 1, 2), \\
+        (0, 2, 0), (0, 2, 1), (0, 2, 2), \\
+        (1, 0, 0), (1, 0, 1), (1, 0, 2), \\
+        (1, 1, 0), (1, 1, 1), (1, 1, 2), \\
+        (1, 2, 0), (1, 2, 1), (1, 2, 2), \\
+        (2, 0, 0), (2, 0, 1), (2, 0, 2), \\
+        (2, 1, 0), (2, 1, 1), (2, 1, 2), \\
+        (2, 2, 0), (2, 2, 1), (2, 2, 2)\} 
+
+        \pagebreak
+
+        Here are the possible quirks in $Vec_3$ with at total comming in a 27: \\
+        (0, 1, 0), = [1,0], (0, 2, 0), = [2,0], (0, 2, 1), = [2,1], (1, 0, 0), = [1,0],
+        (1, 0, 0), = [1,0], (1, 0, 1), = [1,0], (1, 0, 2), = [1,0], (1, 1, 0), = [1,0],
+        (1, 1, 0), = [1,0], (1, 2, 0), = [1,0], (1, 2, 0), = [2,0], (1, 2, 1), = [2,1],
+        (2, 0, 0), = [2,0], (2, 0, 0), = [2,0], (2, 0, 1), = [2,0], (2, 0, 1), = [2,1],
+        (2, 0, 2), = [2,0], (2, 1, 0), = [2,1], (2, 1, 0), = [2,0], (2, 1, 0), = [1,0], 
+        (2, 1, 1), = [2,1], (2, 1, 1), = [2,1], (2, 1, 2), = [2,1], (2, 2, 0), = [2,0],
+        (2, 2, 0), = [2,0], (2, 2, 1), = [2,1], (2, 2, 1), = [2,1]
+
+        \item The uniform probabilty for any space $v \in Vec_n = \frac{1}{n^n}$.
+        Now we can elaborate this out to understand that given we have $n^n$ options of spaces and each v has n options within it, using the calculated quirks in $Vec_3$ of 27 we can say:\\
+        $Quirks \in Vec_n = n^n$.        
+      \end{enumerate}
+
+      \item First lets look at the probabilty of getting no heads when you flip a coin n times. 
+      Given a simple sample space of 2 flips we have $|S| = {TT, TH, HT, HH}$ where only one options gives us the no heads. 
+      Therefore we can extract that the no heads happens $\frac{1}{2^n}$ times. \\
+      Now lets look at flipping a coin fewer then n heads when flipping 4n times. 
+      The simple case of one would be what's the probablity of getting fewer then 1 heads when you flip a coin (4*1) times.
+      Well the only case is obviously also the same as 0 heads which is $\frac{1}{2^4}$ times. 
+      Given that literally there's only ever one case possible to get no heads and even the base case of n = 1 for 4n flips counts twords the probabilty of the second case they at the least are of equal probabilty.
+      However we know that other than just the single case we have multiple options for flipping less than n heads 4n times.
+
+      Look at just the first couple probabilty of how to get differnt ammounts of heads flipping a coin 4*2 times. \\
+
+      \begin{tabular}{lll}
+        Num Heads & Ways to no Heads & Probability \\
+        0         & 1                 & 1/256       \\
+        \end{tabular} \\
+
+      \begin{tabular}{lll}
+      Num Heads & Ways to less than 2 Heads & Probability \\
+      0         & 1                 & 1/256       \\
+      1         & 28                & 28/256     
+      \end{tabular} \\
+
+      And we can actually stop there because if we add up the probabiltyof getting 0 or 1 heads we get 29/256 which is greater then the probabilty of no heads (1/256).
+      As the number n grows the number of ways to make fewer than n heads grows but the number of ways to get no heads is always $\frac{1}{2^n}$ which always at least that. Which the total probabilty $sum(n - 1 heads) + sum(n - 2 heads) ... sum(n - n heads or 0 heads)$.
+      Thus aside from n = 1 which is equal to the probabilty of no heads, P of fewer than n heads is always greater than P of no heads.
+
+      \item Combinatorics
+      \begin{enumerate}
+        \item 
+      \end{enumerate}
   \end{enumerate}    
 \end{document}
