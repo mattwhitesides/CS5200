@@ -6,6 +6,9 @@
 
 \usepackage{listings}
 \usepackage{color}
+\usepackage{amsmath}
+
+\usepackage[margin=1.25in]{geometry}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
@@ -45,7 +48,90 @@
   \maketitle % Print the title
  
   \begin{enumerate}
-    \item Hi
+    \item \textbf{Show that if $L \geq 2$, then every binary tree with L leaves contains a subtree having between L/3 and 2L/3 leaves, inclusive.} \\
+    
+      First to define a binary tree each leaf has 0, 1, or 2 children. So if we start with the base case $L = 2$ then we claim there's a subtree "S" such that $\frac{2}{3} \leq S \leq \frac{4}{3}$ leaves. 
+      Which essentailly is saying there's a subtree tree with one leaf. which has to be true given there's only one possible situation of a two leaf binary tree it's just two connected nodes. \\
+
+      Now lets look at two edge cases as say we have $L = 6$ so our claim is that there's a subtree S such that $2 \leq S \leq 4$. We we say each leaf in the tree has the max possible nodes (2) then our tree could look like, 
+      \begin{lstlisting}
+        A - B - C - D - E - F
+
+        'Or'
+
+            A
+          /   \
+         B     C
+        / \    /
+        D E    F
+      \end{lstlisting}
+      Which ovbisouly works as well each has subtree's you can see with 2, 3 and 4. \\
+
+      Finally lets assume this theory isn't correct and we say subtree S is $S \leq \frac{L}{3}\;Or\;S \geq \frac{2L}{3}$. That would imply that if you actaully took a subtree greater than $\frac{2L}{3}$ (like in our example above one of 5 leaves) lets call it $Sb$.
+      Then following the same rule there would have to be a subtree of $Sb$ which is $L \geq \frac{2(SB Leaves)}{3}$, and we call that subtree $Sc$ which has less than $Sb$ leaves however since $Sc$ obviously has to also be a subtree of our original $S$, that would violate our inverse theroy thus proving the original one has to be true.
+
+      \item \textbf{Let us associate a "weight" \bm{$w(q) = 2^{-depth(q)}$} with each leaf in a binary tree \bm{$T$}. Prove that \bm{$\sum_q w(q) \leq 1$}, where the sum is taken over all leaves \bm{$q$} in \bm{$T$}.} \\
+      
+      First lets just look at the base case of a single leaf tree. $w(q) = 2^{-depth(q)} = 2^-0 = 1$ which is true however there's techniacally no leaves just the root node. Now let's look at the next most simple case below. \\
+      \begin{lstlisting}
+            A
+          /   \
+         B     C
+      \end{lstlisting}
+      Here we have $\sum_q w(q) = 2^{-depth(C)} + 2^{-depth(C)} = 2^{-1} + 2^{-1} = 1$. \\
+
+      \begin{itemize}
+        \item Now when we think about this logically if $n \geq 0$ (which in the case of a binary tree is always true as you can't have a negative depth) then $0 \le 2^{-n} \leq 1$ due to the rules of exponents. 
+        \item Also note that $2^{-n} = \frac{1}{2^n}$ due to the rules of exponents.
+        \item Know that it will always be true $Leaves\;in\;depth\;q \leq 2*depth(q)$ because each node at depth(q) - 1 can have at most two children due to the rules of binary trees.
+        \item Threfore in our worst case senerio at any given depth d is $\sum_1^{2(d - 1)} 2^{-d}$ which equals $4^(-d) (-4 + 4^d)$ which expands to $1 - 4^(1 - d)$ using algebra.
+        \item Now you can clearly see that for all $d \geq 1$ that $1 - 4^(1 - d)$ will be less than 1. Therefore even in the worst case the sum of all nodes at depth d will be 1 or less.
+      \end{itemize}
+
+      \item \textbf{5.2-4 Hat-Check Problem.} \\
+      
+        First off we can pretty well know that the odds of a person getting their hat back correctly when being drawn randomly is $\frac{1}{n}$. \\
+
+        Lets define an indicator random variable $X_H$ associated with the customer getting their hat back correctly. 
+
+        \[X_H = I\{H\}\]
+        \[
+          = \begin{cases}
+              1, & \text{if H occurs.}\\
+              0, & \text{otherwise.}
+            \end{cases}
+        \]
+
+        \[E[X_H] = \frac{1}{n}\]
+
+        \[E[X] = \sum_{i=1}^{n} E[X_i] = \sum_{i=1}^{n} \frac{1}{n} = 1\]
+
+        So one person will get their hat, makes sense though. 
+
+        \item \textbf{5.2-5 Inversion.} \\
+        
+        Essentailly we have two sums of indicator variables here. So lets define $X_{i,j}$ as our indicator variable. Also we're not only looking at the expected value of $A[i] > A[j]$ but that as well as $i < j$. 
+        So it'll be the sum of the probability of $A[i] > A[j]$ over iterations where $i < j$.
+
+        \[E[X_{i,j}] = Pr\{A[i] > A[j]\}\]
+
+        Then we want the sum of that over $i < j$.
+
+        \[\sum_{i < j} E[X_{i,j}]\]
+
+        \[= \sum_{i=1}^{n-1}(\sum_{j=i+1}^n E[X_{i,j}])\]
+
+        We want to iterate over each element twice once to compare the possibilty of an inversion to each element where $i < j$ (hince the j = i + 1) and then sum the probability of $A[i] > A[j]$ for each of those. Which we can say since it's a uniform 1,2..n numbers there's a $\frac{1}{2}$ chance.
+
+        \[= \sum_{i=1}^{n-1}(\sum_{j=i+1}^n \frac{1}{2})\]
+
+        Which works out to, (okay I used wolfram alpha to simplify the sum equations but it makes sense when you think about it it's a little less than $n * n * \frac{1}{2} * \frac{1}{2}$ which is two loops over 1/2 probabilities).
+
+        \[= \frac{(n-1)n}{4}\]
+
+        \item \textbf{5.4-1 Birthday Problem.} \\
+
+
   \end{enumerate}
 
 \end{document}
