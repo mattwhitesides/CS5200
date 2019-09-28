@@ -129,7 +129,31 @@
 
         \[= \frac{(n-1)n}{4}\]
 
-        \item \textbf{5.4-1 Birthday Problem.} \\
+        \item \textbf{5.4-1 Birthday Problems.} \\
+        
+        First lets state the obvious that there's a $\frac{1}{365}$ chance that any given individual has the same birthday as you.
+        Also that means there's a $\frac{364}{365}$ chance that they do not have the same birthday as you.
+        Therefore the probability of n people not having the same birthday as you is $\frac{364}{365}^n$. \\
+
+        That means we want to find: \[1 - \frac{364}{365}^n \geq 0.5\]
+        Which works out to $n \geq 252.652$ or \textbf{253} people before your odds are better than half. \\
+
+        Now to figure out of any two people have their birthday on a specific day of the year is a bit different. 
+        If we think about it we essentailly want the inverse of the probability that nobody has their birthday on July 4th or only one person has that.\\
+
+        Therefore the probability of nobody having a July 4th birthday would be $(\frac{364}{365})^n$. 
+        And the probability of only one person having a July 4th b-day would be $\binom{n}{1}(\frac{1}{365})(\frac{364}{365})^{n-1}$ (n people chose 1 with a 1/365 change vs 1/364 not happening).
+        So in total we want 1 - the odds of both those to be greater than half:
+
+        \[1 - ((\frac{364}{365}^n)+(\binom{n}{1}(\frac{1}{365})(\frac{364}{365})^{n-1})) \geq 0.5\]
+
+        Which works out to $n \geq 612.257$ or at least \textbf{613} people. 
+
+
+
+
+
+
 
 
   \end{enumerate}
