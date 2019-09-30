@@ -149,11 +149,212 @@
 
         Which works out to $n \geq 612.257$ or at least \textbf{613} people. 
 
+        \item \textbf{6.5-9} \bm{$O(n\;lg\;k)$} \textbf{Time Algorithm.}
+
+        \begin{lstlisting}
+          import sys
+
+          class MinHeap: 
+              def build_min_heap(self, ar): 
+                  self.A = ar
+                  self.heap_size = len(ar)
+                  
+                  for i in range(parent(self.heap_size - 1), 0, -1):
+                      self.min_heapify(i)
+
+              def min_heapify(self, i): 
+                  l = left(i) 
+                  r = right(i)        
+                  smallest = i 
+                  
+                  if l < self.heap_size and self.A[l].value < self.A[i].value: 
+                      smallest = l 
+                  
+                  if r < self.heap_size and self.A[r].value < self.A[smallest].value: 
+                      smallest = r 
+                  
+                  if smallest != i: 
+                      if (self.A[i].value < sys.maxsize):
+                          print('Exchange: {0}, {1}'.format(self.A[i].value, self.A[smallest].value))
+                      else:
+                          print('Exchange: MAX, {0}'.format(self.A[smallest].value))
+                          
+                      self.print_heap()            
+                      exchange(self.A, i, smallest) 
+                      self.min_heapify(smallest)
+            
+              def get_min(self): 
+                  if self.heap_size <= 0:
+                      raise Exception('heap underflow') 
+                  return self.A[0] 
+            
+              def exchange_min(self, base):
+                  self.A[0] = base 
+                  self.min_heapify(0)
+                  
+              def print_heap(self):
+                  s = ''
+                  for i in self.A:
+                      if i.value < sys.maxsize:
+                          s += '{0}, '.format(i.value)
+                      else:
+                          s += '{0}, '.format('MAX')
+                  s = s.strip()
+                  s = s.rstrip(',')
+                  s = 'Heap: [{0}]\n'.format(s)
+                  print(s)
+                  
+          class Node:
+              def __init__(self, v, i, j): 
+                  self.value = v
+                  self.i = i
+                  self.j = j             
+
+          def parent(i):
+              return i // 2
+                  
+          def left(i): 
+              return 2 * i 
+            
+          def right(i): 
+              return (2 * i) + 1
+            
+          def exchange(A, i, j): 
+              temp = A[i] 
+              A[i] = A[j] 
+              A[j] = temp
+              
+          def merge_lists(A):
+              heap = [] 
+              result = []
+              r = 0
+              
+              # Initialize the heap with the first values from each list. (K Time)
+              print('Initialize heap in K = {0} time.\n'.format(len(A)))
+              for i in range(len(A)): 
+                  node = Node(A[i][0], i, 1) 
+                  heap.append(node) 
+                  r += len(A[i]) 
+              
+              result = [0] * r
+              
+              # Build the min heap
+              min_heap = MinHeap()    
+              min_heap.build_min_heap(heap)
+              
+              # Put a new min value form the heap into the result list and get a new value for the min_heap (N Time).
+              # The heap related tasks run in (Lg K) time.
+              print('Build results in N = {0} time.\n'.format(r))
+              for i in range(r): 
+                  base = min_heap.get_min() 
+                  result[i] = base.value 
+                  
+                  if base.j < len(A[base.i]): 
+                      base.value = A[base.i][base.j] 
+                      base.j += 1
+                  else: 
+                      base.value = sys.maxsize 
+                      
+                  min_heap.exchange_min(base)
+                  
+              return result
+        \end{lstlisting}
+
+        Testing:
+        
+        \begin{lstlisting}
+          a = [[1, 3, 5], [2, 4, 6]]
+          result = merge_lists(a)          
+          print(result)
+
+          #Output:
+          Initialize heap in K = 2 time.
+
+          Build results in N = 6 time.
+
+          Exchange: 3, 2
+          Heap: [3, 2]
+
+          Exchange: 4, 3
+          Heap: [4, 3]
+
+          Exchange: 5, 4
+          Heap: [5, 4]
+
+          Exchange: 6, 5
+          Heap: [6, 5]
+
+          Exchange: MAX, 6
+          Heap: [MAX, 6]
+
+          #Result:
+          [1, 2, 3, 4, 5, 6]
+        \end{lstlisting}
 
 
+        \begin{lstlisting}
+          a = [[1, 2, 7], [3, 4, 6]]
+          result = merge_lists(a)
+          print(result)
 
+          #Output:
+          Initialize heap in K = 2 time.
 
+          Build results in N = 6 time.
 
+          Exchange: 7, 3
+          Heap: [7, 3]
+
+          Exchange: MAX, 7
+          Heap: [MAX, 7]
+
+          #Result:
+          [1, 2, 3, 4, 6, 7]
+        \end{lstlisting}
+
+        \begin{lstlisting}
+          a = [[1, 19], [3, 5, 11], [2, 9, 12, 13]]
+          result = merge_lists(a)          
+          print(result)
+
+          #Output:
+          Initialize heap in K = 3 time.
+
+          Exchange: 3, 2
+          Heap: [1, 3, 2]
+          
+          Build results in N = 9 time.
+          
+          Exchange: 19, 2
+          Heap: [19, 2, 3]
+          
+          Exchange: 19, 3
+          Heap: [2, 19, 3]
+          
+          Exchange: 9, 3
+          Heap: [9, 3, 19]
+          
+          Exchange: 11, 9
+          Heap: [11, 9, 19]
+          
+          Exchange: 12, 11
+          Heap: [12, 11, 19]
+          
+          Exchange: MAX, 12
+          Heap: [MAX, 12, 19]
+          
+          Exchange: MAX, 19
+          Heap: [12, MAX, 19]
+          
+          Exchange: MAX, 19
+          Heap: [MAX, 19, MAX]
+          
+          #Result:
+          [1, 2, 3, 5, 9, 11, 12, 13, 19]
+        \end{lstlisting}
+
+        \item \textbf{9.3-1 SELECT Algorithm.}
+        In the algorithm SELECT, the input elements are divided into groups of 5. Will the algorithm work in linear time if they are divided into groups of 7? Argue that SELECT does not run in linear time if groups of 3 are used.
 
 
   \end{enumerate}
