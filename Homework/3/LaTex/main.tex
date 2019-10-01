@@ -354,8 +354,21 @@
         \end{lstlisting}
 
         \item \textbf{9.3-1 SELECT Algorithm.}
-        In the algorithm SELECT, the input elements are divided into groups of 5. Will the algorithm work in linear time if they are divided into groups of 7? Argue that SELECT does not run in linear time if groups of 3 are used.
+        Essentailly the SELECT algorithm takes an array groups it into groups of 5 elements, sorts them, takes the median, then sorts and finds the medians of those medians.
+        For this we're asking what if we took in groups of 7 instead of 5? 
+        If we had $n$ elements we'd have $\frac{n}{7}$ groups and would know that our median is less than 4 of the 7 elements per group. 
+        That means that the median of medians is at least less than half of the medians as well so in total we're less than $4(\frac{n}{7} - 2) / 2 = \frac{2n}{7} - 8$.
+        Therefore using the same formual from 5 groups but with out new 7 groups. The following worst case time complexity using the remaining groups we are greater than.
 
+        \[T(n) \leq T(n/7) + T(\frac{5n}{7} + 8) + O(n)\]
+
+        Therefore if we assume we have correct constant times we can see that the wost case time is LINEAR.\\
+
+        However if we have groups of 3 then we figure we have $\frac{n}{3}$ groups and in total we'll have $2(\frac{n}{3} - 2) / 2 = \frac{2n}{3} - 2$
+
+        Gives us:
+
+        \[T(n) \leq T(n/3) + T(\frac{2n}{3} + 4) + O(n)\]
 
   \end{enumerate}
 
