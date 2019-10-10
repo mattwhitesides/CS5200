@@ -95,6 +95,28 @@
       \end{table}
     
     \item \textbf{11.4-1 Hash Table.}
+
+    Linear Probing: $h(k,i) = (h'(k) + i)\;\%\;m = (k + i)\;\%\;11$. \\
+    Quadratic Probing: $h(k,i) = (h'(k) + c_1i + c_2i^2)\;\%\;m = (k + c_1i + c_2i^2)\;\%\;11$. \\
+    
+    \begin{table}[H]
+      \begin{tabular}{|l|l|l|l|}
+      \hline
+      \textbf{i}  & \textbf{Linear Probing} & \textbf{Quadratic Probing} & \textbf{Double Hashing} \\ \hline
+      \textbf{0}  & 22                      & 22                         & 22                      \\ \hline
+      \textbf{1}  & 88                      & /                          & /                       \\ \hline
+      \textbf{2}  & /                       & 88                         & 59                      \\ \hline
+      \textbf{3}  & /                       & 17                         & 17                      \\ \hline
+      \textbf{4}  & 4                       & 4                          & 4                       \\ \hline
+      \textbf{5}  & 15                      & /                          & 15                      \\ \hline
+      \textbf{6}  & 28                      & 28                         & 28                      \\ \hline
+      \textbf{7}  & 17                      & 59                         & 88                      \\ \hline
+      \textbf{8}  & 59                      & 15                         & /                       \\ \hline
+      \textbf{9}  & 31                      & 31                         & 31                      \\ \hline
+      \textbf{10} & 10                      & 10                         & 10                      \\ \hline
+      \end{tabular}
+    \end{table}
+
     \item \textbf{12.1-1}
     \item \textbf{12.1-2}
     \item \textbf{12.2-1}
