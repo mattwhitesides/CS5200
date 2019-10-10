@@ -58,7 +58,7 @@
         \resizebox{\textwidth}{!} {
           \begin{tabular}{lllll}
           \hline
-                                    & \textbf{\begin{tabular}[c]{@{}l@{}}unsorted, \\ singly linked\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}sorted, \\ singly linked\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}unsorted, \\ doubly linked\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}sorted, \\ doubly linked\end{tabular}} \\ \hline
+          & \textbf{\begin{tabular}[c]{@{}l@{}}unsorted, \\ singly linked\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}sorted, \\ singly linked\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}unsorted, \\ doubly linked\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}sorted, \\ doubly linked\end{tabular}} \\ \hline
           \textbf{SEARCH(L, k)}      & O(N) & O(N) & O(N) & O(N) \\ \hline
           \textbf{INSERT(L, x)}      & O(1) & O(N) & O(N) & O(N) \\ \hline
           \textbf{DELETE(L, x)}      & O(N) & O(N) & O(1) & O(1) \\ \hline
@@ -76,8 +76,25 @@
 
     \item \textbf{11.2-2 Collision Chaining} \\
     
+    $h(k) = k\;mod\;9$ \\
+    $keys = 5, 28, 19, 15, 20, 33, 12, 17, 10$ \\
+
+    \begin{table}[H]
+      \begin{tabular}{l|l|llllll}
+      \cline{2-2}
+      0 & / & & & & & &  \\ \cline{2-8} 
+      1 & $\rightarrow$ & \multicolumn{1}{l|}{28} & \multicolumn{1}{l|}{$\rightarrow$} & \multicolumn{1}{l|}{19} & \multicolumn{1}{l|}{$\rightarrow$} & \multicolumn{1}{l|}{10} & \multicolumn{1}{l|}{/} \\ \cline{2-8} 
+      2 & $\rightarrow$ & \multicolumn{1}{l|}{20} & \multicolumn{1}{l|}{/}& & & &  \\ \cline{2-4}
+      3 & $\rightarrow$ & \multicolumn{1}{l|}{12} & \multicolumn{1}{l|}{/}& & & &  \\ \cline{2-4}
+      4 & / & & & & & &  \\ \cline{2-4}
+      5 & $\rightarrow$ & \multicolumn{1}{l|}{5}  & \multicolumn{1}{l|}{/}& & & &  \\ \cline{2-6}
+      6 & $\rightarrow$ & \multicolumn{1}{l|}{15} & \multicolumn{1}{l|}{$\rightarrow$} & \multicolumn{1}{l|}{33} & \multicolumn{1}{l|}{/}& &  \\ \cline{2-6}
+      7 & / & & & & & &  \\ \cline{2-4}
+      8 & $\rightarrow$ & \multicolumn{1}{l|}{17} & \multicolumn{1}{l|}{/}& & & &  \\ \cline{2-4}
+      \end{tabular}
+      \end{table}
     
-    \item \textbf{11.4-1}
+    \item \textbf{11.4-1 Hash Table.}
     \item \textbf{12.1-1}
     \item \textbf{12.1-2}
     \item \textbf{12.2-1}
@@ -88,9 +105,9 @@
     Lets establish a couple things: 
     \begin{itemize}
         \item Euler's formula: $V - E + F = 2$.
-        \item Square: $V = 4, E = 4$.
-        \item Pentagon: $V = 5, E = 5$.
-        \item Hexagon: $V = 6, E = 6$.
+        \item Square (S): $V = 4, E = 4$.
+        \item Pentagon (P): $V = 5, E = 5$.
+        \item Hexagon (H): $V = 6, E = 6$.
     \end{itemize}
 
     Therefore we can say that the faces F are made up of S, P, and H's and that Euler's formual can be modified as so:
@@ -131,6 +148,8 @@
     \[= 2S + P = 12\]
 
     Therefore we have proven using algebra and Euler's formula that given a solid of Squares, Pentagons, and Hexagons we can say it fits the formula of $2S + P = 12$.
+
+    \item \textbf{Program.}
 
   \end{enumerate}
 
