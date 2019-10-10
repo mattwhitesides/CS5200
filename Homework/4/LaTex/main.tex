@@ -1,0 +1,137 @@
+\documentclass{article}
+
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{bm}
+\usepackage{float}
+\restylefloat{table}
+
+\usepackage{listings}
+\usepackage{color}
+\usepackage{amsmath}
+
+\usepackage[margin=1.25in]{geometry}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.86,0.27,0.22}
+
+\lstset{frame=tb,
+  language=python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+%----------------------------------------------------------------------------------------
+%	ASSIGNMENT INFORMATION
+%----------------------------------------------------------------------------------------
+
+\title{CS5200: Homework \#4} % Title of the assignment
+
+\author{Matthew Whitesides\\ \texttt{mbwxd4@mst.edu}} % Author name and email address
+
+\date{\today} % University, school and/or department name(s) and a date
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+  \maketitle % Print the title
+ 
+  \begin{enumerate}
+    \item \textbf{10.1 Comparisons Among Lists.} \\
+
+    \bgroup
+      \def\arraystretch{1.5}
+      \begin{table}[H]
+        \resizebox{\textwidth}{!} {
+          \begin{tabular}{lllll}
+          \hline
+                                    & \textbf{\begin{tabular}[c]{@{}l@{}}unsorted, \\ singly linked\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}sorted, \\ singly linked\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}unsorted, \\ doubly linked\end{tabular}} & \textbf{\begin{tabular}[c]{@{}l@{}}sorted, \\ doubly linked\end{tabular}} \\ \hline
+          \textbf{SEARCH(L, k)}      & O(N) & O(N) & O(N) & O(N) \\ \hline
+          \textbf{INSERT(L, x)}      & O(1) & O(N) & O(N) & O(N) \\ \hline
+          \textbf{DELETE(L, x)}      & O(N) & O(N) & O(1) & O(1) \\ \hline
+          \textbf{SUCCESSOR(L, x)}   & O(N) & O(1) & O(N) & O(1) \\ \hline
+          \textbf{PREDECESSOR(L, x)} & O(N) & O(N) & O(N) & O(1) \\ \hline
+          \textbf{MINIMUM(L)}        & O(N) & O(1) & O(N) & O(1) \\ \hline
+          \textbf{MAXIMUM(L)}        & O(N) & O(N) & O(N) & O(N) \\ \hline
+          \end{tabular}
+        }
+      \end{table}
+    \egroup
+    
+    Note that for the two singly lists for delete we'd need an algorithm that saves the previous pointer and dosn't have to loop back around to find the previous. 
+    Also I'm assuming we don't start off with having a tail pointer for any of the lists. (If we did have a tail for the lists the MAXIMUM for the two sorted would be O(1)).
+
+    \item \textbf{11.2-2 Collision Chaining} \\
+    
+    
+    \item \textbf{11.4-1}
+    \item \textbf{12.1-1}
+    \item \textbf{12.1-2}
+    \item \textbf{12.2-1}
+    \item \textbf{Euler's Formula.} \\
+    
+    Let V, E, F, be the number of Verticies, Faces, and Edges. \\
+    We can also say that $S + P + H = B$.
+    Lets establish a couple things: 
+    \begin{itemize}
+        \item Euler's formula: $V - E + F = 2$.
+        \item Square: $V = 4, E = 4$.
+        \item Pentagon: $V = 5, E = 5$.
+        \item Hexagon: $V = 6, E = 6$.
+    \end{itemize}
+
+    Therefore we can say that the faces F are made up of S, P, and H's and that Euler's formual can be modified as so:
+
+    \[V - E + F = 2\]
+    \[= V - E + (S + P + H) = 2\]
+
+    Also we can say adding edges of each face of each shape in the solid, and that each edge has a shared edge with another face so if we double the edge count that'll equal the edges for each face:
+
+    \[4S + 5P + 6H = 2E\]
+    \[= 4S + 5P + 6H - 2E = 0\]
+    
+    And since we are saying that each vertex has three edges comming of it that:
+
+    \[3V = 2E\]
+
+    Now we can say that:
+
+    \[3V - 2E = 0\]
+
+    Subtract V from both sides:
+
+    \[2V - 2E = -V\]
+
+    Now using our above edge formula ($S + P + H + V - E = 2$) we can multiply it by 2 to more easily substitue in our $2V - 2E = -V$:
+
+    \[2S + 2P + 2H + (2V - 2E) = 4\]
+    \[2S + 2P + 2H + (-V) = 4\]
+
+    Now since know we're looking for 12 we can multiply it by 3:
+
+    \[6S + 6P + 6H - 3V = 12\]
+
+    Also note from eariler that $4S + 5P + 6H - 2E = 0$ and that $2E = 3V$ therefore we can simply subtract this with no downside the two giving us:
+
+    \[6S + 6P + 6H - 3V - (4S + 5P + 6H - (3V)) = 12\]
+
+    \[= 2S + P = 12\]
+
+    Therefore we have proven using algebra and Euler's formula that given a solid of Squares, Pentagons, and Hexagons we can say it fits the formula of $2S + P = 12$.
+
+  \end{enumerate}
+
+\end{document}
