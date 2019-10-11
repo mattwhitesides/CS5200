@@ -120,14 +120,28 @@
       \end{tabular}
     \end{table}
 
-    \item \textbf{12.1-1 Binary Search Trees}
+    \item \textbf{12.1-1 Binary Search Trees.}
     
     Set = {1, 4, 5, 10, 16, 17, 21}
 
     \includegraphics[width=\linewidth]{BTree.png}
 
-    \item \textbf{12.1-2}
-    \item \textbf{12.2-1}
+    \item \textbf{12.1-2 BST v Min Heap.} 
+    
+    A min-heap essentially just forces the parent element above the n'th element to be smaller then it but not that left sub-trees are smaller than right subtrees. Where as a BST ensures that the n'th node has a sorted left (less than or equal) or right (greater) children. 
+    Also for a BST the root does not have to be the smallest element but does for a min-heap tree. Therefore you cannot print out the sorted order of the a min-heap in O(n) time as you'd first have to sort the tree using somthing like heap sort which takes greater than n time and then print it in n time.
+
+    \item \textbf{12.2-1 BST Search}
+    
+    \textbf{Option C} would be incorrect because if you follow its search to find 363 we'd go like:
+    \begin{itemize}
+      \item 363 $\leq$ 925 $\rightarrow$ Left
+      \item 363 $\geq$ 202 $\rightarrow$ Right
+      \item 363 $\leq$ 911 $\rightarrow$ Left
+      \item 363 $\geq$ 240 $\rightarrow$ Right
+      \item 363 $\leq$ 912 $\rightarrow$ Left* Here's the issue if you think about inserting 912 into a BST it would have been inserted to the right of 911 and not have become a child of 240. 
+    \end{itemize}
+
     \item \textbf{Euler's Formula.} \\
     
     Let V, E, F, be the number of Verticies, Faces, and Edges. \\
