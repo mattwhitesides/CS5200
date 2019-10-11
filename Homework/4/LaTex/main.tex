@@ -95,9 +95,12 @@
       \end{table}
     
     \item \textbf{11.4-1 Hash Table.}
-
+    
+    Keys = 10,22,31,4,15,28,17,88,59. \\
+    Aux Hash Function: $h'(k) = k$ \\
     Linear Probing: $h(k,i) = (h'(k) + i)\;\%\;m = (k + i)\;\%\;11$. \\
-    Quadratic Probing: $h(k,i) = (h'(k) + c_1i + c_2i^2)\;\%\;m = (k + c_1i + c_2i^2)\;\%\;11$. \\
+    Quadratic Probing: $h(k,i) = (h'(k) + c_1i + c_2i^2)\;\%\;m = (k + 1i + 3i^2)\;\%\;11$. \\
+    Double Hashing: $h(k,i) = h_1(k) + ih_2(k)\;\%\;m = k + i(1 + (k\;\%\;(m - 1)))\;\%\;m$. \\
     
     \begin{table}[H]
       \begin{tabular}{|l|l|l|l|}
@@ -117,7 +120,12 @@
       \end{tabular}
     \end{table}
 
-    \item \textbf{12.1-1}
+    \item \textbf{12.1-1 Binary Search Trees}
+    
+    Set = {1, 4, 5, 10, 16, 17, 21}
+
+    \includegraphics[width=\linewidth]{BTree.png}
+
     \item \textbf{12.1-2}
     \item \textbf{12.2-1}
     \item \textbf{Euler's Formula.} \\
