@@ -139,7 +139,7 @@
       \item 363 $\geq$ 202 $\rightarrow$ Right
       \item 363 $\leq$ 911 $\rightarrow$ Left
       \item 363 $\geq$ 240 $\rightarrow$ Right
-      \item 363 $\leq$ 912 $\rightarrow$ Left* Here's the issue if you think about inserting 912 into a BST it would have been inserted to the right of 911 and not have become a child of 240. 
+      \item 363 $\leq$ 912 $\rightarrow$ Left* Here's the issue if you think about inserting 912 into the BST at this point it would have been inserted to the right of 911 and not have become a child of 240. 
     \end{itemize}
 
     \item \textbf{Euler's Formula.} \\
@@ -194,6 +194,81 @@
     Therefore we have proven using algebra and Euler's formula that given a solid of Squares, Pentagons, and Hexagons we can say it fits the formula of $2S + P = 12$.
 
     \item \textbf{Program.}
+    \begin{enumerate}
+      \item See program method getRandPrimeTwelveDigitNum().
+      \item You can tell the method below getRandomNumbers() uses a uniform distribution because, by definition unifrom distribution means there's an equally likely chance of every value occuring in the range. 
+      Python's documentation assures that the selection is uniform (https://docs.python.org/3/library/random.html) therefore a selection of 100 random numbers using the random module will produce a uniform distribution.
+      \item See program.
+      \item Suprisingly (or maybe shouldn't be) we get almost exactly what the proof said in that our probability of a collision was $\leq \frac{1}{m} = \frac{1}{200} = 0.005$. 
+      In Our program we calculated out the chance over 50 funtions to be 0.005012, which is about as close as you can get.      
+    \end{enumerate}
+
+    \begin{lstlisting}
+      import random 
+      from statistics import mean
+
+      def isPrime(n): 
+        if (n <= 1):
+            return False
+        if (n <= 3):
+            return True
+        if (n % 2 == 0 or n % 3 == 0):
+            return False    
+        i = 5
+        while(i * i <= n):
+            if (n % i == 0 or n % (i + 2) == 0):
+                return False
+            i = i + 6        
+        return True
+  
+      def getRandPrimeTwelveDigitNum():
+          while(True):
+              x = random.randrange(10**11, 10**12)
+              if isPrime(x):
+                  return x
+      
+      def getRandomNumbers(n, r):
+          return [random.randint(0,r) for i in range(n)]
+      
+      def countCollisions(hash_method, a, b, s, m, p):
+          count = 0
+          total = 0
+          for x in s:
+              for y in s[1:]:
+                  total += 1
+                  hx = hash_method(a, b, x, p, m)
+                  hy = hash_method(a, b, y, p, m)
+                  if hx is hy and x is not y:
+                      #fstr = "Colide: a={0}, b={1}, x={2}, y={3}, p={4}, m={5}, h={6}"
+                      #print(fstr.format(a, b, x, y, p, m, hx))
+                      count += 1
+          return count, total
+    \end{lstlisting}
+
+    \begin{lstlisting}
+      p = getRandPrimeTwelveDigitNum()
+      s = getRandomNumbers(100, p)
+      m = 200
+      h = lambda a, b, k, p, m: (((a * k) + b) % p) % m
+      lst = []
+      
+      for i in range(50):
+          a = random.randint(1, p)
+          b = random.randint(0, p)    
+          count, comparisons = countCollisions(h, a, b, s, m, p)
+          lst.append(count)
+      
+      avg = mean(lst)    
+          
+      print("1/m:", 1/m)
+      print("Average number of collisions per hash function:", avg)
+      print("Probability of collision given any two numbers:", avg / comparisons)
+      
+      # Output:
+      # 1/m: 0.005
+      # Average number of collisions per hash function: 49.62
+      # Probability of collision given any two numbers: 0.005012121212121212
+    \end{lstlisting}
 
   \end{enumerate}
 
