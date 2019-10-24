@@ -138,7 +138,7 @@
       #Output: 100110
     \end{lstlisting}
 
-    \item \textbf{15.4-5 on p. 397. Just describe the algorithm.}
+    \item \textbf{15.4-5 on p. 397.}
     
     To find the longest monotonically increasing sub-sequence of a sequence of n numbers, in $O(n^2)$ time would go something like so:
 
@@ -203,14 +203,28 @@
       \end{itemize}
     \end{itemize}
 
-    \item \textbf{16.2-5 on p. 428. Just describe the algorithm.}
+    \item \textbf{16.2-5 on p. 428.}
     
-    Given we're talking about greedy algorithms I figure we'll try to set up oneo f those to get an optimal smallest set of closed intervals that contains all the given points.
+    Given we're talking about greedy algorithms in the chapter I figure we'll try to set up one of those to get an optimal smallest set of closed intervals that contains all the given points.
+    Also we're going to assume that unit-length can be determined by adding 1 to a value.
 
     \begin{enumerate}
-      \item First sort the points by value so they are monotonically increasing in order $x_1, x_2, x_n$.
-      \item 
+      \item Initially define out initial set as $X$ and our solution set as $S = {}$.
+      \item First sort the points in set $X$ by value so they are monotonically increasing in order $x_1, x_2,...x_n$.
+      \item Set $S = \{[x_0, x_0 + 1]\}$. // The first interval will be the smallest unit plus 1.
+      \item For $x_i \in X[1:]$: // For each element in set X starting at the second point.
+      \begin{itemize}
+        \item If $x_i \notin max(S)$ then: // If current iteration of X is not contained in the previsouly added interval.
+        \begin{itemize}          
+          \item $S = S \cup [x_i, x_i + 1]$ // Append interval made from current x and x + 1.        
+        \end{itemize}
+        \item Return $S$.
+      \end{itemize}
     \end{enumerate}
+
+    We can argue this will always produce an optimal set given that the largest element must be containted in the [largest x, largest x + 1] and recursivly you could go through each element and compare it plus one unit to each other element to produce a set.
+    Therefore this solution must be optimal as no element in the set could be outside the sorted max and min and each element is given an interval if the previous intervals do not contain it.
+    The efficiency of the alogrithm would be pretty much as fast as the sorting would take (unless somehow the sorting was less than O(n)) which would probably be O(n log n) if using a quick sort like method.
 
     \item \textbf{16.3-3 on p. 436.}
     \item \textbf{17.4-3 on p. 471.}
