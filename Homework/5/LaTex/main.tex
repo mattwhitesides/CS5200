@@ -271,6 +271,34 @@
     Meaning that we are still bound by at most a constant factor of 3.
 
     \item \textbf{18.2-1 on p. 497.}
+    
+    Insert keys, $\{F, S, Q, K, C, L, H, T, V, W, M, R, N, P, A, B, X, Y, D, Z, E\}$.
+    I'm thinking showing the graph before a split as I draw the graph then the next action causes the split wich I'll spell out.
+
+    \begin{enumerate}
+      \item First inset F, S and the median key Q.\\
+      \includegraphics[scale=0.5]{10a.png}
+      \item Insert K splitting up PQS.
+      \item Then insert C to the left using F as the new median.\\
+      \includegraphics[scale=0.5]{10b.png}
+      \item We can insert L to the left, making that node large then (2t - 1) so it must split on F which gets promoted.
+      \item Insert H, T, V into their respective order.\\
+      \includegraphics[scale=0.5]{10c.png}
+      \item Insert W which causes STV to split and promote T.\\
+      \includegraphics[scale=0.5]{10d.png}
+      \item Insert R which causes HKL to split then cuases FQT to split creating a new root Q.
+      \item Then Insert M, N.\\
+      \includegraphics[scale=0.5]{10e.png}
+      \item Insert P which causes LMN to split.
+      \item Then Insert A, B, X.\\
+      \includegraphics[scale=0.5]{10f.png}
+      \item Insert Y which causes VWX to split.\\
+      \includegraphics[scale=0.5]{10g.png}
+      \item Insert D which causes ABC to split then FKM to split.
+      \item And Finally insert Z,E.\\
+      \includegraphics[scale=0.5]{10h.png}
+    \end{enumerate}
+
     \item \textbf{18.3-1 on p. 350.}
     \item \textbf{19.2-1 on p. 518.}
     \item \textbf{19.4-1 on p. 526.}
