@@ -299,9 +299,61 @@
       \includegraphics[scale=0.5]{10h.png}
     \end{enumerate}
 
-    \item \textbf{18.3-1 on p. 350.}
+    \item \textbf{18.3-1 on p. 502.}
+    
+    Delete ${C, P, V}$ from B-Tree 18.8(f).
+    
+    \begin{enumerate}
+      \item Initial Tree.\\
+      \includegraphics[scale=0.5]{11a.png}
+      \item Delete C, case 2b (Merge AE and JK to satisfy the root having n + 1 children).\\
+      \includegraphics[scale=0.5]{11b.png}
+      \item Delete P, case 3b.\\
+      \includegraphics[scale=0.5]{11c.png}
+      \item Delete C, case 2b.\\
+      \includegraphics[scale=0.5]{11d.png}            
+    \end{enumerate}
+
     \item \textbf{19.2-1 on p. 518.}
+    
+    So the minimum node we're going to extract is node 7.\\
+    Which starts simply enough we'll remove 7 and add 17, 23, 24 up to the root list.\\
+    Then the consolidation occurs which means 24 and 18 merge will merge, and 17 and 38 merge as they have the same order.\\
+    Giving us the final result.\\
+
+    \includegraphics[scale=0.75]{12.png}
+
     \item \textbf{19.4-1 on p. 526.}
+    
+    We'll attempt to prove that a Fibonacci Heap does not always have a height $O(log\;n)$ by showing the sequence of operations creating a Fib Heap of one tree that is a linear chain of $n$ nodes.
+
+    The basic steps for inserting into a Fibonacci heap are:
+
+    \begin{enumerate}
+      \item Initialize node $x$.
+      \item Test if Fib heap $H$ is empty. 
+      \begin{itemize}
+        \item If so make $x$ the only node in the root list and set $H.min$ to $x$.
+        \item Else inset $x$ into the $H$ root list and update $H.min$ if $x$ is smaller than it.
+      \end{itemize}
+      \item Increment $H.n$ if nesscary.
+    \end{enumerate}
+
+    We can use this to determine the idea of how we can create a heap with our desiered linear property. Think of the following steps.
+
+    \begin{enumerate}
+      \item Start with an empty set $H$, add three nodes from smallest to largest $x, y, z$ this makes $H.min = x$.
+      \item Delete node $x$ which will call Extract min and consolidate and thus linking $y$ and $z$ with y being the new $H.min = y$.
+      \item Lets define this new tree as $T$ which is just a linking of $y -> z$. 
+      \item Now do the same thing with three new nodes in increasing value order $x_i, y_i, z_i$. (now we have four trees $y -> z$, $x_i$, $y_i$, $z_i$).
+      \item Delete the smallest value $x_i$. which will link $y_i -> z_i$ and $y$ will link with $y_i$. Giving somthing like:\\
+      \includegraphics[scale=0.5]{13.png}     
+      \item Now just delete $z_i$ and you have a single connected list of nodes.
+      \item Just repet the previous 3 steps for more decreaseing values of $x_i, y_i, z_i$ and you can indefinately create a single list.
+    \end{enumerate}
+
+    This makes since as you always are deleting the min of your new set, creating a node with one link, mergeing into your existing set and deleting the linked node from your new set thus adding only one node to the merged set at the end.
+
     \item \textbf{21.3-2 on p. 572. Implement your algorithm.}
   \end{enumerate}
 
