@@ -109,7 +109,115 @@
 
     \item \textbf{15.2-2 on p. 378. Implement your algorithm.}
     
-    TODO!!!!!
+    Essentailly like in "Step 4: Print-Optimal-Parens" except we're actually going to use the answers given by that algorithm and multiply the matricies after we've found and returned the i == j match.
+    Also using the algorithms found for matrix chain order and matrix multiply in the book.
+
+    \begin{lstlisting}
+      def matrix_chain_order(p):
+        n = len(p)
+        m = [[0 for x in range(n)] for x in range(n)]
+        s = [[0 for x in range(n)] for x in range(n)]
+    
+        for i in range(1, n): 
+            m[i][i] = 0
+    
+        for L in range(2, n): 
+            for i in range(1, n - L + 1): 
+                j = i + L - 1
+                m[i][j] = sys.maxsize 
+                for k in range(i, j): 
+                    q = m[i][k] + m[k + 1][j] + p[i-1] * p[k] * p[j] 
+                    if q < m[i][j]: 
+                        m[i][j] = q
+                        s[i][j] = k
+    
+        return m, s
+  
+      def matrix_multiply(A, B):
+        if len(A[0]) is not len(B):
+            print("incompatible dimensions")
+            return
+        
+        result = [[0 for i in range(len(B[0]))] for j in range(len(A))]
+        
+        for i in range(len(A)):
+          for j in range(len(B[0])):
+              for k in range(len(B)):
+                  result[i][j] += A[i][k] * B[k][j]
+                
+        return result
+      
+      def matrix_chain_multiply(A, s, i, j):
+        if i == j:
+            return A[i]
+        elif i + 1 == j:
+            return matrix_multiply(A[i], A[j])
+        
+        m1 = matrix_chain_multiply(A, s, i, s[i][j])
+        m2 = matrix_chain_multiply(A, s, s[i][j] + 1, j)
+        return matrix_multiply(m1, m2)      
+    \end{lstlisting}
+
+    \begin{lstlisting}
+      # Simplest test case only one possible option.
+      M1 = [[1, 2, 3],
+            [5, 6, 7]]
+      
+      M2 = [[7, 8],
+            [9, 10],
+            [11, 12]]
+      
+      A = [M1, M2]
+      n = len(A) - 1
+      m, s = matrix_chain_order([len(M1[0]), len(M1), len(M2)])
+      
+      print("m = ", m)
+      print("s = ", s)
+      print("Validation = ", matrix_multiply(M1, M2))
+      print("MCM Answer = ", matrix_chain_multiply(A, s, 0, n))      
+
+      # Output:
+      # m =  [[0, 0, 0], [0, 0, 18], [0, 0, 0]]
+      # s =  [[0, 0, 0], [0, 0, 1], [0, 0, 0]]
+      # Validation =  [[58, 64], [166, 184]]
+      # MCM Answer =  [[58, 64], [166, 184]]      
+    \end{lstlisting}
+
+    \begin{lstlisting}
+      # Slightly more complex 4x2, 2x3, 3x1, and 1x3 matrices.
+      M1 = [[7, 8],
+            [9, 10],
+            [11, 12],
+            [13, 14]]
+      
+      M2 = [[1, 2, 3],
+            [5, 6, 7]]
+      
+      M3 = [[10], 
+            [11], 
+            [12]]
+      
+      M4 = [[7, 8, 9]]
+      
+      A = [M1, M2, M3, M4]
+      n = len(A) - 1
+      
+      ans = matrix_multiply(M1, M2)
+      ans = matrix_multiply(ans, M3)
+      ans = matrix_multiply(ans, M4)
+      m, s = matrix_chain_order([4, 2, 3, 1, 3])
+      
+      print("m = ", m)
+      print("s = ", s)
+      print("Validation = ", ans)
+      print("MCM Answer = ", matrix_chain_multiply(A, s, 0, n))
+
+      # Output: 
+      # m =  [[0, 0, 0, 0, 0], [0, 0, 24, 14, 26], [0, 0, 0, 6, 12], [0, 0, 0, 0, 9], [0, 0, 0, 0, 0]]
+      # s =  [[0, 0, 0, 0, 0], [0, 0, 1, 1, 3], [0, 0, 0, 2, 3], [0, 0, 0, 0, 3], [0, 0, 0, 0, 0]]
+      # Validation =  [[14532, 16608, 18684], [18284, 20896, 23508], [22036, 25184, 28332], [25788, 29472, 33156]]
+      # MCM Answer =  [[14532, 16608, 18684], [18284, 20896, 23508], [22036, 25184, 28332], [25788, 29472, 33156]]
+    \end{lstlisting}    
 
     \item \textbf{15.4-1 on p. 396.}
     
