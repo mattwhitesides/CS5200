@@ -23,7 +23,8 @@
   showstringspaces=false,
   columns=flexible,
   basicstyle={\small\ttfamily},
-  numbers=none,
+  numbers=left,
+  stepnumber=1,
   numberstyle=\tiny\color{gray},
   keywordstyle=\color{blue},
   commentstyle=\color{dkgreen},
@@ -39,7 +40,7 @@
 
 \title{CS5200: Homework \#5} % Title of the assignment
 
-\author{Matthew Whitesides\\ \texttt{mbwxd4@mst.edu}} % Author name and email address
+\author{Matthew Whitesides\\ \texttt{mbwxd4@umsystem.edu}} % Author name and email address
 
 \date{\today} % University, school and/or department name(s) and a date
 
@@ -107,12 +108,14 @@
       \item Finally remove 38.
     \end{enumerate}
 
-    \item \textbf{15.2-2 on p. 378. Implement your algorithm.}
+    \item \textbf{15.2-2 on p. 378.}
     
     Essentailly like in "Step 4: Print-Optimal-Parens" except we're actually going to use the answers given by that algorithm and multiply the matricies after we've found and returned the i == j match.
     Also using the algorithms found for matrix chain order and matrix multiply in the book.
 
     \begin{lstlisting}
+      import sys
+      
       def matrix_chain_order(p):
         n = len(p)
         m = [[0 for x in range(n)] for x in range(n)]
@@ -229,17 +232,17 @@
 
     \begin{lstlisting}
       def lcs(s1, s2):
-      table = [["" for x in range(len(s2))] for x in range(len(s1))]
-      for i in range(len(s1)):
-          for j in range(len(s2)):
-              if s1[i] == s2[j]:
-                  if i == 0 or j == 0:
-                      table[i][j] = s1[i]
-                  else:
-                      table[i][j] = table[i-1][j-1] + s1[i]
-              else:
-                  table[i][j] = max(table[i-1][j], table[i][j-1], key=len)
-      return table[-1][-1]
+        table = [["" for x in range(len(s2))] for x in range(len(s1))]
+        for i in range(len(s1)):
+            for j in range(len(s2)):
+                if s1[i] == s2[j]:
+                    if i == 0 or j == 0:
+                        table[i][j] = s1[i]
+                    else:
+                        table[i][j] = table[i-1][j-1] + s1[i]
+                else:
+                    table[i][j] = max(table[i-1][j], table[i][j-1], key=len)
+        return table[-1][-1]
 
       print(lcs("10010101", "010110110"));
 
@@ -462,7 +465,98 @@
 
     This makes since as you always are deleting the min of your new set, creating a node with one link, mergeing into your existing set and deleting the linked node from your new set thus adding only one node to the merged set at the end.
 
-    \item \textbf{21.3-2 on p. 572. Implement your algorithm.}
+    \pagebreak
+    \item \textbf{21.3-2 on p. 572.}
+    
+    Below is my implementation of using $Find-Set$ without recusrion.
+
+    \begin{lstlisting}
+      class DisjointSet:
+        parents = {}
+        ranks = {}
+        def __init__(self, nodes):
+            self.nodes = nodes
+            for n in self.nodes:
+                self.parents[n] = n
+                self.ranks[n] = 0
+        def __str__(self):
+            t = "(\n\tnodes = {}\n\tparents = {}\n\trank = {}\n)"
+            return t.format(self.nodes, self.parents, self.ranks) 
+        
+        def union(self, x, y):
+            self.link(self.find_set(x), self.find_set(y))
+    
+        def link(self, x, y):
+            if self.ranks[x] > self.ranks[y]:
+                self.parents[y] = x
+            else:
+                self.parents[x] = y
+                if self.ranks[x] == self.ranks[y]:
+                    self.ranks[y] = self.ranks[y] + 1
+            return self.ranks[x]
+        
+        #Recursive definition from the book.
+        def find_set_recur(self, x):
+            if self.parents[x] == x:
+                return x
+            return self.find_set(self.parents[x])
+        
+        #Non-Recursive version.
+        def find_set(self, x):
+            y = x
+            while y is not self.parents[y]:
+                y = self.parents[y]
+            while y is not x:
+                z = self.parents[x]
+                self.parents[x] = y
+                x = z
+            return y           
+    \end{lstlisting}
+
+    \begin{lstlisting}
+      nodes = ['a', 'b', 'c', 'd', 'e', 'f']    
+      ds = DisjointSet(nodes)
+
+      ds.union('b', 'a')
+      ds.union('c', 'b')
+      ds.union('d', 'c')
+      ds.union('e', 'd')
+      ds.union('f', 'e')
+
+      print(ds)
+
+      #Output
+      (
+        nodes = ['a', 'b', 'c', 'd', 'e', 'f']
+        parents = {'a': 'a', 'b': 'a', 'c': 'a', 'd': 'a', 'e': 'a', 'f': 'a'}
+        rank = {'a': 1, 'b': 0, 'c': 0, 'd': 0, 'e': 0, 'f': 0}
+      )
+    \end{lstlisting}
+
+    \begin{lstlisting}
+      nodes = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+      ds = DisjointSet(nodes)
+      
+      ds.union('b', 'a')
+      ds.union('c', 'b')
+      ds.union('d', 'c')
+      
+      ds.union('e', 'f')
+      ds.union('g', 'f')
+      
+      print(ds)
+
+      #Output
+      (
+        nodes = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+        parents = {'a': 'a', 'b': 'a', 'c': 'a', 'd': 'a', 'e': 'f', 'f': 'f', 'g': 'f'}
+        rank = {'a': 1, 'b': 0, 'c': 0, 'd': 0, 'e': 0, 'f': 1, 'g': 0}
+      )
+    \end{lstlisting}
+
+    Note in the output in section 2 line 15, and section 3 line 16 we can see how the nodes and their respective linked parents worked out after the union.
+    In test one every node merged up to be a child of node 'a' and in test two the first set merged up to 'a' and the next merged up to 'f'.
+
   \end{enumerate}
 
 \end{document}
