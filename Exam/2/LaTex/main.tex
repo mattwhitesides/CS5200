@@ -45,9 +45,48 @@
 \begin{document}
 
   \maketitle % Print the title
+
+  \textit{I, Matthew Whitesides, certify that all the material in this PDF file is my original work, that I did not discuss these questions with anyone other than my instructor, and that I did not copy work from anyone for this examination.}
  
   \begin{enumerate}
-    \item Question 1.
+    \item \textbf{Probability}.
+    
+    First let's setup our sample space. Given that it dosen't really matter what disk we change lets say disk one stays the same and we place disk two on top and rotate it.
+
+    Disk two will have 128 possible differnt positions it can be placed on top of disk one. Therefore:
+    
+    \[S=\{1,2,...,128\}\]
+
+    Now let's define for each $i$ in the sammple space $S$, we have a $j$ meaning if $i = 1$ that sector 1 of the second disk is placed ontop of sector $j$ of the first disk.
+
+    Next let's define a random variable $S\rightarrow R$ given by Matches(j) = the number of matches when disk two's slice 1 is over disk one's slick $j$.
+
+    Now since we have a sample space of 128 we'll need to calculate the matches for each sector using indicator variables.\\
+
+    Let's define $M_i:S\rightarrow R$ meaning matches given sample space i given by:
+
+    $M_i(j) = 1$ If sector $i$ of disk two has a match over disk one's sector $j$.
+
+    $M_i(j) = 0$ If no match.
+
+    Therefore the total matches would be the sum of each indicator variable:
+
+    \[\sum_{i=1}^{128}E(M_i)\]
+
+    Now we just need to calcualte the chance there's a match or no match for any given sector.
+
+    Our possibile probability for each sector are (position one being color of disk one and two being two) with RR, WW being matches and RW, WR being not:
+
+    \[\{RR, RW, WR, WW\} = \{\frac{1}{4} \frac{1}{2}, \frac{1}{4} \frac{1}{2}, \frac{3}{4} \frac{1}{2}, \frac{3}{4} \frac{1}{2}, \}\]
+
+    And doing this you can easily see that the odds of getting a match are the same as not getting a mtach with it being more likely to get a WW match. Therefore:
+
+    \[E(M_i) = 1(\frac{1}{2}) + 0(\frac{1}{2}) = \frac{1}{2}\]
+
+    And thus our expected matches, \bm{$E(Matches) = 128 * \frac{1}{2} = 64$} meaning we can always expect to be able to place disk two ontop disk one to get at least 64 matches.
+
+    \item \textbf{Induction}.
+
   \end{enumerate}
   
 \end{document}
