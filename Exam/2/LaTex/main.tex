@@ -98,7 +98,7 @@
         \item and C = \# of complete nodes.
         \item The domain is all natural number values of $C \geq 0$. As a negitive or partial number of nodes would not make sense.
       \end{itemize}
-      \item The Inductive Stopping Values:
+      \item The Inductive Steps:
       \begin{itemize}
         \item Base case: C = 0.
         \begin{itemize}
@@ -134,7 +134,7 @@
 
     \item \textbf{Proof by Induction}.
     \begin{enumerate}
-      \item 
+      \item Conjecture. 
       \begin{lstlisting}
   def f(n):
     if n <= 0:
@@ -179,11 +179,11 @@
       
       Also if we look at $f(n) / 4^n$ we can see that $f(n) / 4^n = 4(n + 1)$.\\
 
-      Therefore we can decude that \bm{$f(n) = 4^n(4(n + 1))$}.
+      Therefore we can decude that \bm{$f(n) = 4^{(n + 1)}(n + 1)$}.
       
       \begin{lstlisting}
   def f2(n):
-    return 4**n * (4 * (n + 1))
+    return 4**(n + 1) * (n + 1)
 
   #Output:
   f(0) =  4 , f2(0) =  4
@@ -193,6 +193,41 @@
   f(4) =  5120 , f2(4) =  5120
   f(5) =  24576 , f2(5) =  24576
       \end{lstlisting}
+
+      \item Proof.   
+   
+      \begin{itemize}
+        \item The Problem:
+        \begin{itemize}
+          \item We want to prove that the function $f(n)$ returns a value equilivent to the equation, $4^{(n + 1)}(n + 1)$.
+          \item Given any natural number $n$.
+        \end{itemize}
+        \item The Inductive Steps:
+        \begin{itemize}
+          \item Base case $n = 0$. 
+          \item True as $f(0) = 4$ and $4^1(1) = 4$
+          \item Next step $n = 1$. 
+          \item True as $f(1) = 32$ and $4^2(2) = 32$
+          \item Next step $n = 2$. 
+          \item True as $f(2) = 192$ and $4^3(3) = 192$
+        \end{itemize}
+        \item The Inductive Proof:
+        \begin{itemize}
+          \item Let's define our theory as for all $n > 0$ that if $P(n - 1)$ is true then $P(n)$ is also true. 
+          \item If $n > 1$ then $f(n)$ returns $8*f(n - 1) - 16*f(n - 2)$. 
+          \item However we know using the induction hypothesis that:          
+          \item $f(n - 1)$ returns $4^n(n)$.
+          \item And $f(n - 2)$ returns $4^{(n - 1)}(n - 1)$.
+          \item Therefore we can say $f(n)$ returns:
+          \item $8*(4^n(n)) - 16*(4^{(n - 1)}(n - 1))$.
+          \item Which using algebra we can simplify that to $-4^{(1 + n)} (-1 + n) + 2^{(3 + 2 n)} n$.
+          \item And even futher to an alternate form of $4^{(1 + n)} (1 + n)$.
+          \item Which just so happens to be our target form.
+        \end{itemize}
+        \item Therefore we have proven using induction that given any natural number $n \geq 0$ that the function $f(n)$ returns a value equilivent to the equation, $4^{(n + 1)}(n + 1)$
+      \end{itemize}
     \end{enumerate}
-  \end{enumerate}  
+
+    \item \textbf{Graph Theory}.
+  \end{enumerate}  % End of questions.
 \end{document}
