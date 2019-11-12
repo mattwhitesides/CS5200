@@ -229,5 +229,70 @@
     \end{enumerate}
 
     \item \textbf{Graph Theory}.
+    \begin{enumerate}
+      \item Theory: Every free tree having at least two verticies has at least two verticies of degree 1.
+      
+      First lets define a Free Tree: An acyclic (containing no cycles), connected (no disconnected graphs, i.e. not a forest), unrooted (containing no special root node) graph.\\ 
+      
+      We want to prove that for every free tree that has $ verticies \geq 2$, they have $ verticies \geq 2$ of graph degree 1.\\
+
+      If we start with the simplest case a free tree with two nodes, we can obvisouly see each node is connected to eachother so each node has a degree of one.\\
+
+      Now lets think about what it means not to have any cycles in a tree that means we cannot have loops and adding any edge would create a cycle, therefore and using the theorm in graphs lecture \textbf{Number of edges = }\bm{$|E| = V - 1$} where V is the number of verticies in the tree.\\
+
+      Next lets take our graph of $V$ verticies that means the max degree any one vertex can have is $V - 1$ and that every other node must have a degree of one because $E = V - 1$ as well, and the minimum degree any node can have is one otherwize it would not be connected, therefore there must be at least a subtree containing $v - 1$ nodes with v greater than two.\\ 
+
+      That means no matter what you'll have leaf nodes that have 0 children and at most 1 degree of connection, and as we've already proven the base case of $n = 2$, any number of nodes greater than two will have at least two leaf nodes causing at least two nodes of degree one.
+
+      \item Theory: Every connected, finite graph has at least one spanning subtree.\\
+      
+      A spanning subtree of a graph is a subtree that contains the minimum number of edges to contain all the verticies in the origional tree. This is equilivent to a free tree which has $V - 1$ edges which is the minimum you could have. \\
+      
+      A finite graph has a finite number of verticies $V$ and edges $E$.\\
+
+      A connected graph means every pair of verticies has at least one connection or in other words there is at least one path from any two pairs of verticies.\\
+
+      Therefore in a connected finite graph $G$ $|E| \geq V - 1$. And all you need to get the spanning subtree is remove edges until removing any additional edge disconnects $G$. 
+      And due to the definiton of a connected graph there's at least one path from any node to another node so there must contain at least one path that connects all nodes which would give the spanning subtree.
+
+      \item Theory: Every connected graph having at least two verticies has two distinct verticies that can be removed while staying a connected graph.
+
+      We can apply an inductive reasoning to prove this:
+
+      \begin{itemize}
+        \item The problem.
+        \begin{itemize}          
+          \item $P(n) = $ Every connected graph having at least two verticies has two distinct verticies that can be removed while staying a connected graph.
+        \end{itemize}
+        \item The Inductive Steps.
+        \begin{itemize}          
+          \item Base case: $P(2) = $ A graph with two verticies if you remove both of them you have no graph which we'll assume is "connected" still. 
+          \item $P(3)$ Remvoing any two verticies will leave a single vert which remains connected.
+          \item $P(4)$ If one node has a degree of 3 you have three nodes you can remove, otherwise if you have two nodes with degree two you have those two nodes of degree one to remove.
+          \item The Inductive case: Lets take a graph $G$ with $n + 1$ verticies. 
+          \item Assume we'll attempt to remove one vertex $v$ giving us a new graph $G'$. 
+          \item This gives us two possibilites.
+          \item If the graph is still connected.
+          \item Using the inductive hypothesis we know that $P(n)$ for all cases we proved about gave us at least two verticies we can remove therefore we'll get at least two more. 
+          \item Otherwise if the graph gets disconnected by removing that node.
+          \item If disconnected there must be at least two subgraphs created, $Sub_1, ... Sub_n$. 
+          \item There is a vertex in each subgraph that was connected to $v$ or $v$ call it $v_x$.
+          \item For each of the subgraphs we can recursively check them until we hit a case where we're still connected or a case case, thefore we have at two nodes we can remove eventually, however one of them must have been connected to the origional $v$ (or its recursions). 
+          \item However we know that there are at least two original subgraphs thus giving us at least two nodes we'll find not connected in the origional graph $G$. 
+        \end{itemize}
+        \item Therefore we have proven every connected graph having at least two verticies has two distinct verticies that can be removed while staying a connected graph.
+      \end{itemize}
+
+      \item Theory: Given a graph having $n$ vertices and that for all vertices v in the graph, $deg(v) \geq n/2$.\\
+      
+      Base case: $P(1)$ a graph of one must be connected. $P(2)$ degree for each must equal $2/2$ therefore they must be connected to eachother.
+
+      Now lets assume the our theory is incorrect that a graph can have two or more disconnected subgraphs. Each subgraph node would still have to have $deg(v) \geq n/2$, thus each subgraph would need at least $\frac{n}{2} + 1$ nodes in it.
+      That would make our total nodes of all subgraphs equal $(\frac{n}{2} + 1) + (\frac{n}{2} + 1) ...$ which would give us a total of $n + 2$ or more nodes which is impossible. 
+
+      Therefore we have proven given a graph having $n$ vertices and that for all vertices v in the graph, $deg(v) \geq n/2$ because the alternative is impossible.\\
+
+      An example of a graph where $deg(v) = n/2 -1$ for all v but is disconnected, would be our cas $P(2)$ each node would have a degree of $\frac{2}{2} - 1 = 0$ which is obvisouly just two stand alone disconnected nodes.
+    \end{enumerate}
   \end{enumerate}  % End of questions.
 \end{document}
