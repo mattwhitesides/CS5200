@@ -285,14 +285,14 @@
 
       \item Theory: Given a graph having $n$ vertices and that for all vertices v in the graph, $deg(v) \geq n/2$.\\
       
-      Base case: $P(1)$ a graph of one must be connected. $P(2)$ degree for each must equal $2/2$ therefore they must be connected to eachother.
+      Base case: $P(1)$ a graph of one must be connected. $P(2)$ degree for each must equal $2/2$ therefore they must be connected to eachother.\\
 
-      Now lets assume the our theory is incorrect that a graph can have two or more disconnected subgraphs. Each subgraph node would still have to have $deg(v) \geq n/2$, thus each subgraph would need at least $\frac{n}{2} + 1$ nodes in it.
-      That would make our total nodes of all subgraphs equal $(\frac{n}{2} + 1) + (\frac{n}{2} + 1) ...$ which would give us a total of $n + 2$ or more nodes which is impossible. 
+      Now lets assume the our theory is incorrect that a graph can have two or more disconnected subgraphs. Each subgraph's nodes would still have to have $deg(v) \geq n/2$, thus each subgraph would need at least $\frac{n}{2} + 1$ vertices in them.
+      That would make our total number of nodes for all subgraphs equal $(\frac{n}{2} + 1) + (\frac{n}{2} + 1) ...$ which would give us a total of $n + 2$ or more nodes which is impossible because our graph is defined as $n$ nodes.\\
 
       Therefore we have proven given a graph having $n$ vertices and that for all vertices v in the graph, $deg(v) \geq n/2$ because the alternative is impossible.\\
 
-      An example of a graph where $deg(v) = n/2 -1$ for all v but is disconnected, would be our cas $P(2)$ each node would have a degree of $\frac{2}{2} - 1 = 0$ which is obvisouly just two stand alone disconnected nodes.
+      An example of a graph where $deg(v) = n/2 -1$ for all v but is disconnected, would be our simple case of $P(2)$ each node would have a degree of $\frac{2}{2} - 1 = 0$ which is obvisouly just two stand alone disconnected nodes.
     \end{enumerate}
   \end{enumerate}  % End of questions.
 \end{document}
