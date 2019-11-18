@@ -852,7 +852,75 @@ inorder_traversal(root)
     We have an implemenation of a BST based of the book in section 18.2.
     See Prob8bBT.py in the zip file for the code.
 
+    \item \textbf{Tree Comparisons}
+    
+    Below we have the code I'm using to test the trees, see Pro8c.py for more information.
 
+    \begin{lstlisting}
+file_name = "Prob8cData"
+
+def create_txt_files():
+    for j in range(10):
+        f = open(file_name + str(j) + ".txt","w+")
+        for i in range(10000):
+            f.write(str(random.randrange(10000)) + ",")
+        f.close()
+
+def read_files():
+    l = []
+    for i in range(10):
+        f = open(file_name + str(i) + ".txt","r")
+        txt = f.read()
+        f.close()
+        l.append([int(x) for x in txt.split(',') if x.strip().isdigit()])
+    return l
+
+create_txt_files()
+files = read_files()
+    \end{lstlisting}
+
+    \begin{lstlisting}
+binary_tree_root = BinaryTreeNode(5000)
+def time_binnary_tree():
+    for file in files:
+        for i in file:
+            tree_insert(binary_tree_root, BinaryTreeNode(i)) 
+
+start = time.time()
+time_binnary_tree()
+end = time.time()                   
+final_time = (end - start)
+    
+print("Binary Tree Time:", final_time)  
+print("Binary Tree Height:", inorder_traversal_height(binary_tree_root))
+
+# Output:
+# Binary Tree Time: 0.8109428882598877
+# Binary Tree Height: 10
+
+b_tree_root = BTree()
+b_tree_root.b_tree_create(100)
+def time_b_tree():
+    for file in files:
+        for i in file:
+            b_tree_root.b_tree_insert(i)
+
+start = time.time()
+time_b_tree()
+end = time.time()                   
+final_time = (end - start)
+    
+print("B-Tree Time:", final_time)  
+print("B-Tree Height:", b_tree_root.height())
+
+# Output:
+# B-Tree Time: 3.2501351833343506
+# B-Tree Height: 21
+    \end{lstlisting}
+
+    Now for the B-Tree the processing time and height are varied based upon the T value we select however it's probably safe to say that a good ammount more calculations are involved with B-Tree's given how much they do and the better big O times for certian outcomes.
+
+    Never the less with a T value of 100 it took roughly \textbf{4 times longer and about double the hieght} of a regular binary tree for our final B-Tree.
 
   \end{enumerate}
 
