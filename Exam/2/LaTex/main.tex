@@ -849,8 +849,145 @@ inorder_traversal(root)
 
     \item \textbf{B-Trees}.
 
-    We have an implemenation of a BST based of the book in section 18.2.
-    See Prob8bBT.py in the zip file for the code.
+    Below is an implemenation of a BST based of the book in section 18.2.
+    See Prob8bBT.py in the zip file for more testing of the code.
+
+    \begin{lstlisting}
+import random
+
+class Node(object):
+    def __init__(self):
+        self.leaf = False
+        self.keys = []
+        self.c    = []
+        
+    def print_node(self):
+        if self.leaf:
+            return "Leaf node:{}".format(self.keys)
+        return "Node: {}\nChildren: {}\n".format(self.keys, [child.print_node() for child in self.c])
+
+class BTree():
+    def b_tree_create(self, t):
+        x = Node()
+        x.leaf = True
+        self.t = t
+        self.root = x
+        
+    def b_tree_split_child(self, x, i):
+        z = Node()
+        y = x.c[i]
+        z.leaf = y.leaf
+        t = self.t
+        x.c.insert(i + 1, z)        
+        x.keys.insert(i, y.keys[t - 1])  
+        
+        for j in range(t - 1):
+            if len(z.keys) < t - 1:
+                z.keys.append(0)
+            z.keys[j] = y.keys[j  + t]
+        y.keys = y.keys[0: (t - 1)]
+        
+        if not y.leaf:
+            z.keys = y.keys[t: (2*t - 1)]
+            y.keys = y.keys[0: (t-1)]
+
+    def b_tree_insert(self, k):
+        r = self.root
+        if len(r.keys) == (2 * self.t) - 1:
+            s = Node()
+            self.root = s
+            s.c.insert(0, r)
+            self.b_tree_split_child(s, 0)  
+            self.b_tree_insert_nonfull(s, k)
+        else: self.b_tree_insert_nonfull(r, k)
+    
+    def b_tree_insert_nonfull(self, x, k):
+        i = len(x.keys) - 1
+        if x.leaf or len(x.c) is 0:
+            x.keys.insert(len(x.keys), 0)
+            while i >= 0 and k < x.keys[i]:
+                x.keys[i + 1] = x.keys[i]
+                i = i - 1
+            x.keys[i + 1] = k
+        else: 
+            while i >= 0 and k < x.keys[i]:
+                i = i - 1            
+            i = i + 1
+            if len(x.c[i].keys) == (2 * self.t) - 1:
+                self.b_tree_split_child(x, i)
+                if k > x.keys[i]:
+                    i = i + 1
+            self.b_tree_insert_nonfull(x.c[i], k) 
+    
+    def b_tree_delete(self, k):
+        (n, i) = self.find(k)
+        if n is None:
+            return None
+        
+        if n.leaf:
+            del n.keys[i]
+        else:
+            k = n.keys[i]
+            if len(n.c[i]) >= self.t:
+                pred = n.c[i]
+                while not curr.leaf:
+                    pred = curr.c[len(curr.c) - 1]
+                n.keys[i] = pred
+                b_tree_delete(pred)
+                
+            elif len(n.c[i + 1]) >= self.t:
+                succ = n.c[i + 1]
+                while not curr.leaf:
+                    succ = succ.c[0]
+                n.keys[i] = succ
+                b_tree_delete(succ)
+    
+    def find(self, k, x = None):
+        if isinstance(x, Node):
+            i = 0            
+            while i < len(x.keys) and k > x.keys[i]:
+                i = i + 1
+            if i < len(x.keys) and k == x.keys[i]: return (x, i)
+            elif x.leaf: return (None, 0)
+            else: return self.find(k, x.c[i])
+        else: return self.find(k, self.root)
+    
+    def print_tree(self):
+        out = self.root.print_node()
+        out += '\n'.join([child.print_node() for child in self.root.c])
+        return out      
+    \end{lstlisting}
+
+    \begin{lstlisting}
+A = [15, 68, 25, 8, 41, 23, 96, 3, 89, 53, 31, 92, 83, 30, 16, 51, 76, 88, 70, 90]
+root = BTree()
+root.b_tree_create(5)
+
+
+T = root
+for a in A:
+    T.b_tree_insert(a)
+
+print(root.print_tree())
+    
+T.b_tree_delete(5)
+
+print(root.print_tree())
+
+# Output:
+# Node: [25, 68]
+# Children: ['Leaf node:[3, 8, 15, 16, 23]', 'Leaf node:[30, 31, 41, 51, 53]', 'Leaf node:[70, 76, 83, 88, 89, 90, 92, 96]']
+# Leaf node:[3, 8, 15, 16, 23]
+# Leaf node:[30, 31, 41, 51, 53]
+# Leaf node:[70, 76, 83, 88, 89, 90, 92, 96]
+#
+# Delete(15)
+# Node: [25, 68]
+# Children: ['Leaf node:[3, 8, 15, 16, 23]', 'Leaf node:[30, 31, 41, 51, 53]', 'Leaf node:[70, 76, 83, 88, 89, 90, 92, 96]']
+# Leaf node:[3, 8, 16, 23]
+# Leaf node:[30, 31, 41, 51, 53]
+# Leaf node:[70, 76, 83, 88, 89, 90, 92, 96]
+    \end{lstlisting}
 
     \item \textbf{Tree Comparisons}
     
@@ -918,7 +1055,7 @@ print("B-Tree Height:", b_tree_root.height())
 # B-Tree Height: 21
     \end{lstlisting}
 
-    Now for the B-Tree the processing time and height are varied based upon the T value we select however it's probably safe to say that a good ammount more calculations are involved with B-Tree's given how much they do and the better big O times for certian outcomes.
+    Now for the B-Tree the processing time and height are varied based upon the random numbers and T value we select however it's probably safe to say that a good ammount more calculations are involved with B-Tree's given how much they do and the better big O times for certian outcomes.
 
     Never the less with a T value of 100 it took roughly \textbf{4 times longer and about double the hieght} of a regular binary tree for our final B-Tree.
 
@@ -927,8 +1064,232 @@ print("B-Tree Height:", b_tree_root.height())
   \item \textbf{Graph Algorithms}
   
   \begin{enumerate}
-    \item 
+    \item See Prob9GraphDataOut.txt, Prob9.py and in the printed code below refer to the method get\_euler\_comp(). The output reads like:
+    
+    \begin{lstlisting}
+ep = g.get_euler_comp(False)
+f = "The number of connected components of the graph that have an Euler path is {}.\n"
+out_txt += f.format(len(ep))
+
+# Output:
+# The number of connected components of the graph that have an Euler path is 2.
+    \end{lstlisting}
+
+    \item See Prob9GraphDataOut.txt, Prob9ab.py for the full output and in the printed code below refer to the method print\_euler\_comp\_list(). The output for the components reads like:
+    
+    \begin{lstlisting}
+out_txt += g.print_euler_comp_list(False)
+
+# Output:
+# The following 267 lines list the edges for an Euler path in the Component 1.
+# 1,99
+# ... See Prob9GraphDataOut.txt for full path output for each of the components.
+
+# The following 251 lines list the edges for an Euler path in the Component 2.
+# 700,710
+# ...
+    \end{lstlisting}
+
+    \item See Prob9GraphDataOut.txt, Prob9cd.py and in the printed code below refer to the method get\_euler\_comp(). The output reads like:
+    
+    \begin{lstlisting}
+ec = g.get_euler_comp(True)
+f = "\nThe number of connected components of the graph that have an Euler circuit is {}.\n\n"
+out_txt = f.format(len(ec))
+out_txt += g.print_euler_comp_list(True)
+print(out_txt)
+
+# Output:
+# The number of connected components of the graph that have an Euler circuit is 3.
+    \end{lstlisting}
+
+    \item See Prob9GraphDataOut.txt, Prob9ab.py for the full output and in the printed code below refer to the method print\_euler\_comp\_list(). The output for the components reads like:
+    
+    \begin{lstlisting}
+out_txt += g.print_euler_comp_list(True)
+print(out_txt)
+
+# Output:
+# The following 271 lines list the edges for an Euler circuit in the Component 1.
+# 1401,1442
+# ... See Prob9GraphDataOut.txt for full path output for each of the components.
+
+# The following 271 lines list the edges for an Euler circuit in the Component 2.
+# 2106,2192
+# ...
+
+# The following 265 lines list the edges for an Euler circuit in the Component 3.
+# 2800,2819
+# ...
+    \end{lstlisting}
+
+    The code for the Graph methods is listed below for reference.
+
+    \begin{lstlisting}
+class Graph:    
+  graph_dict = {}
+  adj = []
+  num_edges = 0
+  path_str = ""
+  euler_edge_count = 0
+
+  def add_edge(self, vert, connected_vert):  
+      if vert not in self.graph_dict:
+          self.graph_dict[vert] = [connected_vert]
+      else:
+          self.num_edges += 1
+          self.graph_dict[vert].append(connected_vert)
+          
+      if connected_vert not in self.graph_dict:
+          self.graph_dict[connected_vert] = [vert]
+      else:
+          self.graph_dict[connected_vert].append(vert)            
+
+  def print_graph_dict(self):
+      print(self.graph_dict)
+
+  def get_num_verts(self):
+      return len(self.graph_dict)
+  
+  def get_num_edges(self):
+      return self.num_edges
+  
+  def sort_dict(self):
+      self.adj = collections.OrderedDict(sorted(self.graph_dict.items()))
+      for key in self.adj:
+          self.adj[key].sort()
+  
+  def get_adj_list(self):
+      self.sort_dict();
+      s = ''
+      for key in self.adj:
+          x = ''
+          for value in self.adj[key]:
+              x += '{0},'.format(value)
+          s += "{0},{1}\n".format(key, x).replace(',\n', '\n')
+      return s + '\n'        
+  
+  def DFS(self, temp, vert, visited): 
+      visited[vert] = True
+      temp.append(vert) 
+      for i in self.adj[vert]: 
+          if visited[i] == False:                   
+              temp = self.DFS(temp, i, visited) 
+      return temp 
+              
+  def get_connected_comp(self):
+      self.sort_dict();
+      visited = [] 
+      cc = [] 
+      for i in range(list(self.adj.items())[-1][0] + 1):
+          visited.append(False) 
+      for v in self.adj: 
+          if visited[v] == False: 
+              cc.append(self.DFS([], v, visited)) 
+      return cc
+  
+  def get_euler_comp(self, is_circuit):        
+      cc = self.get_connected_comp()
+      ec = []
+      for c in cc:
+          is_euler_check = self.is_euler(c)
+          if is_euler_check == 2 and is_circuit:
+              ec.append(c)        
+          elif is_euler_check == 1 and not is_circuit:
+              ec.append(c)
+      return ec
+      
+  def is_euler(self, c):        
+      is_odd = 0
+      for i in c:            
+          if len(self.graph_dict[i]) % 2 is not 0:                 
+              is_odd += 1
+      # Is Euler Circuit
+      if is_odd == 0:
+          return 2
+      # Is Euler Path
+      elif is_odd == 2:
+          return 1
+      # Not Euler
+      elif is_odd > 2:
+          return 0
+  
+  def print_euler_comp_list(self, is_circuit):
+      out = ""
+      ec = self.get_euler_comp(is_circuit)  
+      for i in range(len(ec)):
+          self.path_str = ""
+          self.euler_edge_count = 0
+          self.get_euler_path(ec[i][0])
+          f = "\nThe following {} lines list the edges for an Euler {} in the Component {}.\n\n"            
+          out += f.format(self.euler_edge_count, "circuit" if is_circuit else "path", i + 1)
+          out += self.path_str
+      return out
+              
+  def is_valid_next_edge(self, x, y): 
+      if len(self.graph_dict[x]) == 1: 
+          return True
+      else:   
+          is_visited = [False] * (100000) 
+          first_v_count = self.DFS_Count(x, is_visited) 
+          
+          self.delete_edge(x, y)
+
+          is_visited = [False] * (100000) 
+          connected_v_count = self.DFS_Count(x, is_visited) 
+
+          self.add_edge(x,y) 
+
+          if first_v_count > connected_v_count:
+              return False
+          return True
+
+  def get_euler_path(self, x):
+      for y in self.graph_dict[x]: 
+          if self.is_valid_next_edge(x, y): 
+              self.path_str += "{},{}\n".format(x, y)
+              self.euler_edge_count += 1
+              self.delete_edge(x, y) 
+              self.get_euler_path(y)
+              
+  def delete_edge(self, x, y): 
+      for index, key in enumerate(self.graph_dict[x]): 
+          if key == y: 
+              self.graph_dict[x].pop(index) 
+      for index, key in enumerate(self.graph_dict[y]): 
+          if key == x: 
+              self.graph_dict[y].pop(index) 
+              
+  def DFS_Count(self, y, is_visited): 
+      count = 1
+      is_visited[y] = True
+      for i in self.graph_dict[y]:
+          if is_visited[i] == False: 
+              count = count + self.DFS_Count(i, is_visited)          
+      return count              
+  
+  def print_components_list(self):
+      cc = self.get_connected_comp()        
+      s = 'The number of connected components of the graph is {0}.\n'.format(len(cc))
+      for c in cc:
+          if len(c) > 0:
+              c.sort()
+              s += str(c[0]) + ', '
+              s += str(len(c)) + ', '
+              
+              e = 0
+              for i in range(len(c)):
+                  for j in c[i:]:
+                      if c[i] in self.graph_dict[j]:
+                          e += 1
+                          
+              s += str(e)
+              s += ' \n'
+      return s      
+    \end{lstlisting}
   \end{enumerate}
+
+  
 
   \end{enumerate}  % End of questions.
 \end{document}
