@@ -98,7 +98,7 @@
         \item and C = \# of complete nodes.
         \item The domain is all natural number values of $C \geq 0$. As a negitive or partial number of nodes would not make sense.
       \end{itemize}
-      \item The Inductive Steps:
+      \item The Inductive Steps, Base Case + 2:
       \begin{itemize}
         \item Base case: C = 0.
         \begin{itemize}
@@ -122,7 +122,9 @@
           \includegraphics[scale=0.3]{2a.png}
         \end{itemize}        
       \end{itemize}
-      \item For any $C \geq 0$ if $P(C)$ is true then $P(C + 1)$ must also be true.
+      \item The Inductive Proof:
+      
+      For any $C \geq 0$ if $P(C)$ is true then $P(C + 1)$ must also be true.
       \begin{itemize}
         \item Assume that hypothesis for some value of $P(C)$ is true then we must show that $P(C + 1)$ is true.
         \item We can show this using the induction hpyothesis with an equation like so.
@@ -202,7 +204,7 @@
           \item We want to prove that the function $f(n)$ returns a value equilivent to the equation, $4^{(n + 1)}(n + 1)$.
           \item Given any natural number $n$.
         \end{itemize}
-        \item The Inductive Steps:
+        \item The Inductive Steps, Base Case + 2:
         \begin{itemize}
           \item Base case $n = 0$. 
           \item True as $f(0) = 4$ and $4^1(1) = 4$
@@ -211,7 +213,7 @@
           \item Next step $n = 2$. 
           \item True as $f(2) = 192$ and $4^3(3) = 192$
         \end{itemize}
-        \item The Inductive Proof:
+        \item Inheritance, The Inductive Proof:
         \begin{itemize}
           \item Let's define our theory as for all $n > 0$ that if $P(n - 1)$ is true then $P(n)$ is also true. 
           \item If $n > 1$ then $f(n)$ returns $8*f(n - 1) - 16*f(n - 2)$. 
@@ -1289,7 +1291,108 @@ class Graph:
     \end{lstlisting}
   \end{enumerate}
 
+  \item \textbf{Optimal Matrix Multiplication}.
   
+  \begin{enumerate}
+    \item \textbf{Generate Data}.
+    See Data10.txt in the Zip for the random numbers, and Prob10a.py in the zip and below for the file code.
+
+    \begin{lstlisting}
+import random
+
+file_name = "Data10.txt"
+rn = [random.randint(1,10000) for i in range(1000)]
+f = open(file_name, "w+")
+
+for r in rn: 
+    f.write(str(r) + "\n")
+
+f.close()      
+    \end{lstlisting}
+    
+    \item So the total number of multiplications would be \textbf{999}, and we calcualte the optimal multiplations using a program like the following. See OptMult10.txt and Prob10b.py in the zip file for the full code and output.
+    
+    \begin{lstlisting}
+def matrix_chain_order(p, n):
+    m = [[0 for i in range(n)] for i in range(n)] 
+    
+    for l in range(2, n + 1):
+        for i in range(n - l + 1): 
+            j = i + l - 1
+            m[i][j] = sys.maxsize
+            for k in range(i, j): 
+                q = (m[i][k] + m[k + 1][j] + (p[i] * p[k + 1] * p[j + 1])); 
+                if (q < m[i][j]): 
+                    m[i][j] = q 
+                    m[j][i] = k + 1
+    return m
+
+def clean_out_str():
+    global out_lst
+    for i in range(len(out_lst)):
+        out_lst[i] = out_lst[i].replace(',]', ']')
+        out_lst[i] = out_lst[i].replace(',[', '[')
+        diff = out_lst[i].count('[') - out_lst[i].count(']')        
+        if diff > 0:
+            out_lst[i] = out_lst[i][diff:]
+        elif diff < 0:
+            out_lst[i] = out_lst[i][:len(out_lst[i]) - (diff * -1)]
+        
+
+def get_brackets(m, j, i):
+    global out_str
+    if j == i: 
+        out_str += str(j + 1) + ','        
+        return;
+    else: 
+        out_str += "["
+        get_brackets(m, m[j][i] - 1, i) 
+        get_brackets(m, j, m[j][i])
+        out_str += "]"
+        temp_str = out_str 
+        out_lst.append(out_str)      
+    \end{lstlisting}
+
+    below is the calculation code.
+
+    \begin{lstlisting}
+out_str = ""
+out_lst = []
+n = len(data) - 1
+m = matrix_chain_order(data, n)
+
+print("Number of multiplications:", str(len(m)))
+
+get_brackets(m, n - 1, 0)
+clean_out_str()
+
+f = open(out_file_name, "w+")
+for s in reversed(out_lst):
+    f.write(s)
+    f.write('\n\n')
+f.close()
+
+print(out_lst[0])
+
+# Output:
+# Number of multiplications: 999
+# [121[122[123[124[125[126[127[128[129[130[131[132[133[134[135[136[137[138
+# [139[140[141[142[143[144[145[146[147[148[149[150[151[152[153[154[155[156
+# [157[158[159[160[161[162[163[164[165[166[167[168[169[170[171[172[173[174
+# [175[176[177[178[179[180[181[182[183[184[185[186[187[188[189[190[191[192
+# [193[194[195[196[197[198[199[200[201[202[203[204[205[206[207[208[209[210
+# [211[212[213[214[215[216[217[218[219[220[221[222[223[224[225[226[227[228
+# [229[230[231[232[233[234[235[236[237[238[239[240[241[242[243[244[245[246
+# [247[248[249[250[251[252[253[254[255[256[257[258[259[260[261[262[263[264
+# [265[266[267[268[269[270[271[272[273[274[275[276[277[278[279[280[281[282
+# [283[284[285[286[287[288[289[290[291[292[293[294[295[296[297[298[299[300
+# [301[302[303[304[305[306[307[308[309[310[311[312[313[314[315[316[317[318
+# [319[320[321[322[323[324[325[326[327[328[329[330[331[332[333[334[335[336
+# [337[338[339[340[341[342[343[344[345[346[347[348[349[350[351[352[353[354
+# [355[356[357[358[359[360[361[362[363[364[365[366[367[368[369[370[371[372
+# [373,374]
+    \end{lstlisting}
+  \end{enumerate}
 
   \end{enumerate}  % End of questions.
 \end{document}
