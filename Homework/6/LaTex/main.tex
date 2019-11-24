@@ -146,6 +146,192 @@ print("In degrees:", get_in_degree(adj_list))
       \end{cases}
     \end{equation}
 
+    \item \textbf{22.2-9 p. 602}.
+    
+    First lets start with a depth first search algorithm, as it traverses through the edges one way then we can go back. 
+    As opposed to breadth which would give us an odd 360 path forcing us to cover edges multiple times.
+
+    The basic idea is deapth first seach will traverses each node and backtracks when it hits the end, in this case we'll allow it to travese each twice.
+
+    For the penny question following the same logic as the alogirthm if you place a penny in each hallyway you walk down you then can limit the hallways you allowing yourself to go down with ones that have less than two pennies.
+
+    \begin{lstlisting}
+      # Simple graph class using a dictionary as list of nodes and edges.
+      class Graph:   
+          def __init__(self): 
+              self.G = {}
+              
+          def __str__(self):
+              return str(self.G)
+        
+          def add_edge(self, u, v): 
+              if u in self.G:
+                  self.G[u].append(v) 
+              else:
+                  self.G[u] = [v]
+        
+          def DFS_visit(self, v, times_visited): 
+              times_visited[v] += 1
+              print(v, end = ' -> ') 
+              
+              for i in self.G[v]: 
+                  if times_visited[i] < 2:  
+                      self.DFS_visit(i, times_visited)
+                      self.add_edge(v, i)
+          
+          # Modified DFS/DFS-Visit from 22.3 p. 604 in the book.
+          def DFS(self): 
+              times_visited = [0] * (len(self.G)) 
+              
+              for v in self.G:
+                  self.DFS_visit(v, times_visited)
+                  break      
+    \end{lstlisting}
+
+    \begin{lstlisting}
+g = Graph() 
+g.add_edge(0, 1) 
+g.add_edge(1, 2) 
+g.add_edge(2, 3) 
+g.add_edge(3, 1) 
+
+print(g)
+
+g.DFS()
+
+# {0: [1], 1: [2], 2: [3], 3: [1]}
+# 0 -> 1 -> 2 -> 3 -> 1 -> 2 -> 3 -> 
+
+g = Graph() 
+g.add_edge(0, 1) 
+g.add_edge(0, 2) 
+g.add_edge(1, 2) 
+g.add_edge(2, 0) 
+g.add_edge(2, 3) 
+g.add_edge(3, 3) 
+
+print(g)
+
+g.DFS()      
+
+# Output:
+# {0: [1, 2], 1: [2], 2: [0, 3], 3: [3]}
+# 0 -> 1 -> 2 -> 0 -> 1 -> 2 -> 3 -> 3 ->
+    \end{lstlisting}
+
+    \item \textbf{22.3-12 p. 612}.
+    
+    Below is a modification to the alogirthm DFS on p. 604 where we add a new attribute to our Node type "cc" that says which connected component the node is a part of. 
+    We do this by adding it before the color check.
+
+    \begin{lstlisting}
+import collections      
+
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.color = 'WHITE'
+        self.cc = 0
+      
+    def __str__(self):
+        return "({}, {}, CC: {})".format(self.value, self.color, self.cc)
+    
+    def __repr__(self):
+        return str(self)
+    
+    def __hash__(self):
+        return hash(self.value)
+        
+    def __eq__(self, other):
+        return self.value == other.value
+
+    def __gt__(self, other):
+        return self.value > other.value
+    
+    def __lt__(self, other):
+        return self.value < other.value
+
+class Graph:    
+    graph_dict = {}
+    num_edges = 0
+
+    def add_edge(self, vert, connected_vert):  
+        if vert not in self.graph_dict:
+            self.graph_dict[vert] = [connected_vert]
+        else:
+            self.num_edges += 1
+            self.graph_dict[vert].append(connected_vert)
+            
+        if connected_vert not in self.graph_dict:
+            self.graph_dict[connected_vert] = [vert]
+        else:
+            self.graph_dict[connected_vert].append(vert)
+
+    def print_graph_dict(self):
+        for key in self.graph_dict:
+            print(str(key))
+            for v in self.graph_dict[key]:
+                print('\t' + str(v))
+    
+    # Algorithm based upon 22.3 p. 604
+    def dfs(self):
+        k = 1
+        for u in self.graph_dict:
+            if u.color == 'WHITE':
+                u.cc = k
+                k += 1
+                self.dfs_visit(u)
+                
+    def dfs_visit(self, u):
+        u.color = 'GRAY'
+        for v in self.graph_dict[u]:
+            v.cc = u.cc
+            if v.color == 'WHITE':
+                self.dfs_visit(v)
+        u.color = 'BlACK'      
+    \end{lstlisting}
+
+    \begin{lstlisting}
+g = Graph()
+
+# First CC
+g.add_edge(Node(0), Node(1))
+g.add_edge(Node(1), Node(2))
+g.add_edge(Node(1), Node(3))
+
+# Second CC
+g.add_edge(Node(4), Node(5))
+g.add_edge(Node(4), Node(6))
+g.add_edge(Node(6), Node(7))
+
+g.dfs()
+g.print_graph_dict()
+
+# Output:
+# Note the "CC" that says which component it is a part of.
+(0, BlACK, CC: 1)
+	(1, BlACK, CC: 1)
+(1, BlACK, CC: 1)
+	(0, BlACK, CC: 1)
+	(2, BlACK, CC: 1)
+	(3, BlACK, CC: 1)
+(2, BlACK, CC: 1)
+	(1, BlACK, CC: 1)
+(3, BlACK, CC: 1)
+  (1, BlACK, CC: 1)
+  
+(4, BlACK, CC: 2)
+	(5, BlACK, CC: 2)
+	(6, BlACK, CC: 2)
+(5, BlACK, CC: 2)
+	(4, BlACK, CC: 2)
+(6, BlACK, CC: 2)
+	(4, BlACK, CC: 2)
+	(7, BlACK, CC: 2)
+(7, BlACK, CC: 2)
+	(6, BlACK, CC: 2)
+    \end{lstlisting}
+
   \end{enumerate} % End Questions
 
 \end{document}
