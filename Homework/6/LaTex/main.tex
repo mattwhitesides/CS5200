@@ -332,6 +332,25 @@ g.print_graph_dict()
 	(6, BlACK, CC: 2)
     \end{lstlisting}
 
+    \item \textbf{23.1-4 p. 629}.
+    
+    Say we have a graph $V = \{a, b, c\}$ and $E = \{ab, ac, bc\}$ and weights $W = \{W_{ab} = 1, W_{ac} = 1, W_{bc} = 1\}$ which is simply a triangle of equal weighted edges.  
+
+    Since the edges are equal in weight we have three possible cuts we could make and still have a light edge cut $\{(ab, ac), (ab, bc), (ac, bc)\}$. 
+
+    Thus every edge is technically a light edge for any cut and each cut produces something equal to an MST but not the only MST given the original triangle is a cycle in and of itself.
+
+    \item \textbf{23.1-7 p. 630}.
+    
+    First lets define what we mean by a tree, "a tree is an undirected graph in which any two vertices are connected by exactly one path". 
+    Therefore if we take a subset of edges that connects all verticies and has a minimum total weight of possible edges.
+    By definition "a subset of edges that connects all verticies" fufills the first part of the tree defintion. 
+    However, "must be connected by exactly one path" will be fufilled by the minimum total weight of edges. Consider that all edge weights are positive therefore mathmatically the fewest number of edges possible would give the lowest possible total edge weight. 
+    Also each vertex must be part of at least one edge to connect all verticies therefore there'd only be one possible acyclic path.\\
+
+    To counter this if we allowed negative weights it may benift our proposed graph to include those negitive weight edges. For example if we take a super simple graph with edges \bm{$E = \{ab, ac, bc\}$} and weights \bm{$W_e = {W_{ab} = 1, W_{ac} = 1, W_{bc} = -2}$}.
+    We could just take edges $\{ab, ac\}$ and fufill being a subset of edges that connects all verticies with a ttotal weight of 2. However if we took all three edges we'd have a total weight of 0, but in that case we'd form a cyclic graph with multiple paths to each vert which would not be a tree.
+
   \end{enumerate} % End Questions
 
 \end{document}
