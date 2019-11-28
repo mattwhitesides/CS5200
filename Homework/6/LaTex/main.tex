@@ -328,7 +328,7 @@ g.print_graph_dict()
 (6, BlACK, CC: 2)
 	(4, BlACK, CC: 2)
 	(7, BlACK, CC: 2)
-(7, BlACK, CC: 2)
+  (7, BlACK, CC: 2)
 	(6, BlACK, CC: 2)
     \end{lstlisting}
 
@@ -350,6 +350,27 @@ g.print_graph_dict()
 
     To counter this if we allowed negative weights it may benift our proposed graph to include those negitive weight edges. For example if we take a super simple graph with edges \bm{$E = \{ab, ac, bc\}$} and weights \bm{$W_e = {W_{ab} = 1, W_{ac} = 1, W_{bc} = -2}$}.
     We could just take edges $\{ab, ac\}$ and fufill being a subset of edges that connects all verticies with a ttotal weight of 2. However if we took all three edges we'd have a total weight of 0, but in that case we'd form a cyclic graph with multiple paths to each vert which would not be a tree.
+
+    \item \textbf{23.1-10 p. 630}.
+    
+    Given T is already a minimum spanning tree it would be logical that if you were to decrease the weight of any of the edges in T only it would not effect T being still a minimum spanning tree, it would be even more "minimum". 
+    But lets try to prove that with math. 
+
+    Lets say $W_T$ is the weight (by the sum of edge weights) of tree $T$ in graph $G$ and $W_{T'}$ is the weight of a new tree $T'$ that has one of the edge weight in $T$ decreased.\\
+
+    Therefore we want to prove that $W_{T'} \leq W_T$. 
+
+    We can get $W_T$ by taking $\sum_{i}^{Edges} E_i \in T$.
+
+    We can say $T'$ is is equilivent to $T$ minus some constant $K$ therefore $T'$ equals: $\sum_{i}^{Edges} E_i - K \in T$.
+
+    Given that $K$ is always positive then $\sum_{i}^{Edges} E_i \in T \leq \sum_{i}^{Edges} E_i - K \in T$.
+
+    And given that we can say if $T \leq T_i \in G$ for all trees in graph $G$ that means $T' \leq T_i \in G$.
+
+    \item \textbf{23.2-2 p. 637}.
+    
+
 
   \end{enumerate} % End Questions
 
