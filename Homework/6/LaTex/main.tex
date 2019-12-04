@@ -370,6 +370,82 @@ g.print_graph_dict()
 
     \item \textbf{23.2-2 p. 637}. 
     
+    The following is an implemenation of Prim's algorithm based off the book p. 634. 
+    This runs in $O(V^2)$ time because instead of while Q is not Nil in the book the processing is done in two for v in range(V) loops.
+    As seen on lines 32 and 35. 
+
+    \begin{lstlisting}
+import sys
+
+class Graph(): 
+    def __init__(self, vertices): 
+        self.V = vertices 
+        self.G = [[0 for y in range(vertices)] for x in range(vertices)] 
+
+    def print_mst(self, pi): 
+        for i in range(1, self.V):
+            if pi[i] is not None:
+                print("Edge: ({0},{1}), Weight: {2}".format(pi[i], i, self.G[i][pi[i]]))
+
+    def extract_min(self, key, Q): 
+        min = sys.maxsize 
+
+        for v in range(self.V): 
+            if key[v] < min and Q[v] == 0: 
+                min = key[v] 
+                min_index = v 
+
+        return min_index 
+
+    def mst_prim(self):
+        key = [sys.maxsize] * self.V 
+        pi = [None] * self.V 
+
+        key[0] = 0 
+        Q = [0] * self.V 
+
+        pi[0] = -1
+
+        for v in range(self.V): 
+            u = self.extract_min(key, Q) 
+            Q[u] = 1
+            for v in range(self.V): 
+                if self.G[u][v] > 0 and Q[v] == 0 and key[v] > self.G[u][v]: 
+                    pi[v] = u
+                    key[v] = self.G[u][v] 
+
+
+        self.print_mst(pi)
+    \end{lstlisting}
+    
+The test outputs are first a simple grah of three nodes connected with two edges of differnt weights and the next is a slighly more complex example with 6 nodes.
+
+\begin{lstlisting}
+g = Graph(3) 
+g.G = [[0, 1, 0], [1, 0, 2], [0, 2, 0]] 
+g.mst_prim(); 
+
+# Output:
+# Edge: (0,1), Weight: 1
+# Edge: (1,2), Weight: 2
+
+g = Graph(6) 
+g.G = [[0, 11, 0, 6, 0, 1], 
+       [11, 0, 3, 10, 4, 0], 
+       [0, 3, 0, 0, 7, 3], 
+       [6, 10, 0, 0, 9, 0], 
+       [0, 4, 7, 9, 0, 0],
+       [1, 0, 2, 0, 0, 0]]
+g.mst_prim(); 
+
+# Output:
+# Edge: (2,1), Weight: 3
+# Edge: (5,2), Weight: 3
+# Edge: (0,3), Weight: 6
+# Edge: (1,4), Weight: 4
+# Edge: (0,5), Weight: 1
+\end{lstlisting}
+
 
 
   \end{enumerate} % End Questions
