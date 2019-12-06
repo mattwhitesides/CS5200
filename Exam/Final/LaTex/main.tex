@@ -50,11 +50,42 @@
  
   \begin{enumerate}
     \item \textbf{Hamiltonian Paths and Cycles}.
+    
+    Please refer to the following labled nodes version of the graph for some of the questions.\\
+    \includegraphics[scale=0.75]{1_Graph.png}
+
+    \begin{enumerate}
+        \item A Hamiltonian Path is defined as, "a graph path between two vertices of a graph that visits each vertex exactly once". Which yes this graph does have at least one. 
+        
+        For example the path in the labeled version above: 
+        
+        ${A \rightarrow F \rightarrow H \rightarrow I \rightarrow B \rightarrow C \rightarrow G \rightarrow J \rightarrow K \rightarrow D \rightarrow L}$ 
+        
+        would be a Hamiltonian Path.
+
+        \item A Hamiltonian Cycle is defined as, " is a graph cycle (i.e., closed loop) through a graph that visits each node exactly once.". Which yes this graph does have at least one. 
+        
+        
+    \end{enumerate}
+
     \item \textbf{General Graph Theory}.
+    \begin{enumerate}
+        \item ToDo.
+        \item Let's try a bit of a backword induction approach.
+        
+        If there are $N = 2$ people at the party then each person would have shaken hands with $(N - 1)$ person, e.g. the person other than John shook hands with one person which must be John.
+
+        So if $Q(n)$ is out problem given $n$ people how many hands did John shake then $Q(2) = 1$.
+
+        Now if $N = 3$ than we have John and two others which at most could have shaken hands with $(N - 1)$ person so the other handshakes would be $(N - 1), (N - 2)$ or $(2),(1)$.
+
+        
+        
+    \end{enumerate}
+
     \item \textbf{NP Complete Problems}.
     \item \textbf{Red-Black Trees, B-Trees, and Binary Search Trees}.
     \item \textbf{More Graph Algorithms}.
     \item \textbf{GCD}.
-    
   \end{enumerate}  % End of questions.
 \end{document}
