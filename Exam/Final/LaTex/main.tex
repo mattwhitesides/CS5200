@@ -63,8 +63,35 @@
         
         would be a Hamiltonian Path.
 
-        \item A Hamiltonian Cycle is defined as, " is a graph cycle (i.e., closed loop) through a graph that visits each node exactly once.". Which yes this graph does have at least one. 
+        \item A Hamiltonian Cycle is defined as, " is a graph cycle (i.e., closed loop) through a graph that visits each node exactly once.".
         
+        Given a node has to be used once, each node that has a degree of 2 would have to have both of it's edges used therefore edges (A,F),(F, H) and (J, G)(G, C) must be part of our cycle if one exists. 
+        
+        However if we must include these four edges note that no matter which direction we attemt to get to verticies (A, H) and (J, G) we form a closed subcircuit. 
+        See the graph below to demonstrate this note the blue are edges we know must be in there and red and orage are two possible paths to those edges and both form a closed loop without including all the other verticies.
+
+        \includegraphics[scale=0.3]{1_Graph2.jpg}
+
+        Therefore we know that this graph has no Hamiltonian cycle.
+
+        \item
+        \begin{itemize}          
+          \item \textbf{The Problem.}
+          \begin{itemize}
+            \item We want to prove an n-dimensional cube contains a Hamiltonian Cycle. 
+            \item An n-dimensional cube is defned as follows. It consists of the 2n vertices of the form $(a_0, a_1, ..., a_n)$ where each $a_i$ is either 0 or 1.
+            \item Hamiltonian Cycle is defined as, " is a graph cycle (i.e., closed loop) through a graph that visits each node exactly once.".
+            \item Our domain of n is any positive natual number in $n \ge 2$. As 0 would mean no edges or verticies and would be nothing, 1 would just be a line of two verticies which would not contain any cycles therefore not Hamiltonian, and a negitive numbers of edges does not make sense.
+          \end{itemize}
+          \item \textbf{Check the base case plus two others}.
+          \begin{itemize}
+            \item Base case: $n = 2$: This is true as this is just a square with 4 verticies and 4 edges, and if you simply use every edge you have formed a Hamiltonian cycle.
+            \item $n = 3$: This would form a cube which we could represnt with the following graph: 
+            
+            
+          \end{itemize}
+        \end{itemize}
+
         
     \end{enumerate}
 
@@ -78,8 +105,6 @@
         So if $Q(n)$ is out problem given $n$ people how many hands did John shake then $Q(2) = 1$.
 
         Now if $N = 3$ than we have John and two others which at most could have shaken hands with $(N - 1)$ person so the other handshakes would be $(N - 1), (N - 2)$ or $(2),(1)$.
-
-        
         
     \end{enumerate}
 
