@@ -83,16 +83,35 @@
             \item Hamiltonian Cycle is defined as, " is a graph cycle (i.e., closed loop) through a graph that visits each node exactly once.".
             \item Our domain of n is any positive natual number in $n \ge 2$. As 0 would mean no edges or verticies and would be nothing, 1 would just be a line of two verticies which would not contain any cycles therefore not Hamiltonian, and a negitive numbers of edges does not make sense.
           \end{itemize}
-          \item \textbf{Check the base case plus two others}.
+          \item \textbf{Check the base case plus one.}
           \begin{itemize}
             \item Base case: $n = 2$: This is true as this is just a square with 4 verticies and 4 edges, and if you simply use every edge you have formed a Hamiltonian cycle.
-            \item $n = 3$: This would form a cube which we could represnt with the following graph: 
             
+            I.e. if you go though $(0,0) \rightarrow (0,1) \rightarrow (1,1) \rightarrow (1,0) \rightarrow returns\;to\;(0,0)$.
+            \item $n = 3$: This would form a cube which we could represnt with the following graph (if you convert the letters to A = (0,0,0), B = (0,0,1).. etc:             
             
-          \end{itemize}
-        \end{itemize}
+            \includegraphics[scale=0.5]{cube.png}
 
-        
+            Which we can see has a Hamiltonian cycle if you follow the path:
+            
+            ${(A \rightarrow E \rightarrow F \rightarrow G \rightarrow H \rightarrow D \rightarrow C \rightarrow B \rightarrow returns\;to\;A)}$.
+          \end{itemize}
+          \item \textbf{The Inductive Hypothesis.}
+          \begin{itemize}
+            \item Lets assume using the induction Hypothesis that an (n - 1) dimensional cube does in fact contain a Hamiltonian Cycle.
+            \item We can agree that cube n is essentailly cube (n - 1) with all adjecent edges connected to another (n - 1) cube.
+            \item Lets define our n-dimensional cube as $C^n$.
+            \item Therefore say for each vertex $v \in C^{n - 1}$ there is an adjecent vertex $v \in C'^{n - 1}$ that forms $C^n$.
+            \item We can show this by our base cases of $n = 2$ is $(00, 01, 10, 11)$ then $n = 3$ is $(000, 001, 010, 011, 100, 101, 110, 111)$ .
+            \item So we know that an n-cube contains $2^{n−1}n$ edges and $2^(n - 1) * 2$ verticies therefore we have an extra $2^{(-1 + n)} (-2 + n)$ edges connecting two adject $(n - 1)$ cubes. 
+            \item We can also represent cube $n - 1$ within cube $n$ but adding a 0 in front of cube n's verticies (i.e. n = 2 is contained in (000, 001, 010, 011)) which we can call $v \in (0,1)^{n-1}$.
+            \item And we can form a path from every edge $0_{v \in cube(n - 1)}$ like shown in the example above, except for the edge that goes though $0_n$ (or all zeros). This leaves an edge to connect to vertex $1_{v \in cube(n - 1)}$, then a path back to $0_n$.
+            \item I.e. in the simple case n = 1 to n = 2. We have $v \in (0, 1)^1$ takes $0_{v \in cube(2 - 1)}$ or $00, 01$ connects those, then connects to $1_{v \in cube(2 - 1)}$ is $10, 11$ and finally back to $00$ to form the cycle.
+            \item This using the Inductive Hypothesis can be scaled up to any $n \geq 2$. 
+        \end{itemize}
+        \item \textbf{Concluson.}        
+        Therefore we have proven using the inductve Hypothesis that any n-dimensional cube where $n \ge 2$ does contain a Hamiltonian Cycle.
+      \end{itemize}
     \end{enumerate}
 
     \item \textbf{General Graph Theory}.
