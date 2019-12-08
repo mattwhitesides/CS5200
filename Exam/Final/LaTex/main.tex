@@ -63,12 +63,12 @@
         
         would be a Hamiltonian Path.
 
-        \item A Hamiltonian Cycle is defined as, " is a graph cycle (i.e., closed loop) through a graph that visits each node exactly once.".
+        \item A Hamiltonian Cycle is defined as, " is a graph cycle (i.e., closed-loop) through a graph that visits each node exactly once.".
+ 
+        Given a node has to be used once, each node that has a degree of 2 would have to have both of its edges used therefore edges (A,F),(F, H) and (J, G)(G, C) must be part of our cycle if one exists. 
         
-        Given a node has to be used once, each node that has a degree of 2 would have to have both of it's edges used therefore edges (A,F),(F, H) and (J, G)(G, C) must be part of our cycle if one exists. 
-        
-        However if we must include these four edges note that no matter which direction we attemt to get to verticies (A, H) and (J, G) we form a closed subcircuit. 
-        See the graph below to demonstrate this note the blue are edges we know must be in there and red and orage are two possible paths to those edges and both form a closed loop without including all the other verticies.
+        However, if we must include these four edges note that no matter which direction we attempt to get to vertices (A, H) and (J, G) we form a closed subcircuit. 
+        See the graph below to demonstrate this note the blue are edges we know must be in there and red and orange are two possible paths to those edges and both form a closed-loop without including all the other vertices.
 
         \includegraphics[scale=0.3]{1_Graph2.jpg}
 
@@ -147,38 +147,64 @@
 
         \item \textbf{Connectedness:}
         
-        To prove that $G'$ is connected when $G$ is disconnected lets start off saying that $G$ is disconnected. We just need to prove that $G'$ is connected.
+        To prove that $G'$ is connected when $G$ is disconnected let's start off saying that $G$ is disconnected. We just need to prove that $G'$ is connected.
 
         Lets say $(u, v) \notin G$ i.e. $(u, v)$ are a vertex edge pair that does not exsit in graph $G$, that means by definition that $(u, v) \in G'$ or $(u, v)$ are in $G$.
-
-        Now since $G$ is disconnected into multiple subgraphs any edge $(u, v) \in G$ are part of a subgraph, therefore any edge $(u', v')$ that would connect two verteicies in disconnect subgraphs must exist in $G'$.
-
-        Finally since $G$ is disconnected there is always an edge that does not exist from $v$ to any other $component\;subgraphs \in G$ meaning in the invese $G'$ there must exist a vertex edge from each vertex in one subgraph to the other component subgraph(s).
-
+       
+        Now since $G$ is disconnected into multiple subgraphs any edge $(u, v) \in G$ are part of a subgraph, therefore any edge $(u', v')$ that would connect two vertices in disconnect subgraphs must exist in $G'$.
+       
+        Finally, since $G$ is disconnected there is always an edge that does not exist from $v$ to any other $component\;subgraphs \in G$ meaning in the inverse $G'$ there must exist a vertex edge from each vertex in one subgraph to the other component subgraph(s).
+       
         I.e. if you take two component subgraphs edges $G = {(A)}, {(B,C)}$ must become $G' = {(A,B),(A,C)}$.
 
         \item \textbf{Chess:}
         
-        First lets establish the number of possible moves a Knight can have. When it's free in every direction it has 6 possible moves, when it's is in it's starting position or up aginst one wall there are 3, possible moves, and when it's in a corner there are 2 possible moves.
+        First, let's establish the number of possible moves a Knight can have. When it's free in every direction it has 6 possible moves when it's is in it's starting position or up against one wall there are 3, possible moves, and when it's in a corner there are 2 possible moves.
 
-        Therefore we can create and $8*8$ or $64$ node graph with each node having a degree equal to the valid possible moves for that node and connected to the nodes where the knight would end up if doing those moves. Once we have that graph we would look for an Eluerian path or a path that goes through each node exactly once.
-
-        However even we know that by defintion an Eluerian path "is necessary that zero or two vertices have an odd degree;", which our nodes that have a degree of 3 where the knights up aginst the walls is definately greater than 2 as there's 4 walls and multiple positions on the walls.
-
+        Therefore we can create and $8*8$ or $64$ node graph with each node having a degree equal to the valid possible moves for that node and connected to the nodes where the knight would end up if doing those moves. Once we have that graph we would look for a Eulerian path or a path that goes through each node exactly once.
+       
+        However even we know that by definition a Eulerian path "is necessary that zero or two vertices have an odd degree;", which our nodes that have a degree of 3 where the knights up against the walls are greater than 2 as there's 4 walls and multiple positions on the walls.
+       
         Therefore we know we cannot form a path in our graph that hits each node exactly once and thus the knight cannot move and hit each move exactly once.
 
         \item \textbf{Two Coloring:}
         
-        A graph is two colorable if it is a Bipartite graph and by defintion of a Bipartite graph, "a bipartite graph is a graph that does not contain any odd-length cycles.". 
+        A graph is two colorable if it is a Bipartite graph and by definition of a Bipartite graph, "a bipartite graph is a graph that does not contain any odd-length cycles.". 
 
-        Now unfortunately since we have an even number of verticies with an odd number of edges there must be at least one vertex that creates an odd lengthed cycle. 
-
-        Therefore we can not make a planar graph with 17 edges, and 10 verticies that can be 2-colored.
-
+        Now unfortunately since we have an even number of vertices with an odd number of edges there must be at least one vertex that creates an odd lengthed cycle. 
+       
+        Therefore we can not make a planar graph with 17 edges, and 10 vertices that can be 2-colored.
     \end{enumerate}
 
     \item \textbf{NP Complete Problems}.
+    
+    Note: Anytime I'm referencing the "book" I am referring to, "Introduction to Algorithms, 3rd Edition (The MIT Press) 3rd Edition by Thomas H. Cormen".
+ 
+    \begin{enumerate}
+      \item This particular problem is closely related to the "Circuit Satisfiability" problem in the book on p.1070 (see the book for full proof). Which is an \textbf{NP-Complete} problem on weather any given inputs in a circuit can produce a true output.
+      You can pretty easily tell this problem in NP by simply taking a given solution and running it through the circuit to verify the faulty gate gives the same value no matter then input. 
+      However, we know this type of problem is NP-Hard this proof essentially boils down to there's a polynomial-time number of input elements for every state in the circuit so even if a polynomial-time algorithm existed to verify one state each state would require a separate polynomial-time language. 
+      
+      \item I believe this problem is solvable in \textbf{NP-Complete}, if each node in a graph has a degree of two or less then it's essentially just a path with one in and one out edge for each node which is exactly what a "Hamiltonian Path" is, which is known to be NP-Complete, see book chapter 34.2 for proof.
+      This problem is in NP as we can simply test in O(n) linear time if each node does have a degree of two or less. Also, this problem is closely related to the "Hamiltonian Cycle" problem which is NP-Complete which is just a Hamiltonian Path that ends at the same point it began. 
+      Also, it's related to the "Circuit Satisfiability" problem we discussed in the previous question.
+    
+      \item We know that a minimum weight spanning tree (MST) can be found in \textbf{Polynomial Time} see book p.624 for an example of an O(E lg V) algorithm, and all we have to do once we have the MST is check if the total weight is less than some number K and you have your answer. 
+      Therefore the problem is not NP-Hard and not NP-Complete. 
+    
+      \item Since we're not looking for the optimal scheduling solution we are just looking to see if we can schedule tasks under some constant time I call this solvable in \textbf{Polynomial Time} see book p.443 for an example of a task-scheduling solution. 
+      Once we've found a minimum scheduling time we just need to check if it is under the given completion deadline. 
+    
+      \item First we can tell this problem is in NP easily by checking if our solution has each subset of vertices in $V_i \leq K$ and sum of weights of edges $V_i, V_j \leq J$ in at most $O(n^2)$ time. However, we are given Vertices, Edges, the sum of vertices, and the sum of edges.
+      This is similar to the "Clique" problem, see book p.1087 with an added layer of complexity and that problem has been proven to be \textbf{NP-Complete}.      
+    \end{enumerate}
+
     \item \textbf{Red-Black Trees, B-Trees, and Binary Search Trees}.
+    
+    \begin{enumerate}
+      \item   
+    \end{enumerate}
+
     \item \textbf{More Graph Algorithms}.
     \item \textbf{GCD}.
   \end{enumerate}  % End of questions.
