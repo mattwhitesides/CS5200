@@ -12,6 +12,8 @@
 
 \usepackage[margin=1.25in]{geometry}
 
+\DeclareUnicodeCharacter{2212}{-}
+
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.86,0.27,0.22}
@@ -730,6 +732,199 @@ B-Tree Times Standard Dev: 0.1647701717343564
     \end{enumerate}
 
     \item \textbf{More Graph Algorithms}.
+    
     \item \textbf{GCD}.
+    
+    \begin{enumerate}
+        \item Lets say:
+        
+        \[GCD(p, q) = d\]
+        
+        Then we can say:
+
+        \[p = p'd\]
+        \[q = q'd\]
+
+        \item TODO
+        \item TODO
+        
+        \item The following is an implemenation based upon the previous three defintions and the EXTENDED-EUCLID algorithm in the book chapter 31.2. Code also avaialbe in the zip file under 6.py.
+        
+        \begin{lstlisting}
+def gcd(p, q):
+    p = format(p, 'b')
+    q = format(q, 'b')
+    result = gcd_util(p, q)
+    return int(result, 2)
+
+def gcd_util(p, q):
+    # Base Cases
+    if p == q:
+        return p
+
+    if is_zero(p):
+        return p
+
+    if is_zero(q):
+        return q
+
+    # Proof 6a: If p is even divide by two.
+    if is_even(p):
+        if is_even(q):
+            return shift_left(gcd_util(shift_right(p), shift_right(q)))
+        else:
+            return gcd_util(shift_right(p), q)
+
+    # Proof 6b: If p is odd and q is even.
+    if (is_even(q)):
+        return gcd_util(p, shift_right(q))
+
+    # Proof 6c: If p and q are both odd and p > q.
+    if is_greater(p, q):
+        return gcd_util(shift_right(minus(p, q)), q)
+
+    return gcd_util(shift_right(minus(q, p)), p)
+
+def is_zero(s):
+    return s == len(s) * '0'
+
+def is_even(s):
+    return s[len(s) - 1] == '0'
+
+# Multiply by two, by adding a zero to the end.
+def shift_left(s):
+    return s + '0'
+
+# Divide by two, by removing the last char.
+def shift_right(s):
+    return s[: -1]
+
+def is_greater(x, y):
+    if len(x) > len(y):
+        return True
+    return int(x, 2) > int(y, 2)
+
+def minus(x, y):
+    return format(int(x, 2) - int(y, 2), 'b')            
+        \end{lstlisting}
+
+        Next is some tests based upon the built in math function for 100 random numbers between 0 and 10,000,000.
+
+        \begin{lstlisting}
+import math
+import random
+
+rand_nums = [(random.randrange(0, 10000000), random.randrange(0, 10000000)) for i in range(100)]
+
+for n in rand_nums:
+    my_gcd = gcd(n[0], n[1])
+    math_gcd = math.gcd(n[0], n[1])
+    valid = my_gcd == math_gcd
+    s = "GCD({},{}) = {}: Valid = {}".format(str(n[0]), str(n[1]), str(my_gcd), str(valid))
+    print(s)
+
+# Output:
+GCD(1538856,3119886) = 198: Valid = True
+GCD(7914355,1511558) = 1: Valid = True
+GCD(7689698,3196157) = 1: Valid = True
+GCD(9215805,9153735) = 15: Valid = True
+GCD(689520,6448224) = 48: Valid = True
+GCD(1091935,8600069) = 1: Valid = True
+GCD(6699525,3740816) = 1: Valid = True
+GCD(8343132,1335031) = 1: Valid = True
+GCD(5668326,6372101) = 1: Valid = True
+GCD(507207,7191700) = 1: Valid = True
+GCD(1657302,8695889) = 1: Valid = True
+GCD(3895432,9300223) = 1: Valid = True
+GCD(1447369,4070530) = 1: Valid = True
+GCD(625554,7662878) = 2: Valid = True
+GCD(4099520,9983340) = 20: Valid = True
+GCD(4242430,8746934) = 2: Valid = True
+GCD(4224013,9944584) = 1: Valid = True
+GCD(7924562,8333583) = 1: Valid = True
+GCD(3689938,7683761) = 1: Valid = True
+GCD(2538929,5714762) = 1: Valid = True
+GCD(7283602,6257603) = 1: Valid = True
+GCD(6224831,3717497) = 1: Valid = True
+GCD(9902804,5713719) = 1: Valid = True
+GCD(3486538,444740) = 2: Valid = True
+GCD(9727931,3666453) = 1: Valid = True
+GCD(5103688,7288129) = 1: Valid = True
+GCD(1813503,2072732) = 1: Valid = True
+GCD(2335878,6392912) = 2: Valid = True
+GCD(1346708,6402414) = 2: Valid = True
+GCD(5094314,205662) = 2: Valid = True
+GCD(6004650,5128461) = 3: Valid = True
+GCD(9168461,9678714) = 1: Valid = True
+GCD(2458709,4581295) = 1: Valid = True
+GCD(8260594,8354852) = 2: Valid = True
+GCD(8588868,6014742) = 6: Valid = True
+GCD(9133893,3748095) = 9: Valid = True
+GCD(2767474,8592140) = 2: Valid = True
+GCD(2783352,1884924) = 12: Valid = True
+GCD(1506689,8603835) = 1: Valid = True
+GCD(972762,5818927) = 1: Valid = True
+GCD(1469327,210559) = 1: Valid = True
+GCD(4389611,5808938) = 1: Valid = True
+GCD(4773064,9205376) = 8: Valid = True
+GCD(9120320,5344503) = 1: Valid = True
+GCD(3690248,7216206) = 2: Valid = True
+GCD(5514667,1897652) = 1: Valid = True
+GCD(9465515,520126) = 1: Valid = True
+GCD(6947848,8186467) = 1: Valid = True
+GCD(1520632,2273765) = 1: Valid = True
+GCD(8056159,4056243) = 1: Valid = True
+GCD(7370289,4497508) = 1: Valid = True
+GCD(7926750,6743645) = 5: Valid = True
+GCD(3834517,5254726) = 1: Valid = True
+GCD(2354774,2429083) = 1: Valid = True
+GCD(3100935,3779216) = 1: Valid = True
+GCD(9000615,4923537) = 3: Valid = True
+GCD(8504032,4515543) = 1: Valid = True
+GCD(9668345,9586247) = 1: Valid = True
+GCD(3410580,9316504) = 4: Valid = True
+GCD(9976159,2307393) = 1: Valid = True
+GCD(334049,561823) = 1: Valid = True
+GCD(4302445,1028250) = 5: Valid = True
+GCD(8887907,5956705) = 1: Valid = True
+GCD(774851,7782759) = 29: Valid = True
+GCD(143844,7501340) = 4: Valid = True
+GCD(2954894,8403757) = 1: Valid = True
+GCD(4775893,4355683) = 1: Valid = True
+GCD(4349212,8702977) = 1: Valid = True
+GCD(8748750,4768746) = 6: Valid = True
+GCD(3654456,1339660) = 4: Valid = True
+GCD(130625,4382430) = 5: Valid = True
+GCD(7393393,8294257) = 1: Valid = True
+GCD(74839,2065316) = 1: Valid = True
+GCD(2836026,6028635) = 3: Valid = True
+GCD(6656040,7303050) = 90: Valid = True
+GCD(6582605,3174664) = 1: Valid = True
+GCD(9037991,4158127) = 1: Valid = True
+GCD(4374985,9406388) = 1: Valid = True
+GCD(3431537,5710879) = 1: Valid = True
+GCD(4522902,8356726) = 2: Valid = True
+GCD(9645750,1487810) = 10: Valid = True
+GCD(7797770,6749390) = 10: Valid = True
+GCD(8849941,9409346) = 1: Valid = True
+GCD(6701792,1346482) = 2: Valid = True
+GCD(1297385,3483966) = 1: Valid = True
+GCD(3011548,9145584) = 172: Valid = True
+GCD(464411,8283354) = 1: Valid = True
+GCD(2124342,4066508) = 2: Valid = True
+GCD(3736756,8176411) = 1: Valid = True
+GCD(34389,2818507) = 1: Valid = True
+GCD(7083235,7095524) = 1: Valid = True
+GCD(1535923,7422923) = 1: Valid = True
+GCD(8946907,2019604) = 1: Valid = True
+GCD(4951742,3698815) = 1: Valid = True
+GCD(171714,7487361) = 3: Valid = True
+GCD(9240535,5032304) = 1: Valid = True
+GCD(6453503,5370161) = 1: Valid = True
+GCD(9156934,2304982) = 2: Valid = True
+GCD(9889135,3125602) = 1: Valid = True
+GCD(9507098,4548646) = 2: Valid = True    
+        \end{lstlisting}
+    \end{enumerate}
   \end{enumerate}  % End of questions.
 \end{document}
