@@ -350,7 +350,7 @@ class RBTree():
         x.p = y        
       \end{lstlisting}
 
-      Test output based on the graph show in the book p. 314 figure 13.3.
+      Test output based on the graph shown in the book p. 314 figure 13.3.
 
       \begin{lstlisting}
 tree = RBTree()
@@ -750,6 +750,8 @@ B-Tree Times Standard Dev: 0.1647701717343564
         
         \item The following is an implemenation based upon the previous three defintions and the EXTENDED-EUCLID algorithm in the book chapter 31.2. Code also avaialbe in the zip file under 6.py.
         
+        The main algorithm is in the gcd\_util() method as the main GCD converts the given number to a binary string and keeps itself seperate from the recursion.
+        
         \begin{lstlisting}
 def gcd(p, q):
     p = format(p, 'b')
@@ -808,7 +810,7 @@ def minus(x, y):
     return format(int(x, 2) - int(y, 2), 'b')            
         \end{lstlisting}
 
-        Next is some tests based upon the built in math function for 100 random numbers between 0 and 10,000,000.
+        Next is some tests on 100 pairs of random numbers between 0 and 10,000,000, using the built in math.gcd function for validation that our our custom GCD algorithm works.
 
         \begin{lstlisting}
 import math
