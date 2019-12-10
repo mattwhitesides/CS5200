@@ -12,6 +12,8 @@
 
 \usepackage[margin=1.25in]{geometry}
 
+\DeclareUnicodeCharacter{2212}{-}
+
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.86,0.27,0.22}
@@ -94,7 +96,7 @@
 
             Which we can see has a Hamiltonian cycle if you follow the path:
             
-            ${(A \rightarrow E \rightarrow F \rightarrow G \rightarrow H \rightarrow D \rightarrow C \rightarrow B \rightarrow returns\;to\;A)}$.
+            ${000 \rightarrow 001 \rightarrow 011 \rightarrow 010 \rightarrow 110 \rightarrow 111 \rightarrow 101 \rightarrow 100 \rightarrow 000}$.
           \end{itemize}
           \item \textbf{The Inductive Hypothesis.}
           \begin{itemize}
@@ -129,12 +131,24 @@
         
         Let's try a bit of a backword induction approach.
         
-        If there are $N = 2$ people at the party then each person would have shaken hands with $(N - 1)$ person, e.g. the person other than John shook hands with one person which must be John.
+        If there are $N = 2$ people at the party then each person would have shaken hands with $(N - 1)$ person, e.g. the person other than John shook hands with one person which must be John. \\
 
-        So if $Q(n)$ is out problem given $n$ people how many hands did John shake then $Q(2) = 1$.
+        So if $Q(n)$ is the problem in question given $n = 2$ people how many hands did John shake then $Q(2) = 1$. \\
 
-        Now if $N = 3$ than we have John and two others which at most could have shaken hands with $(N - 1)$ person so the other handshakes would be $(N - 1), (N - 2)$ or $(2),(1)$.
+        Now if $N = 3$ than we have John and two others which at most could have shaken hands with $(N - 1)$ person so the other handshakes would be $(N - 1), (N - 2)$ or $(2),(1)$.         
+        Therefore the Person with two handshakes would have shook John and Person 2, then Person 2 would have just shook hands with Person 1 so John would have 1 handshake. \\
 
+        If $N = 4$ we have a graph like $V = \{A, B, C, John\}$ then if F is a function of handsakes 
+        
+        $F(A) = (N - 1) = \{B, C, John\}$
+        
+        $F(B) = (N - 2)\;People = \{A, John\}$
+        
+        $F(C) = (N - 3)\;People = \{A\}$ 
+        
+        therefore $F(John) = ? = \{A, B\}$ or 2 handshakes. \\
+
+        If we scale this up we can deduce John will shake hands with $N//2$ people or if there are 10 people at the part John will shake hands with \textbf{5 people}.
         \item \textbf{(Vertex Degrees):}
         
         We want to prove every graph with $n \geq 2$ nodes must have at least two verticies having the same degree. \\
@@ -824,7 +838,7 @@ for n in rand_nums:
     print(s)
 
 # Output:
-GCD(1538856,3119886) = 198: Valid = True 
+GCD(1538856,3119886) = 198: Valid = True
 GCD(7914355,1511558) = 1: Valid = True
 GCD(7689698,3196157) = 1: Valid = True
 GCD(9215805,9153735) = 15: Valid = True
