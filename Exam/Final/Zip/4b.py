@@ -1,13 +1,15 @@
-
+#!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[19]:
 
 
 import sys
+import time
+import statistics
 
 
-# In[2]:
+# In[11]:
 
 
 class Node():
@@ -196,7 +198,7 @@ class RBTree():
         x.p = y
 
 
-# In[3]:
+# In[21]:
 
 
 tree = RBTree()
@@ -217,4 +219,80 @@ tree.rb_insert(20)
 
 print("RBTree Height:", tree.get_height())
 tree.print_tree()
+
+
+# In[3]:
+
+
+import random
+
+for i in range(10):
+    file_name = "Data{0}.txt".format(str(i))
+    rn = [random.randint(1,10000) for i in range(10000)]
+    f = open(file_name, "w+")
+    for r in rn: 
+        f.write(str(r) + "\n")
+
+f.close()
+
+data = []
+
+for i in range(10):
+    file_name = "Data{0}.txt".format(str(i))
+    with open(file_name) as f:
+        data_str = f.readlines()
+    data.append([int(x.strip()) for x in data_str])
+
+print(len(data))
+
+
+# In[8]:
+
+
+data = []
+
+for i in range(10):
+    file_name = "Data{0}.txt".format(str(i))
+    with open(file_name) as f:
+        data_str = f.readlines()
+    data.append([int(x.strip()) for x in data_str])
+
+print(len(data))
+
+
+# In[20]:
+
+
+heights = []
+times = []
+
+for i in range(10):
+    start = time.time()
+    
+    tree = RBTree()
+    for value in data[i]:
+        tree.rb_insert(value)
+    
+    end = time.time()
+    
+    heights.append(tree.get_height())
+    times.append(end - start)
+
+    
+print("RBTrees Heights:", str(heights))
+print("RBTrees Times:", str(times))
+print("")
+print("RBTrees heights Mean:", statistics.mean(heights))
+print("RBTrees heights median:", statistics.median(heights))
+print("RBTrees heights Standard Dev:", statistics.stdev(heights))
+print("")
+print("RBTrees Times Mean:", statistics.mean(times))
+print("RBTrees Times median:", statistics.median(times))
+print("RBTrees Times Standard Dev:", statistics.stdev(times))
+
+
+# In[ ]:
+
+
+
 

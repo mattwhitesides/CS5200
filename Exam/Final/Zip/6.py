@@ -5,12 +5,39 @@
 
 
 def gcd(p, q):
+    """
+    Formats the given numbers into binary and calculates the 
+    greatest common divisor by calling the gcd_util method.
+    ----------
+    Parameters
+        p : int
+            The first number
+        q : int
+            The second number        
+    -------
+    Returns
+        int
+            The gcd in integer form.
+    """
     p = format(p, 'b')
     q = format(q, 'b')
     result = gcd_util(p, q)
     return int(result, 2)
 
 def gcd_util(p, q):
+    """
+    Calculates the greatest common divisor using recursive binary string manipulation.
+    ----------
+    Parameters
+        p : int
+            The first number
+        q : int
+            The second number        
+    -------
+    Returns
+        int
+            The gcd in binary string form.
+    """
     # Base Cases
     if p == q:
         return p
