@@ -111,7 +111,7 @@
             \item This using the Inductive Hypothesis can be scaled up to any $n \geq 2$. 
         \end{itemize}
         \item \textbf{Concluson.}        
-        Therefore we have proven using the inductve Hypothesis that any n-dimensional cube where $n \ge 2$ does contain a Hamiltonian Cycle.
+        Therefore we have proven using the inductive Hypothesis that any n-dimensional cube where $n \ge 2$ does contain a Hamiltonian Cycle.
       \end{itemize}
     \end{enumerate}
 
@@ -124,7 +124,7 @@
 
         \includegraphics[scale=0.4]{2a}
 
-        Therefore due the Max Flow / Min Cut theorm the maximal flow of the network is \bm{$f = 20$}.
+        Therefore due the Max Flow / Min Cut theorem the maximal flow of the network is \bm{$f = 20$}.
 
         \item \textbf{(Handshaking):}
         
@@ -152,7 +152,7 @@
         
         We want to prove every graph with $n \geq 2$ nodes must have at least two vertices having the same degree. \\
                 
-        First lets start with the possible degrees any given vertex can have in the graph with $n = num\;verticies$, then the range of possible degrees a vertex can have is $[1, n - 1]$. \\
+        First lets start with the possible degrees any given vertex can have in the graph with $n = num\;vertices$, then the range of possible degrees a vertex can have is $[1, n - 1]$. \\
         
         Therefore since the number of available options for $n$ vertices is $n - 1$ in the worst case we have at least one vertex that would have to share a degree with another one, since $n > (n - 1)$. \\
     
@@ -162,7 +162,7 @@
         
         To prove that $G'$ is connected when $G$ is disconnected let's start off saying that $G$ is disconnected. We just need to prove that $G'$ is connected.
 
-        Lets say $(u, v) \notin G$ i.e. $(u, v)$ are a vertex edge pair that does not exsit in graph $G$, that means by definition that $(u, v) \in G'$ or $(u, v)$ are in $G$.
+        Lets say $(u, v) \notin G$ i.e. $(u, v)$ are a vertex edge pair that does not exist in graph $G$, that means by definition that $(u, v) \in G'$ or $(u, v)$ are in $G$.
        
         Now since $G$ is disconnected into multiple sub-graphs any edge $(u, v) \in G$ are part of a sub-graph, therefore any edge $(u', v')$ that would connect two vertices in disconnect sub-graphs must exist in $G'$.
        
@@ -445,7 +445,7 @@ tree.print_tree()
       \end{lstlisting}
 
 
-      \item Below is the code used to generate 10 files of 10,000 random integers. See Zip file for all data files and 4b.py for full implemenation and code of the analysis below.
+      \item Below is the code used to generate 10 files of 10,000 random integers. See Zip file for all data files and 4b.py for full implementation and code of the analysis below.
       
       \begin{lstlisting}
 import random
@@ -473,7 +473,7 @@ print(len(data))
 # 10
       \end{lstlisting}
 
-      Below is the analysis of the RB Tree algorithm implementated above, see 4b.py for full code. 
+      Below is the analysis of the RB Tree algorithm implemented above, see 4b.py for full code. 
 
       \begin{lstlisting}
 heights = []
@@ -516,7 +516,7 @@ print("RBTrees Times Standard Dev:", statistics.stdev(times))
 # RBTrees Times Standard Dev: 0.02019085514989934
       \end{lstlisting}
 
-      Next is my analysis of my BST algorihm from Prelim2, see 4b\_BST.py for full code.
+      Next is my analysis of my BST algorithm from Prelim2, see 4b\_BST.py for full code.
 
     \begin{lstlisting}
 class Node: 
@@ -597,7 +597,7 @@ print("BST Times Standard Dev:", statistics.stdev(times))
 # BST Times Standard Dev: 0.009694087189213559
     \end{lstlisting}
 
-    Finally is my analysis of my B-Tree algorihm from Prelim2, see 4b\_BTree.py for full code.
+    Finally is my analysis of my B-Tree algorithm from Prelim2, see 4b\_BTree.py for full code.
 
     \begin{lstlisting}
 class Node(object):
@@ -755,7 +755,7 @@ print("B-Tree Times Standard Dev:", statistics.stdev(times))
 # B-Tree Times Standard Dev: 0.1647701717343564
     \end{lstlisting}
 
-    Therefore our final analysis is the following. Intresting however B-Trees are heavily dependent on the initial level set for them to create off of this would probably need to be tweaked.
+    Therefore our final analysis is the following. Interesting however B-Trees are heavily dependent on the initial level set for them to create off of this would probably need to be tweaked.
 
     \begin{lstlisting}      
 RBTrees Heights Mean: 13.7
@@ -836,7 +836,7 @@ B-Tree Times Standard Dev: 0.1647701717343564
 
         And the last question we proved $GCD(p, q) = GCD(p, q / 2)$ if p is odd and q is even.\\
 
-        Which we know $(p - q)$ is even and can just flip the properties around using therom 31.6 ($GCD(a, b) = GCD(b, a)$).\\
+        Which we know $(p - q)$ is even and can just flip the properties around using theorem 31.6 ($GCD(a, b) = GCD(b, a)$).\\
 
         Which leaves us finally $GCD(p, q) = GCD((p - q) / 2, q)$.
         
