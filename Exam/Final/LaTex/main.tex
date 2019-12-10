@@ -12,8 +12,6 @@
 
 \usepackage[margin=1.25in]{geometry}
 
-\DeclareUnicodeCharacter{2212}{-}
-
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.86,0.27,0.22}
@@ -70,7 +68,7 @@
  
         Given a node has to be used once, each node that has a degree of 2 would have to have both of its edges used therefore edges (A,F),(F, H) and (J, G)(G, C) must be part of our cycle if one exists. 
         
-        However, if we must include these four edges note that no matter which direction we attempt to get to vertices (A, H) and (J, G) we form a closed subcircuit. 
+        However, if we must include these four edges note that no matter which direction we attempt to get to vertices (A, H) and (J, G) we form a closed sub-circuit. 
         See the graph below to demonstrate this note the blue are edges we know must be in there and red and orange are two possible paths to those edges and both form a closed-loop without including all the other vertices.
 
         \includegraphics[scale=0.3]{1_Graph2.jpg}
@@ -82,16 +80,16 @@
           \item \textbf{The Problem.}
           \begin{itemize}
             \item We want to prove an n-dimensional cube contains a Hamiltonian Cycle. 
-            \item An n-dimensional cube is defned as follows. It consists of the 2n vertices of the form $(a_0, a_1, ..., a_n)$ where each $a_i$ is either 0 or 1.
+            \item An n-dimensional cube is defined as follows. It consists of the 2n vertices of the form $(a_0, a_1, ..., a_n)$ where each $a_i$ is either 0 or 1.
             \item Hamiltonian Cycle is defined as, " is a graph cycle (i.e., closed loop) through a graph that visits each node exactly once.".
-            \item Our domain of n is any positive natual number in $n \ge 2$. As 0 would mean no edges or verticies and would be nothing, 1 would just be a line of two verticies which would not contain any cycles therefore not Hamiltonian, and a negitive numbers of edges does not make sense.
+            \item Our domain of n is any positive natural number in $n \ge 2$. As 0 would mean no edges or vertices and would be nothing, 1 would just be a line of two vertices which would not contain any cycles therefore not Hamiltonian, and a negative numbers of edges does not make sense.
           \end{itemize}
           \item \textbf{Check the base case plus one.}
           \begin{itemize}
-            \item Base case: $n = 2$: This is true as this is just a square with 4 verticies and 4 edges, and if you simply use every edge you have formed a Hamiltonian cycle.
+            \item Base case: $n = 2$: This is true as this is just a square with 4 vertices and 4 edges, and if you simply use every edge you have formed a Hamiltonian cycle.
             
             I.e. if you go though $(0,0) \rightarrow (0,1) \rightarrow (1,1) \rightarrow (1,0) \rightarrow returns\;to\;(0,0)$.
-            \item $n = 3$: This would form a cube which we could represnt with the following graph (if you convert the letters to A = (0,0,0), B = (0,0,1).. etc:             
+            \item $n = 3$: This would form a cube which we could represent with the following graph (if you convert the letters to A = (0,0,0), B = (0,0,1).. etc:             
             
             \includegraphics[scale=0.5]{cube.png}
 
@@ -102,12 +100,12 @@
           \item \textbf{The Inductive Hypothesis.}
           \begin{itemize}
             \item Lets assume using the induction Hypothesis that an (n - 1) dimensional cube does in fact contain a Hamiltonian Cycle.
-            \item We can agree that cube n is essentailly cube (n - 1) with all adjecent edges connected to another (n - 1) cube.
+            \item We can agree that cube n is essentially cube (n - 1) with all adjacent edges connected to another (n - 1) cube.
             \item Lets define our n-dimensional cube as $C^n$.
-            \item Therefore say for each vertex $v \in C^{n - 1}$ there is an adjecent vertex $v \in C'^{n - 1}$ that forms $C^n$.
+            \item Therefore say for each vertex $v \in C^{n - 1}$ there is an adjacent vertex $v \in C'^{n - 1}$ that forms $C^n$.
             \item We can show this by our base cases of $n = 2$ is $(00, 01, 10, 11)$ then $n = 3$ is $(000, 001, 010, 011, 100, 101, 110, 111)$ .
-            \item So we know that an n-cube contains $2^{n−1}n$ edges and $2^(n - 1) * 2$ verticies therefore we have an extra $2^{(-1 + n)} (-2 + n)$ edges connecting two adject $(n - 1)$ cubes. 
-            \item We can also represent cube $n - 1$ within cube $n$ but adding a 0 in front of cube n's verticies (i.e. n = 2 is contained in (000, 001, 010, 011)) which we can call $v \in (0,1)^{n-1}$.
+            \item So we know that an n-cube contains $2^{n−1}n$ edges and $2^(n - 1) * 2$ vertices therefore we have an extra $2^{(-1 + n)} (-2 + n)$ edges connecting two adjacent $(n - 1)$ cubes. 
+            \item We can also represent cube $n - 1$ within cube $n$ but adding a 0 in front of cube n's vertices (i.e. n = 2 is contained in (000, 001, 010, 011)) which we can call $v \in (0,1)^{n-1}$.
             \item And we can form a path from every edge $0_{v \in cube(n - 1)}$ like shown in the example above, except for the edge that goes though $0_n$ (or all zeros). This leaves an edge to connect to vertex $1_{v \in cube(n - 1)}$, then a path back to $0_n$.
             \item I.e. in the simple case n = 1 to n = 2. We have $v \in (0, 1)^1$ takes $0_{v \in cube(2 - 1)}$ or $00, 01$ connects those, then connects to $1_{v \in cube(2 - 1)}$ is $10, 11$ and finally back to $00$ to form the cycle.
             \item This using the Inductive Hypothesis can be scaled up to any $n \geq 2$. 
@@ -130,7 +128,7 @@
 
         \item \textbf{(Handshaking):}
         
-        Let's try a bit of a backword induction approach.
+        Let's try a bit of a backward induction approach.
         
         If there are $N = 2$ people at the party then each person would have shaken hands with $(N - 1)$ person, e.g. the person other than John shook hands with one person which must be John. \\
 
@@ -139,7 +137,7 @@
         Now if $N = 3$ than we have John and two others which at most could have shaken hands with $(N - 1)$ person so the other handshakes would be $(N - 1), (N - 2)$ or $(2),(1)$.         
         Therefore the Person with two handshakes would have shook John and Person 2, then Person 2 would have just shook hands with Person 1 so John would have 1 handshake. \\
 
-        If $N = 4$ we have a graph like $V = \{A, B, C, John\}$ then if F is a function of handsakes 
+        If $N = 4$ we have a graph like $V = \{A, B, C, John\}$ then if F is a function of handshakes 
         
         $F(A) = (N - 1) = \{B, C, John\}$
         
@@ -152,13 +150,13 @@
         If we scale this up we can deduce John will shake hands with $N//2$ people or if there are 10 people at the part John will shake hands with \textbf{5 people}.
         \item \textbf{(Vertex Degrees):}
         
-        We want to prove every graph with $n \geq 2$ nodes must have at least two verticies having the same degree. \\
+        We want to prove every graph with $n \geq 2$ nodes must have at least two vertices having the same degree. \\
                 
         First lets start with the possible degrees any given vertex can have in the graph with $n = num\;verticies$, then the range of possible degrees a vertex can have is $[1, n - 1]$. \\
         
-        Therefore since the number of available options for $n$ verticies is $n - 1$ in the worst case we have at least one vertex that would have to share a degree with another one, since $n > (n - 1)$. \\
+        Therefore since the number of available options for $n$ vertices is $n - 1$ in the worst case we have at least one vertex that would have to share a degree with another one, since $n > (n - 1)$. \\
     
-        Now if we take any gaph that contatins just a single pair of verticies we have a range of just $[1,1]$ possible degrees for each vertex. Therefore using the above proof the only degrees avaialbe to each vertex is a degree of 1. Just like a graph of $(A)-(B)$.
+        Now if we take any graph that contains just a single pair of vertices we have a range of just $[1,1]$ possible degrees for each vertex. Therefore using the above proof the only degrees available to each vertex is a degree of 1. Just like a graph of $(A)-(B)$.
 
         \item \textbf{Connectedness:}
         
@@ -166,11 +164,11 @@
 
         Lets say $(u, v) \notin G$ i.e. $(u, v)$ are a vertex edge pair that does not exsit in graph $G$, that means by definition that $(u, v) \in G'$ or $(u, v)$ are in $G$.
        
-        Now since $G$ is disconnected into multiple subgraphs any edge $(u, v) \in G$ are part of a subgraph, therefore any edge $(u', v')$ that would connect two vertices in disconnect subgraphs must exist in $G'$.
+        Now since $G$ is disconnected into multiple sub-graphs any edge $(u, v) \in G$ are part of a sub-graph, therefore any edge $(u', v')$ that would connect two vertices in disconnect sub-graphs must exist in $G'$.
        
-        Finally, since $G$ is disconnected there is always an edge that does not exist from $v$ to any other $component\;subgraphs \in G$ meaning in the inverse $G'$ there must exist a vertex edge from each vertex in one subgraph to the other component subgraph(s).
+        Finally, since $G$ is disconnected there is always an edge that does not exist from $v$ to any other $component\;subgraphs \in G$ meaning in the inverse $G'$ there must exist a vertex edge from each vertex in one sub-graph to the other component sub-graph(s).
        
-        I.e. if you take two component subgraphs edges $G = {(A)}, {(B,C)}$ must become $G' = {(A,B),(A,C)}$.
+        I.e. if you take two component sub-graphs edges $G = {(A)}, {(B,C)}$ must become $G' = {(A,B),(A,C)}$.
 
         \item \textbf{Chess:}
         
@@ -186,7 +184,7 @@
         
         A graph is two colorable if it is a Bipartite graph and by definition of a Bipartite graph, "a bipartite graph is a graph that does not contain any odd-length cycles.". 
 
-        Now unfortunately since we have an even number of vertices with an odd number of edges there must be at least one vertex that creates an odd lengthed cycle. 
+        Now unfortunately since we have an even number of vertices with an odd number of edges there must be at least one vertex that creates an odd length cycle. 
        
         Therefore we can not make a planar graph with 17 edges, and 10 vertices that can be 2-colored.
     \end{enumerate}
@@ -217,7 +215,7 @@
     \item \textbf{Red-Black Trees, B-Trees, and Binary Search Trees}.
     
     \begin{enumerate}
-      \item Below is an implemenation of a Red-Black Tree based on the algorithm in the book on p.315. Code is also avaialbe in the zip file in a file named 4a.py.
+      \item Below is an implementation of a Red-Black Tree based on the algorithm in the book on p.315. Code is also available in the zip file in a file named 4a.py.
       
       \begin{lstlisting}
 class Node():
@@ -796,7 +794,7 @@ B-Tree Times Standard Dev: 0.1647701717343564
         
         \[GCD(p, p) = p\]
         
-        Therefore obvisouly:
+        Therefore:
 
         \[GCD(p, q) = p = 2 * (\frac{p}{2}) \iff p = q\]
 
@@ -812,29 +810,40 @@ B-Tree Times Standard Dev: 0.1647701717343564
 
         \[GCD(\frac{p}{2},\frac{q}{2}) \geq \frac{d}{2}\]
 
-        and since d is the gcd of (p, q) d/2 must be the maximum that the gcd of (p/2, q/2) could be. and obvisouly (d/2) = (d * 2). \\
+        Since d is the gcd of (p, q), d/2 must be the maximum that the gcd of (p/2, q/2) could be, and obviously d = (d / 2) * 2. \\
 
-        Also you could just say if:
+        Also you could just say if (using theorem 31.3 from the book):
 
         \[GCD(p, q) = xp + yq\]
         \[xp + yq = 2(\frac{xp}{2} + \frac{yq}{2})\]
 
-        \item 
+        \item In sort we want to prove the fact that because p is odd we know that 2 cannot be a common divisor of (p, q) so it wouldn't change anything to divide p by 1 or 2.\\
         
-        If $p$ is odd and $q$ is even then obvisouly $p \neq q$,
+        If $p$ is odd and $q$ is even then obviously $p \neq q$,
         and we know that no odd number can be divided evenly by an even number so $GCD(p, q) \neq q$.\\
 
-        Therefore $GCD(p, q) < q$, and since the $GCD(p, q) \neq 2$.
+        Therefore $GCD(p, q) < q$, and since the $GCD(p, q) \neq 2$.\\
 
-        So we have ruled out $q, 2$ as being possible divisors therefore using the above proof we can say $GCD(q, q/2) = q/2$.
+        So we have ruled out $q, 2$ as being possible divisors therefore using the above proof we can say $GCD(q, q/2) = q/2$.\\
 
-        Also due to basic GCD rules we know $GCD(p, q) \leq p$ and $GCD(p, q) \leq q$ then we can say $GCD(p, q) = GCD(p, q/2)$ if $q is even and p is odd$. 
+        Also due to basic GCD rules we know $GCD(p, q) \leq p$ and $GCD(p, q) \leq q$ then we can say $GCD(p, q) = GCD(p, q/2)$ if $q$ is even and p is odd. 
 
-        \item TODO
+        \item We know that an odd number minus an odd number gives an even number, therefore $p - q$ is even. That means (p - q) / 2 is a whole integer which is always true for GCD.\\
         
-        \item The following is an implemenation based upon the previous three defintions and the EXTENDED-EUCLID algorithm in the book chapter 31.2. Code also avaialbe in the zip file under 6.py.
+        And since $p > q$ $GCD(p, q) \neq p$.\\
+
+        We also know from theorem 31.3 that $d | (a - b)$ implies that $GCD(p, q) = GCD(p - q, q)$ if $p - q > 0$ which in this case it is as $p > q$.\\
+
+        And the last question we proved $GCD(p, q) = GCD(p, q / 2)$ if p is odd and q is even.\\
+
+        Which we know $(p - q)$ is even and can just flip the properties around using therom 31.6 ($GCD(a, b) = GCD(b, a)$).\\
+
+        Which leaves us finally $GCD(p, q) = GCD((p - q) / 2, q)$.
         
-        The main algorithm is in the gcd\_util() method as the main GCD converts the given number to a binary string and keeps itself seperate from the recursion.
+        
+        \item The following is an implementation based upon the previous three definitions and the EUCLID algorithm in the book chapter 31.2. Code also available in the zip file under 6.py.
+        
+        The main algorithm is in the gcd\_util() method as the main GCD converts the given number to a binary string and keeps itself separate from the recursion.
         
         \begin{lstlisting}
 def gcd(p, q):
