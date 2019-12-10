@@ -17,6 +17,7 @@
 \definecolor{dkgreen}{rgb}{0,0.6,0}
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.86,0.27,0.22}
+\DeclareRobustCommand\iff{\;\Longleftrightarrow\;}
 
 \lstset{frame=tb,
   language=python,
@@ -220,6 +221,10 @@
       
       \begin{lstlisting}
 class Node():
+    """
+    Class to contain a Red Black Tree Graph Bode properties.
+    Specifically the key, p value, left, right and color. 
+    """
     def __init__(self, key, left, right, color):
         self.key = key
         self.p = None
@@ -228,6 +233,10 @@ class Node():
         self.color = color
 
 class RBTree():
+    """
+    Class to contain a Red Black Tree Graph
+    and preform insert and printing functionality.
+    """
     def __init__(self):
         self.NIL = Node(0, None, None, "BLACK")
         self.root = self.NIL
@@ -259,6 +268,14 @@ class RBTree():
         return height
         
     def rb_insert(self, z):
+        """
+        Inserts a new node with the value of z into this class instance's RB Tree.
+        Uses the algorithm layed out in the book on p.315
+        ----------
+        Parameters
+            z : int
+                The value to insert into the tree.
+        """
         z = Node(z, self.NIL, self.NIL, "RED")
 
         y = None
@@ -289,6 +306,17 @@ class RBTree():
         self.rb_insert_fixup(z)
 
     def rb_insert_fixup(self, z):
+        """
+        Preforms a "fixup" on the classes RBTree fixup implements the following logic.        
+        If z is a root, color it black.
+        If z's parent is red, then z's grandparent must be black.
+        Let y be z's grandparent's other child.
+        Fix depends on whether y is red or black.
+        ----------
+        Parameters
+            z : Node
+                The node to be "fixed".
+        """
         while z.p.color == "RED":
             if z.p == z.p.p.right:
                 u = z.p.p.left
@@ -328,6 +356,14 @@ class RBTree():
         self.root.color = "BLACK"
 
     def right_rotate(self, x):
+        """
+        Rotates the given node in a clockwise direction
+        up the tree and adjests its siblings.
+        ----------
+        Parameters
+            x : Node
+                The node to be rotated.
+        """        
         y = x.left
         x.left = y.right
         if y.right != self.NIL:
@@ -345,6 +381,14 @@ class RBTree():
         x.p = y
 
     def left_rotate(self, x):
+        """
+        Rotates the given node in a counter-clockwise direction
+        down the tree and adjests its siblings.
+        ----------
+        Parameters
+            x : Node
+                The node to be rotated.
+        """           
         y = x.right
         x.right = y.left
         if y.left != self.NIL:
@@ -359,7 +403,7 @@ class RBTree():
             x.p.right = y
 
         y.left = x
-        x.p = y        
+        x.p = y   
       \end{lstlisting}
 
       Test output based on the graph shown in the book p. 314 figure 13.3.
@@ -748,16 +792,44 @@ B-Tree Times Standard Dev: 0.1647701717343564
     \item \textbf{GCD}.
     
     \begin{enumerate}
-        \item Lets say:
+        \item If we know the two integers are even:
         
-        \[GCD(p, q) = d\]
+        \[GCD(p, p) = p\]
         
-        Then we can say:
+        Therefore obvisouly:
 
-        \[p = p'd\]
-        \[q = q'd\]
+        \[GCD(p, q) = p = 2 * (\frac{p}{2}) \iff p = q\]
 
-        \item TODO
+        And we can say (where $d|a$ is the gcd(a, a)):
+
+        \[d|p, d|q\;then\;\frac{d}{2}|\frac{p}{2}, \frac{d}{2}|\frac{q}{2}\]
+
+        Since p and q are even we know $\frac{d}{2}$ is a common divisor of $\frac{p}{2}$ and $\frac{q}{2}$.
+
+        And we know that 2 is a common divisor of $p$ and $q$.
+
+        Thus we know that:
+
+        \[GCD(\frac{p}{2},\frac{q}{2}) \geq \frac{d}{2}\]
+
+        and since d is the gcd of (p, q) d/2 must be the maximum that the gcd of (p/2, q/2) could be. and obvisouly (d/2) = (d * 2). \\
+
+        Also you could just say if:
+
+        \[GCD(p, q) = xp + yq\]
+        \[xp + yq = 2(\frac{xp}{2} + \frac{yq}{2})\]
+
+        \item 
+        
+        If $p$ is odd and $q$ is even then obvisouly $p \neq q$,
+        and we know that no odd number can be divided evenly by an even number so $GCD(p, q) \neq q$.\\
+
+        Therefore $GCD(p, q) < q$, and since the $GCD(p, q) \neq 2$.
+
+        So we have ruled out $q, 2$ as being possible divisors therefore using the above proof we can say $GCD(q, q/2) = q/2$.
+
+        Also due to basic GCD rules we know $GCD(p, q) \leq p$ and $GCD(p, q) \leq q$ then we can say $GCD(p, q) = GCD(p, q/2)$ if $q is even and p is odd$. 
+
         \item TODO
         
         \item The following is an implemenation based upon the previous three defintions and the EXTENDED-EUCLID algorithm in the book chapter 31.2. Code also avaialbe in the zip file under 6.py.
@@ -766,12 +838,39 @@ B-Tree Times Standard Dev: 0.1647701717343564
         
         \begin{lstlisting}
 def gcd(p, q):
+    """
+    Formats the given numbers into binary and calculates the 
+    greatest common divisor by calling the gcd_util method.
+    ----------
+    Parameters
+        p : int
+            The first number.
+        q : int
+            The second number.    
+    -------
+    Returns
+        int
+            The gcd in integer form.
+    """
     p = format(p, 'b')
     q = format(q, 'b')
     result = gcd_util(p, q)
     return int(result, 2)
 
 def gcd_util(p, q):
+    """
+    Calculates the greatest common divisor using recursive binary string manipulation.
+    ----------
+    Parameters
+        p : int
+            The first number.
+        q : int
+            The second number.      
+    -------
+    Returns
+        int
+            The gcd in binary string form.
+    """
     # Base Cases
     if p == q:
         return p
@@ -819,7 +918,7 @@ def is_greater(x, y):
     return int(x, 2) > int(y, 2)
 
 def minus(x, y):
-    return format(int(x, 2) - int(y, 2), 'b')            
+    return format(int(x, 2) - int(y, 2), 'b')          
         \end{lstlisting}
 
         Next is some tests on 100 pairs of random numbers between 0 and 10,000,000, using the built in math.gcd function for validation that our our custom GCD algorithm works.
