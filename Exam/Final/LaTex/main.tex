@@ -10,6 +10,8 @@
 \usepackage{color}
 \usepackage{amsmath}
 
+\DeclareUnicodeCharacter{2212}{-}
+
 \usepackage[margin=1.25in]{geometry}
 
 \definecolor{dkgreen}{rgb}{0,0.6,0}
@@ -52,7 +54,7 @@
   \begin{enumerate}
     \item \textbf{Hamiltonian Paths and Cycles}.
     
-    Please refer to the following labled nodes version of the graph for some of the questions.\\
+    Please refer to the following labeled nodes version of the graph for some of the questions.\\
     \includegraphics[scale=0.75]{1_Graph.png}
 
     \begin{enumerate}
@@ -110,7 +112,7 @@
             \item I.e. in the simple case n = 1 to n = 2. We have $v \in (0, 1)^1$ takes $0_{v \in cube(2 - 1)}$ or $00, 01$ connects those, then connects to $1_{v \in cube(2 - 1)}$ is $10, 11$ and finally back to $00$ to form the cycle.
             \item This using the Inductive Hypothesis can be scaled up to any $n \geq 2$. 
         \end{itemize}
-        \item \textbf{Concluson.}        
+        \item \textbf{Conclusion.}        
         Therefore we have proven using the inductive Hypothesis that any n-dimensional cube where $n \ge 2$ does contain a Hamiltonian Cycle.
       \end{itemize}
     \end{enumerate}
