@@ -215,7 +215,7 @@
     \item \textbf{Red-Black Trees, B-Trees, and Binary Search Trees}.
     
     \begin{enumerate}
-      \item Below is an implementation of a Red-Black Tree based on the algorithm in the book on p.315. Code is also available in the zip file in a file named 4a.py.
+      \item Below is an implementation of a Red-Black Tree based on the algorithm in the book on p.315. Code is also available in the zip file in a folder named 4 and a file named 4a.py.
       
       \begin{lstlisting}
 class Node():
@@ -445,7 +445,7 @@ tree.print_tree()
       \end{lstlisting}
 
 
-      \item Below is the code used to generate 10 files of 10,000 random integers. See Zip file for all data files and 4b.py for full implementation and code of the analysis below.
+      \item Below is the code used to generate 10 files of 10,000 random integers. See Zip file in folder 4 for all data files and 4b.py for full implementation and code of the analysis below.
       
       \begin{lstlisting}
 import random
@@ -1152,7 +1152,7 @@ Prim MST on Subgraph 0:
 ... See "5a\_Output.txt" in Zip file for full output.
         \end{lstlisting}        
 
-        So finally we can see that the \textbf{MST of the sub-trees is 7540}. See "5\textbackslash5a\_Output.txt" for the edge list and the total weights and edges of the rest of the graph.
+        So finally we can see that the \textbf{MST of the sub-trees is 7540} in the subgraph component index 1. See "5\textbackslash5a\_Output.txt" for the edge list and the total weights and edges of the rest of the graph.
 
         \item Next is my implementation the find the shortest path of the trees using the Dijkstra Shortest-Paths algorithm from p.658 of the book. 
         Setup is the same as the intro Forest code, the new Graph class implements the algorithm.
@@ -1275,6 +1275,126 @@ for v in range(verticies):
         And obviously the other path that also has this max weight is 6313 to 6328 with the same weight of 837.
 
         See "5\textbackslash5b\_Output.txt" in the zip file for the full path weight calculation for every node to every other node.
+
+        \item Finally for finding the longest paths we can actually just modify our Depth First Search method we used to generate the adjacency lists. 
+        Below is the code used to do the DFS and then to analyze every possible path from every node to each other node and build a max list of paths.
+        obviously I would need to optimize a lof of the checking code is in lists because of the tuples i made out of the verticies but the DFS itself seems sound enough.
+        As per usual see "5\textbackslash5c.py" and "5\textbackslash5c\_Output.txt" for full output and code.
+
+        \begin{lstlisting}
+class Graph():
+    """
+    Class to contain the algorithms for MST-Prim and graph data.
+    Graph data should be stored a an adjacency list with the matching nodes containing the weight of the edge.
+    """
+    def __init__(self, vertices, graph_dict):
+        """
+        Initializes a new instance of the Graph class
+        ----------
+        Parameters
+            graph_dict : {}
+                The graph dictionary containing the node labels.
+        """        
+        self.V = vertices 
+        self.graph = [[0 for column in range(vertices)] for row in range(vertices)] 
+        self.graph_dict = graph_dict        
+        
+    def dfs(self, v, repeat = None, path = None):
+        """
+        Uses the DFS algorithm to recursively scan through the graph looking for 
+        the longest path possible.
+        ----------
+        Parameters
+            t : []
+                The temp list used for checking existing values.
+            v : int
+                The new vertex to add.
+            repeat : []
+                The list of vertices that already exist in the component.
+        """         
+        if repeat is None: 
+            repeat = []
+        if path is None: 
+            path = [v]
+
+        repeat.append(v)
+
+        paths = []
+        for t in self.graph[v[0]]: 
+            if not self.in_vertex_list(t, repeat): 
+                new_path = path + [t]
+                paths.append(tuple(new_path))
+                paths.extend(self.dfs(t, repeat[:], new_path)) 
+
+        return paths
+    
+    def in_vertex_list(self, v, verticies):
+        """
+        Helper method to check if a tuple vert is in a list of tuples
+        ----------
+        Parameters
+            v : (,)
+                The vert in question.
+            verticies: []
+                The list of verticies to check aginst.
+        """  
+        t = [vert for vert in verticies if vert[0] == v[0]]
+        return len(t) > 0            
+        \end{lstlisting}
+
+        Code to analyze the graph data.
+
+        \begin{lstlisting}
+forest = Forest(graph_data) 
+max_paths = []
+max_length = 0
+
+def in_path_list(path, paths):
+    if len(paths) is 0:
+        return False
+    for p in paths:
+        if len(p) is not len(path):
+            continue
+        if in_tup(p, path):
+            return True
+    return False
+
+def in_tup(p, path):
+    for i in range(len(p)):
+        if p[i][0] is not path[i][0]:
+            return False
+    return True
+
+for i in range(len(forest.forest)):
+    verticies = len(forest.forest_dicts[i][0])
+    data = forest.forest[i]
+    graph_dict = forest.forest_dicts[i][1]
+    g = Graph(verticies, graph_dict)
+    g.graph = data
+    
+    # Find max possible paths.
+    for vertex in graph_dict:
+        paths = g.dfs((vertex, 0))
+        for p in paths:
+            length = len(p)
+            if length >= max_length:
+                if length > max_length:
+                    max_paths = []
+                    max_length = length                
+                if not in_path_list(p, max_paths):
+                    max_paths.append(p)
+                    
+print("\nMax paths that exist in GraphData.txt have a length of {}.".format(len(max_paths[0])))
+# Print Possible Paths
+for p in max_paths:
+    s = ""
+    for t in p:            
+        s += str(graph_dict[t[0]]) + " -> "
+    s = s[:-3]
+    print(s)            
+        \end{lstlisting}
+
+        So using this code we have found the \textbf{maximum path length is 0, and 0 separate paths have that length}. Below are the actual paths of such length (See "5\textbackslash5a\_Output.txt" for full output).
 
     \end{enumerate}
     
