@@ -129,7 +129,7 @@ class BTree():
 data = []
 
 for i in range(10):
-    file_name = "Data{0}.txt".format(str(i))
+    file_name = "Prob4bData{0}.txt".format(str(i))
     with open(file_name) as f:
         data_str = f.readlines()
     data.append([int(x.strip()) for x in data_str])

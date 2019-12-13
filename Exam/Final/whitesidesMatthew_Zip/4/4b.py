@@ -227,7 +227,7 @@ tree.print_tree()
 import random
 
 for i in range(10):
-    file_name = "Data{0}.txt".format(str(i))
+    file_name = "Prob4bData{0}.txt".format(str(i))
     rn = [random.randint(1,10000) for i in range(10000)]
     f = open(file_name, "w+")
     for r in rn: 
@@ -238,7 +238,7 @@ f.close()
 data = []
 
 for i in range(10):
-    file_name = "Data{0}.txt".format(str(i))
+    file_name = "Prob4bData{0}.txt".format(str(i))
     with open(file_name) as f:
         data_str = f.readlines()
     data.append([int(x.strip()) for x in data_str])
