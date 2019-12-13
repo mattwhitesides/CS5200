@@ -14,6 +14,10 @@ import statistics
 
 class Node():
     def __init__(self, key, left, right, color):
+        """
+        Class to contain a Red Black Tree Graph Bode properties.
+        Specifically the key, p value, left, right and color. 
+        """
         self.key = key
         self.p = None
         self.left = left
@@ -21,6 +25,10 @@ class Node():
         self.color = color
 
 class RBTree():
+    """
+    Class to contain a Red Black Tree Graph
+    and preform insert and printing functionality.
+    """    
     def __init__(self):
         self.NIL = Node(0, None, None, "BLACK")
         self.root = self.NIL
@@ -52,6 +60,14 @@ class RBTree():
         return height
         
     def rb_insert(self, z):
+        """
+        Inserts a new node with the value of z into this class instance's RB Tree.
+        Uses the algorithm layed out in the book on p.315
+        ----------
+        Parameters
+            z : int
+                The value to insert into the tree.
+        """        
         z = Node(z, self.NIL, self.NIL, "RED")
 
         y = None
@@ -82,6 +98,17 @@ class RBTree():
         self.rb_insert_fixup(z)
 
     def rb_insert_fixup(self, z):
+        """
+        Preforms a "fixup" on the classes RBTree fixup implements the following logic.        
+        If z is a root, color it black.
+        If z's parent is red, then z's grandparent must be black.
+        Let y be z's grandparent's other child.
+        Fix depends on whether y is red or black.
+        ----------
+        Parameters
+            z : Node
+                The node to be "fixed".
+        """        
         while z.p.color == "RED":
             if z.p == z.p.p.right:
                 u = z.p.p.left
@@ -121,6 +148,14 @@ class RBTree():
         self.root.color = "BLACK"
 
     def right_rotate(self, x):
+        """
+        Rotates the given node in a clockwise direction
+        up the tree and adjests its siblings.
+        ----------
+        Parameters
+            x : Node
+                The node to be rotated.
+        """            
         y = x.left
         x.left = y.right
         if y.right != self.NIL:
@@ -138,6 +173,14 @@ class RBTree():
         x.p = y
 
     def left_rotate(self, x):
+        """
+        Rotates the given node in a counter-clockwise direction
+        down the tree and adjests its siblings.
+        ----------
+        Parameters
+            x : Node
+                The node to be rotated.
+        """            
         y = x.right
         x.right = y.left
         if y.left != self.NIL:
@@ -184,7 +227,7 @@ tree.print_tree()
 import random
 
 for i in range(10):
-    file_name = "Data{0}.txt".format(str(i))
+    file_name = "Prob4bData{0}.txt".format(str(i))
     rn = [random.randint(1,10000) for i in range(10000)]
     f = open(file_name, "w+")
     for r in rn: 
@@ -195,21 +238,7 @@ f.close()
 data = []
 
 for i in range(10):
-    file_name = "Data{0}.txt".format(str(i))
-    with open(file_name) as f:
-        data_str = f.readlines()
-    data.append([int(x.strip()) for x in data_str])
-
-print(len(data))
-
-
-# In[8]:
-
-
-data = []
-
-for i in range(10):
-    file_name = "Data{0}.txt".format(str(i))
+    file_name = "Prob4bData{0}.txt".format(str(i))
     with open(file_name) as f:
         data_str = f.readlines()
     data.append([int(x.strip()) for x in data_str])
